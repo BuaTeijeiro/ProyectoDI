@@ -63,7 +63,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="4" column="1">
-           <widget class="QTableWidget" name="tablaClientes"/>
+           <widget class="QTableWidget" name="btnCalendarcli"/>
           </item>
           <item row="0" column="0">
            <spacer name="horizontalSpacer_8">
@@ -99,35 +99,22 @@
           </item>
           <item row="0" column="1">
            <layout class="QGridLayout" name="gridLayout">
-            <item row="1" column="1">
-             <widget class="QLabel" name="lblApelcli">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+            <item row="1" column="5" colspan="5">
+             <widget class="QLineEdit" name="txtNomcli">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>300</height>
+               </size>
               </property>
               <property name="text">
-               <string>Apellidos:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="10" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="checkBox">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Histórico</string>
-              </property>
-              <property name="checked">
-               <bool>false</bool>
-              </property>
-              <property name="autoRepeat">
-               <bool>false</bool>
+               <string/>
               </property>
              </widget>
             </item>
@@ -163,6 +150,19 @@
               </property>
              </widget>
             </item>
+            <item row="3" column="7">
+             <widget class="QLabel" name="lblProvcli">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Provincia:</string>
+              </property>
+             </widget>
+            </item>
             <item row="3" column="2" colspan="4">
              <widget class="QLineEdit" name="txtDircli">
               <property name="minimumSize">
@@ -179,8 +179,8 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="5" colspan="5">
-             <widget class="QLineEdit" name="txtNomcli">
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="txtApelcli">
               <property name="minimumSize">
                <size>
                 <width>300</width>
@@ -190,16 +190,29 @@
               <property name="maximumSize">
                <size>
                 <width>300</width>
-                <height>300</height>
+                <height>16777215</height>
                </size>
-              </property>
-              <property name="text">
-               <string/>
               </property>
              </widget>
             </item>
-            <item row="3" column="7">
-             <widget class="QLabel" name="lblProvcli">
+            <item row="3" column="10">
+             <widget class="QComboBox" name="cmbMunicli">
+              <property name="minimumSize">
+               <size>
+                <width>160</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>180</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="lblMovilcli">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -207,7 +220,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Provincia:</string>
+               <string>Móvil:</string>
               </property>
              </widget>
             </item>
@@ -216,6 +229,22 @@
               <property name="minimumSize">
                <size>
                 <width>120</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5" colspan="4">
+             <widget class="QLineEdit" name="txtMovilcli">
+              <property name="minimumSize">
+               <size>
+                <width>90</width>
                 <height>0</height>
                </size>
               </property>
@@ -243,8 +272,24 @@
               </property>
              </spacer>
             </item>
-            <item row="2" column="4">
-             <widget class="QLabel" name="lblMovilcli">
+            <item row="0" column="5" colspan="2">
+             <widget class="QLineEdit" name="txtAltacli">
+              <property name="minimumSize">
+               <size>
+                <width>80</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>80</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="lblApelcli">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -252,60 +297,12 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Móvil:</string>
+               <string>Apellidos:</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="5" colspan="4">
-             <widget class="QLineEdit" name="txtMovilcli">
-              <property name="minimumSize">
-               <size>
-                <width>90</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="10">
-             <widget class="QComboBox" name="cmbMunicli">
-              <property name="minimumSize">
-               <size>
-                <width>160</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>180</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QLineEdit" name="txtApelcli">
-              <property name="minimumSize">
-               <size>
-                <width>350</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>350</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="4">
-             <widget class="QLabel" name="lblNomcli">
+            <item row="1" column="10" alignment="Qt::AlignHCenter">
+             <widget class="QCheckBox" name="checkBox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -313,20 +310,55 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Nombre:</string>
+               <string>Histórico</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <property name="autoRepeat">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="3" column="9">
-             <widget class="QLabel" name="lblMunicli">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblAltacli">
+              <property name="text">
+               <string>Fecha Alta:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="7">
+             <widget class="QPushButton" name="btnCalendarcli_2">
+              <property name="minimumSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: #FFF</string>
               </property>
               <property name="text">
-               <string>Municipio:</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>img/calendar.ico</normaloff>img/calendar.ico</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -340,6 +372,19 @@
               </property>
               <property name="text">
                <string>DNI/CIF:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="lblEmailcli">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Email:</string>
               </property>
              </widget>
             </item>
@@ -362,8 +407,8 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="lblEmailcli">
+            <item row="3" column="9">
+             <widget class="QLabel" name="lblMunicli">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -371,25 +416,9 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Email:</string>
+               <string>Municipio:</string>
               </property>
              </widget>
-            </item>
-            <item row="2" column="3">
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
             <item row="3" column="6">
              <spacer name="horizontalSpacer_3">
@@ -435,6 +464,35 @@
                </size>
               </property>
              </spacer>
+            </item>
+            <item row="2" column="3">
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="lblNomcli">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Nombre:</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
