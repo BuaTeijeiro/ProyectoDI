@@ -4,6 +4,7 @@ import eventos
 import var
 
 class Clientes:
+    @staticmethod
     def checkDNI(dni):
         try:
             dni = str(dni).upper()
@@ -18,7 +19,7 @@ class Clientes:
         except Exception as e:
             print("error check cliente", e)
 
-
-    def altaCliente(self):
+    @staticmethod
+    def altaCliente():
         dni = var.ui.txtDnicli.text()
         print(dni)
