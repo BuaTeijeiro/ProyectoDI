@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>img/logo.svg</normaloff>img/logo.svg</iconset>
+    <normaloff>../img/logo.svg</normaloff>../img/logo.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
@@ -63,7 +63,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="4" column="1">
-           <widget class="QTableWidget" name="btnCalendarcli"/>
+           <widget class="QTableWidget" name="tablaClientes"/>
           </item>
           <item row="0" column="0">
            <spacer name="horizontalSpacer_8">
@@ -302,7 +302,7 @@
              </widget>
             </item>
             <item row="1" column="10" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="checkBox">
+             <widget class="QCheckBox" name="chkHistoriacli">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -352,7 +352,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>img/calendar.ico</normaloff>img/calendar.ico</iconset>
+                <normaloff>../img/calendar.ico</normaloff>../img/calendar.ico</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -684,6 +684,24 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>panPrincipal</tabstop>
+  <tabstop>txtDnicli</tabstop>
+  <tabstop>txtAltacli</tabstop>
+  <tabstop>txtApelcli</tabstop>
+  <tabstop>txtNomcli</tabstop>
+  <tabstop>chkHistoriacli</tabstop>
+  <tabstop>txtEmailcli</tabstop>
+  <tabstop>txtMovilcli</tabstop>
+  <tabstop>txtDircli</tabstop>
+  <tabstop>cmbProvcli</tabstop>
+  <tabstop>cmbMunicli</tabstop>
+  <tabstop>btnGrabarcli</tabstop>
+  <tabstop>btnModifcli</tabstop>
+  <tabstop>btnDelcli</tabstop>
+  <tabstop>btnCalendarcli_2</tabstop>
+  <tabstop>tablaClientes</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

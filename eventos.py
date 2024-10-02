@@ -32,6 +32,17 @@ class Eventos():
         var.ui.cmbProvcli.addItems(listado)
 
     @staticmethod
+    def cargarMunicipios():
+        var.ui.cmbMunicli.clear()
+        provincia = var.ui.cmbProvcli.currentText()
+        listado = conexion.Conexion.listaMunicipios(provincia)
+        var.ui.cmbMunicli.addItems(listado)
+
+    @staticmethod
+    def reloadMunicipios():
+        var.ui.cmbMunicli.clear()
+
+    @staticmethod
     def validarDNI(dni):
         try:
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"

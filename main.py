@@ -14,6 +14,7 @@ class Main(QtWidgets.QMainWindow):
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion()
         eventos.Eventos.cargarProv()
+        eventos.Eventos.cargarMunicipios()
 
         """
         zona de eventos del menubar
@@ -32,6 +33,11 @@ class Main(QtWidgets.QMainWindow):
         """
 
         var.ui.txtDnicli.editingFinished.connect(lambda: clientes.Clientes.checkDNI(var.ui.txtDnicli.text()))
+
+        """
+        combo box
+        """
+        var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipios)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
