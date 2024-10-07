@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>dlgCalendar</class>
+ <widget class="QDialog" name="dlgCalendar">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>311</width>
+    <height>183</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>311</width>
+    <height>183</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Seleccione Fecha</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../img/logo.svg</normaloff>../img/logo.svg</iconset>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <widget class="QCalendarWidget" name="Calendar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>312</width>
+     <height>185</height>
+    </rect>
+   </property>
+   <property name="firstDayOfWeek">
+    <enum>Qt::Monday</enum>
+   </property>
+   <property name="gridVisible">
+    <bool>true</bool>
+   </property>
+   <property name="horizontalHeaderFormat">
+    <enum>QCalendarWidget::ShortDayNames</enum>
+   </property>
+   <property name="verticalHeaderFormat">
+    <enum>QCalendarWidget::NoVerticalHeader</enum>
+   </property>
+   <property name="navigationBarVisible">
+    <bool>true</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

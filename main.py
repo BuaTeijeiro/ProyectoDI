@@ -1,8 +1,11 @@
+from calendar import Calendar
+
 import clientes
 import conexion
 import eventos
 import styles
 from venPrincipal import *
+from venAux import *
 import sys
 import var
 
@@ -11,6 +14,7 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
+        var.uicalendar = Calendar()
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion()
         eventos.Eventos.cargarProv()
@@ -33,6 +37,7 @@ class Main(QtWidgets.QMainWindow):
         """
 
         var.ui.txtDnicli.editingFinished.connect(lambda: clientes.Clientes.checkDNI(var.ui.txtDnicli.text()))
+        var.ui.btnAltacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
 
         """
         combo box
