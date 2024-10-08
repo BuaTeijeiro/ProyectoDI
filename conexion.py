@@ -1,5 +1,5 @@
 import os
-from PyQt6 import QtSql, QtWidgets
+from PyQt6 import QtSql, QtWidgets, QtGui
 
 
 class Conexion:
@@ -53,11 +53,39 @@ class Conexion:
 
     @staticmethod
     def listaMunicipios(provincia):
-        listamunicipios = []
-        query = QtSql.QSqlQuery()
-        query.prepare("SELECT * FROM municipios where idprov = (select idprov from provincias where provincia = ?)")
-        query.bindValue(0, provincia)
-        if query.exec():
-            while query.next():
-                listamunicipios.append(query.value(1))
-        return listamunicipios
+        try:
+            listamunicipios = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT municipio FROM municipios where idprov = (select idprov from provincias where provincia = :provincia)")
+            query.bindValue(":provincia", provincia)
+            if query.exec():
+                while query.next():
+                    listamunicipios.append(query.value(0))
+            return listamunicipios
+        except Exception as e:
+            print("Error al abrir el archivo")
+
+    @staticmethod
+    def altaCliente(nuevocli):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT into clientes (dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli) values (:dnicli, :altacli, :apelcli, :nomecli, :emailcli, :movilcli, :dircli, :provcli, :municli)")
+            query.bindValue(":dnicli", str(nuevocli[0]))
+            query.bindValue(":altacli", str(nuevocli[1]))
+            query.bindValue(":apelcli", str(nuevocli[2]))
+            query.bindValue(":nomecli", str(nuevocli[3]))
+            query.bindValue(":emailcli", str(nuevocli[4]))
+            query.bindValue(":movilcli", str(nuevocli[5]))
+            query.bindValue(":dircli", str(nuevocli[6]))
+            query.bindValue(":provcli", str(nuevocli[7]))
+            query.bindValue(":municli", str(nuevocli[8]))
+
+            if query.exec():
+                return True
+
+            else:
+                return False
+
+
+        except Exception as e:
+            print("Error alta cliente", e)

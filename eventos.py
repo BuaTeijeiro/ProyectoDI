@@ -3,7 +3,7 @@ import sys
 import conexion
 
 from PyQt6 import QtWidgets, QtGui
-
+import re
 import var
 import time
 
@@ -33,15 +33,11 @@ class Eventos():
         var.ui.cmbProvcli.addItems(listado)
 
     @staticmethod
-    def cargarMunicipios():
+    def cargarMunicipioscli():
         var.ui.cmbMunicli.clear()
         provincia = var.ui.cmbProvcli.currentText()
         listado = conexion.Conexion.listaMunicipios(provincia)
         var.ui.cmbMunicli.addItems(listado)
-
-    @staticmethod
-    def reloadMunicipios():
-        var.ui.cmbMunicli.clear()
 
     @staticmethod
     def validarDNI(dni):
@@ -63,6 +59,15 @@ class Eventos():
 
         except Exception as error:
             print("error en validar dni ", error)
+
+    @staticmethod
+    def validarMail(mail):
+        mail = mail.lower()
+        regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
+        if re.match(regex, mail):
+            return True
+        else:
+            return False
 
     @staticmethod
     def abrirCalendar(op):
