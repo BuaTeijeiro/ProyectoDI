@@ -82,10 +82,8 @@ class Conexion:
 
             if query.exec():
                 return True
-
             else:
                 return False
-
 
         except Exception as e:
             print("Error alta cliente", e)

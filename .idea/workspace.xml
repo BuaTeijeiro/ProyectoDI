@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f63c1f4e-5169-43db-9da9-b31e82100483" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3ff80bef-aaa6-49ac-96ca-c9575bddddc2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientes.py" beforeDir="false" afterPath="$PROJECT_DIR$/clientes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexion.py" beforeDir="false" afterPath="$PROJECT_DIR$/conexion.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +51,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="Z:\Segundo\DI\buateijeiro\img" />
       <recent name="Z:\Segundo\DI\buateijeiro\templates" />
     </key>
   </component>
@@ -111,7 +111,9 @@
       <workItem from="1727850603863" duration="7362000" />
       <workItem from="1728301148922" duration="6012000" />
       <workItem from="1728368092660" duration="3653000" />
-      <workItem from="1728371783285" duration="1719000" />
+      <workItem from="1728371783285" duration="2224000" />
+      <workItem from="1728455052832" duration="486000" />
+      <workItem from="1728470931170" duration="1831000" />
     </task>
     <servers />
   </component>
@@ -119,9 +121,8 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1728373184883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/buateijeiro$main.coverage" NAME="main Coverage Results" MODIFIED="1728369377665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProyectoDI$Main.coverage" NAME="Main Coverage Results" MODIFIED="1728397377692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1728472555131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/buateijeiro$eventos.coverage" NAME="eventos Coverage Results" MODIFIED="1727857564494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
