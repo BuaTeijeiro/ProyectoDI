@@ -53,6 +53,7 @@ class Clientes:
             mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
             mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
             mbox.exec()
+            Clientes.cargaTablaClientes()
         else:
             QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo guardar el cliente correctamente.',
                                            QtWidgets.QMessageBox.StandardButton.Cancel)
