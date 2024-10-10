@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../img/logo.svg</normaloff>../img/logo.svg</iconset>
+    <normaloff>C:/Users/a23davidbt/.designer/img/logo.svg</normaloff>C:/Users/a23davidbt/.designer/img/logo.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
@@ -63,7 +63,44 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="4" column="1">
-           <widget class="QTableWidget" name="tablaClientes"/>
+           <widget class="QTableWidget" name="tablaClientes">
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Apellidos</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Nombre</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Móvil</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Provincia</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Municipio</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Fecha de Baja</string>
+             </property>
+            </column>
+           </widget>
           </item>
           <item row="0" column="0">
            <spacer name="horizontalSpacer_8">
@@ -352,7 +389,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../img/calendar.ico</normaloff>../img/calendar.ico</iconset>
+                <normaloff>C:/Users/a23davidbt/.designer/img/calendar.ico</normaloff>C:/Users/a23davidbt/.designer/img/calendar.ico</iconset>
               </property>
               <property name="iconSize">
                <size>

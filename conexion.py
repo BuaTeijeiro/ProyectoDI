@@ -87,3 +87,17 @@ class Conexion:
 
         except Exception as e:
             print("Error alta cliente", e)
+
+    @staticmethod
+    def listadoClientes():
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM clientes order by apelcli, nomecli ASC")
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as e:
+            print("Error al abrir el archivo")

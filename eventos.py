@@ -88,3 +88,15 @@ class Eventos():
             return data
         except Exception as error:
             print("error en cargar fecha: ", error)
+
+    @staticmethod
+    def resizeTablaClientes():
+        try:
+            header = var.ui.tablaClientes.horizontalHeader()
+            for i in range(header.count()):
+                if i <= 1:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+        except Exception as e:
+            print("error en resize tabla clientes: ", e)

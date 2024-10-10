@@ -20,6 +20,8 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
 
+        clientes.Clientes.cargaTablaClientes()
+
         """
         zona de eventos del menubar
         """
