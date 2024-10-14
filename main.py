@@ -2,6 +2,7 @@ from calendar import Calendar
 
 import clientes
 import conexion
+import conexionserver
 import eventos
 import styles
 from venPrincipal import *
@@ -15,8 +16,11 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
         var.uicalendar = Calendar()
+        var.dlgabrir = FileDialogAbrir()
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion()
+        #conexionserver.ConexionServer.crear_conexion(self)
+
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
 
@@ -27,6 +31,7 @@ class Main(QtWidgets.QMainWindow):
         """
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir)
+        var.ui.actionCrear_Backup.triggered.connect(eventos.Eventos.crearBackup)
 
         """
         zona de eventos de botones
