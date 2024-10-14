@@ -2,12 +2,14 @@ import os.path
 import sys
 from datetime import datetime
 
+import clientes
 import conexion
 
 from PyQt6 import QtWidgets, QtGui
 import re
 
 import conexionserver
+import eventos
 import var
 import time
 import zipfile
@@ -162,5 +164,9 @@ class Eventos():
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
+                conexion.Conexion.db_conexion()
+                eventos.Eventos.cargarProv()
+                eventos.Eventos.cargarMunicipioscli()
+                clientes.Clientes.cargaTablaClientes()
         except Exception as error:
             print("error en restaurar backup: ", error)
