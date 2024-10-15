@@ -24,7 +24,12 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
 
+
+        """
+        zona de eventos de tablas
+        """
         clientes.Clientes.cargaTablaClientes()
+        var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
 
         """
         zona de eventos del menubar
@@ -40,6 +45,7 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.btnGrabarcli.clicked.connect(clientes.Clientes.altaCliente)
         var.ui.btnAltacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
+        var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
 
         """
         zona de eventos de cajas de texto

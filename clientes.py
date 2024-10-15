@@ -67,19 +67,59 @@ class Clientes:
             index = 0
             for registro in listado:
                 var.ui.tablaClientes.setRowCount(index + 1)
-                var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(registro[2]))
-                var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[3]))
-                var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem("  " + registro[5] + "  "))
-                var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(registro[7]))
-                var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(registro[8]))
-                var.ui.tablaClientes.setItem(index, 5, QtWidgets.QTableWidgetItem("  " + registro[9] + "  "))
-                var.ui.tablaClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(registro[0]))
+                var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[2]))
+                var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[3]))
+                var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem("  " + registro[5] + "  "))
+                var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(registro[7]))
+                var.ui.tablaClientes.setItem(index, 5, QtWidgets.QTableWidgetItem(registro[8]))
+                var.ui.tablaClientes.setItem(index, 6, QtWidgets.QTableWidgetItem("  " + registro[9] + "  "))
+
+                var.ui.tablaClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                var.ui.tablaClientes.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaClientes.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaClientes.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaClientes.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaClientes.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                var.ui.tablaClientes.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaClientes.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaClientes.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
             eventos.Eventos.resizeTablaClientes()
         except Exception as e:
             print("Error al cargar la tabla de clientes", e)
+
+    @staticmethod
+    def cargaOneCliente():
+        try:
+            file = var.ui.tablaClientes.selectedItems()
+            datos = [dato.text() for dato in file]
+            registro = conexion.Conexion.datosOneCliente(datos[0])
+            #Clientes.cargarCliente(registro)
+            listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli]
+            for i in range(len(listado)):
+                if i in (7,8):
+                    listado[i].setCurrentText(registro[i])
+                else:
+                    listado[i].setText(registro[i])
+        except Exception as error:
+            print("Error")
+
+    @staticmethod
+    def modifCliente():
+        try:
+            modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(), var.ui.cmbMunicli.currentText()]
+            if(conexion.Conexion.modifCliente(modifcli)):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowTitle('Aviso')
+                mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
+                mbox.setText("Datos del cliente modificados correctamente")
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                Clientes.cargaTablaClientes()
+            else:
+                QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo modificar al cliente correctamente.',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+        except Exception as error:
+            print("Error")

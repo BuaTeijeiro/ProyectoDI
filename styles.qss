@@ -7,7 +7,16 @@ QMainWindow {
 /* ---- Estilos para QTabWidget ----- */
 
 QTabWidget {
-    background-color: none;
+    background-color: whitesmoke;
+}
+
+QTableWidget::item:alternate {
+    background-color: #E0E0E0;
+}
+
+
+QTableView::item:hover{
+    background-color: deepskyblue;
 }
 
 /* --- Estilo Menu bar ---- */

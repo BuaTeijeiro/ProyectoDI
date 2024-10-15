@@ -101,3 +101,39 @@ class Conexion:
             return listado
         except Exception as e:
             print("Error al abrir el archivo")
+
+    @staticmethod
+    def datosOneCliente(dni):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM clientes where dnicli = :dni")
+            query.bindValue(":dni", str(dni))
+            if query.exec():
+                query.next()
+                registro = [query.value(i) for i in range(query.record().count())]
+            return registro
+        except Exception as error:
+            print("Error al abrir el archivo")
+
+    @staticmethod
+    def modifCliente(registro):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE clientes SET altacli = :altacli, apelcli = :apelcli, nomecli = :nomecli, emailcli = :emailcli, movilcli =:movilcli, dircli =:dircli, provcli = :provcli, municli = :municli where dnicli = :dni")
+            query.bindValue(":dni", str(registro[0]))
+            query.bindValue(":altacli", str(registro[1]))
+            query.bindValue(":apelcli", str(registro[2]))
+            query.bindValue(":nomecli", str(registro[3]))
+            query.bindValue(":emailcli", str(registro[4]))
+            query.bindValue(":movilcli", str(registro[5]))
+            query.bindValue(":dircli", str(registro[6]))
+            query.bindValue(":provcli", str(registro[7]))
+            query.bindValue(":municli", str(registro[8]))
+            if query.exec():
+                return True
+            else:
+                print (query.lastError().text())
+                return False
+        except Exception as error:
+            print("Error al modificar cliente en la base de datos")
