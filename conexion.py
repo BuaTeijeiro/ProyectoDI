@@ -137,3 +137,17 @@ class Conexion:
                 return False
         except Exception as error:
             print("Error al modificar cliente en la base de datos")
+
+    @staticmethod
+    def bajaCliente(dni, fecha):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE clientes SET bajacli = :bajacli where dnicli = :dni")
+            query.bindValue(":dni", str(dni))
+            query.bindValue(":bajacli", str(fecha))
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as exec:
+            print("Error al registrar la baja del cliente")

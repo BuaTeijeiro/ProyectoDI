@@ -25,6 +25,10 @@ QMenuBar{
     background-color: whitesmoke;
 }
 
+QToolBar{
+    background-color: whitesmoke;
+}
+
 
  /* --- Estilo botones ---*/
 QPushButton{

@@ -123,3 +123,26 @@ class Clientes:
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
         except Exception as error:
             print("Error")
+
+    @staticmethod
+    def bajaCliente():
+        try:
+            fecha = var.ui.txtBajacli.text()
+            dni = var.ui.txtDnicli.text()
+            if conexion.Conexion.bajaCliente(dni,fecha):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowTitle('Aviso')
+                mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
+                mbox.setText("Cliente dado de baja correctamente")
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                Clientes.cargaTablaClientes()
+            else:
+                QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo dar de baja al cliente correctamente: Cliente no existe o ya dado de baja',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+
+        except Exception as error:
+            print("Error al dar de baja a cliente")
