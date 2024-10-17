@@ -81,10 +81,15 @@ class Eventos():
     def validarMail(mail):
         mail = mail.lower()
         regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
-        if re.match(regex, mail):
+        if re.match(regex, mail) or mail == "":
             return True
         else:
             return False
+
+    @staticmethod
+    def validarMovil(movil):
+        regex = r"[67]\d{8}"
+        return re.fullmatch(regex, movil)
 
     @staticmethod
     def abrirCalendar(op, btn):

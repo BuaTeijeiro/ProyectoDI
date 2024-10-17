@@ -1,0 +1,7 @@
+1. Diseños
+
+2. Control del formato del móvil con expresion regular:  que empiece por 6 o 7 y que sean 9 números
+
+3. Valores obligatorios: informar al usuario de que es obligatario (diseño), controlarlo en el código
+
+4. Controlar en modificar y eliminar si el usuario existe: select count(*)

@@ -130,10 +130,9 @@ class Conexion:
             query.bindValue(":dircli", str(registro[6]))
             query.bindValue(":provcli", str(registro[7]))
             query.bindValue(":municli", str(registro[8]))
-            if query.exec():
+            if query.exec() and query.numRowsAffected() == 1:
                 return True
             else:
-                print (query.lastError().text())
                 return False
         except Exception as error:
             print("Error al modificar cliente en la base de datos")

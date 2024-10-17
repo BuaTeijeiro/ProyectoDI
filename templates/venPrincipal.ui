@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1052</width>
-    <height>721</height>
+    <width>1058</width>
+    <height>753</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -181,6 +181,9 @@
           </item>
           <item row="4" column="1">
            <widget class="QTableWidget" name="tablaClientes">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
             <property name="selectionBehavior">
              <enum>QAbstractItemView::SelectRows</enum>
             </property>
@@ -274,7 +277,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../img/calendar.ico</normaloff>../img/calendar.ico</iconset>
+                <normaloff>C:/Users/a23davidbt/.designer/img/calendar.ico</normaloff>C:/Users/a23davidbt/.designer/img/calendar.ico</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -344,7 +347,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../img/calendar.ico</normaloff>../img/calendar.ico</iconset>
+                <normaloff>C:/Users/a23davidbt/.designer/img/calendar.ico</normaloff>C:/Users/a23davidbt/.designer/img/calendar.ico</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -780,7 +783,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1052</width>
+     <width>1058</width>
      <height>21</height>
     </rect>
    </property>
@@ -839,7 +842,7 @@
   <action name="actionbarSalir">
    <property name="icon">
     <iconset>
-     <normaloff>../img/salir.ico</normaloff>../img/salir.ico</iconset>
+     <normaloff>C:/Users/a23davidbt/.designer/img/salir.ico</normaloff>C:/Users/a23davidbt/.designer/img/salir.ico</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -851,7 +854,7 @@
   <action name="actionbarLimpiar">
    <property name="icon">
     <iconset>
-     <normaloff>../img/reload.ico</normaloff>../img/reload.ico</iconset>
+     <normaloff>C:/Users/a23davidbt/.designer/img/reload.ico</normaloff>C:/Users/a23davidbt/.designer/img/reload.ico</iconset>
    </property>
    <property name="text">
     <string>Limpiar</string>

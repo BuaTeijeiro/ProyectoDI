@@ -6,6 +6,8 @@ import var
 import conexion
 
 class Clientes:
+
+
     @staticmethod
     def checkDNI(dni):
         try:
@@ -22,7 +24,7 @@ class Clientes:
             print("error check cliente", e)
 
     @staticmethod
-    def checkEmail(mail):
+    def checkEmail():
         try:
             mail = str(var.ui.txtEmailcli.text())
             if eventos.Eventos.validarMail(mail):
@@ -38,13 +40,31 @@ class Clientes:
         except Exception as error:
             print("error check cliente", error)
 
+    @staticmethod
+    def checkMovil():
+        try:
+            movil = str(var.ui.txtMovilcli.text())
+            if eventos.Eventos.validarMovil(movil):
+                var.ui.txtMovilcli.setStyleSheet('background-color: rgb(255, 255, 255);')
+
+            else:
+                var.ui.txtMovilcli.setStyleSheet('background-color:#FFC0CB; font-style: italic;')
+                var.ui.txtMovilcli.setText(None)
+                var.ui.txtMovilcli.setFocus()
+
+        except Exception as error:
+            print("error check cliente", error)
+
 
     @staticmethod
     def altaCliente():
         nuevocli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(), var.ui.cmbMunicli.currentText()]
 
+        camposObligatorios = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text()]
 
-        if conexion.Conexion.altaCliente(nuevocli):
+        missingFields = camposObligatorios.count("")
+
+        if missingFields ==0 and conexion.Conexion.altaCliente(nuevocli):
             mbox = QtWidgets.QMessageBox()
             mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
             mbox.setWindowTitle('Aviso')
@@ -55,8 +75,11 @@ class Clientes:
             mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
             mbox.exec()
             Clientes.cargaTablaClientes()
+        elif missingFields > 0:
+            QtWidgets.QMessageBox.critical(None, 'Error', 'ES necesario rellenar todos los campos obligatorios',
+                                           QtWidgets.QMessageBox.StandardButton.Cancel)
         else:
-            QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo guardar el cliente correctamente.',
+            QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo guardar el cliente correctamente, es posible que ya se halle en la base de datos',
                                            QtWidgets.QMessageBox.StandardButton.Cancel)
 
     @staticmethod
@@ -94,7 +117,7 @@ class Clientes:
             datos = [dato.text() for dato in file]
             registro = conexion.Conexion.datosOneCliente(datos[0])
             #Clientes.cargarCliente(registro)
-            listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli]
+            listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli, var.ui.txtBajacli]
             for i in range(len(listado)):
                 if i in (7,8):
                     listado[i].setCurrentText(registro[i])
@@ -107,7 +130,13 @@ class Clientes:
     def modifCliente():
         try:
             modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(), var.ui.cmbMunicli.currentText()]
-            if(conexion.Conexion.modifCliente(modifcli)):
+
+            camposObligatorios = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
+                                  var.ui.txtNomcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text()]
+
+            missingFields = camposObligatorios.count("")
+
+            if missingFields == 0 and conexion.Conexion.modifCliente(modifcli):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowTitle('Aviso')
@@ -118,8 +147,12 @@ class Clientes:
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
                 Clientes.cargaTablaClientes()
+            elif missingFields >0:
+                QtWidgets.QMessageBox.critical(None, 'Error',
+                                              'ES necesario rellenar todos los campos obligatorios',
+                                              QtWidgets.QMessageBox.StandardButton.Cancel)
             else:
-                QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo modificar al cliente correctamente.',
+                QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo modificar al cliente correctamente, es posible que no exista en la base de datos',
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
         except Exception as error:
             print("Error")
@@ -129,7 +162,7 @@ class Clientes:
         try:
             fecha = var.ui.txtBajacli.text()
             dni = var.ui.txtDnicli.text()
-            if conexion.Conexion.bajaCliente(dni,fecha):
+            if fecha != "" and conexion.Conexion.bajaCliente(dni,fecha):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowTitle('Aviso')
@@ -140,6 +173,10 @@ class Clientes:
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
                 Clientes.cargaTablaClientes()
+            elif fecha == "":
+                QtWidgets.QMessageBox.critical(None, 'Error',
+                                               'No se pudo dar de baja al cliente correctamente: Es necesario rellenar el campo de fecha de baja',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
             else:
                 QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo dar de baja al cliente correctamente: Cliente no existe o ya dado de baja',
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
