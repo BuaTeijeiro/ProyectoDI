@@ -1,8 +1,9 @@
-import mysql.connector
-from mysql.connector import Error
+#import mysql.connector
+#from mysql.connector import Error
 import os
 from PyQt6 import QtSql, QtWidgets
 
+"""
 class ConexionServer():
     def crear_conexion(self):
 
@@ -79,3 +80,4 @@ class ConexionServer():
             return listadoclientes
         except Exception as e:
             print("error listado en conexion", e)
+"""
