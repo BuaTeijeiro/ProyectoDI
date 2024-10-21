@@ -1,6 +1,8 @@
 import os
-from PyQt6 import QtSql, QtWidgets, QtGui
+from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
+from PyQt6.QtCore import QVariant
 
+import var
 
 class Conexion:
     '''
@@ -92,13 +94,23 @@ class Conexion:
     def listadoClientes():
         try:
             listado = []
-            query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM clientes order by apelcli, nomecli ASC")
-            if query.exec():
-                while query.next():
-                    fila = [query.value(i) for i in range(query.record().count())]
-                    listado.append(fila)
-            return listado
+            historico = var.ui.chkHistoriacli.isChecked()
+            if (historico):
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM clientes order by apelcli, nomecli ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+                return listado
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM clientes where bajacli is null order by apelcli, nomecli ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+                return listado
         except Exception as e:
             print("Error al abrir el archivo")
 
@@ -120,7 +132,7 @@ class Conexion:
     def modifCliente(registro):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("UPDATE clientes SET altacli = :altacli, apelcli = :apelcli, nomecli = :nomecli, emailcli = :emailcli, movilcli =:movilcli, dircli =:dircli, provcli = :provcli, municli = :municli where dnicli = :dni")
+            query.prepare("UPDATE clientes SET altacli = :altacli, apelcli = :apelcli, nomecli = :nomecli, emailcli = :emailcli, movilcli =:movilcli, dircli =:dircli, provcli = :provcli, municli = :municli, bajacli =:bajacli where dnicli = :dni")
             query.bindValue(":dni", str(registro[0]))
             query.bindValue(":altacli", str(registro[1]))
             query.bindValue(":apelcli", str(registro[2]))
@@ -130,6 +142,13 @@ class Conexion:
             query.bindValue(":dircli", str(registro[6]))
             query.bindValue(":provcli", str(registro[7]))
             query.bindValue(":municli", str(registro[8]))
+            if registro[9] == "":
+                query.bindValue(":bajacli", QtCore.QVariant())
+                print("detecto")
+            else:
+                query.bindValue(":bajacli", str(registro[9]))
+                print("no detecto")
+
             if query.exec() and query.numRowsAffected() == 1:
                 return True
             else:

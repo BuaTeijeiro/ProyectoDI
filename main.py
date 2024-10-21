@@ -69,6 +69,13 @@ class Main(QtWidgets.QMainWindow):
         """
         var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipioscli)
 
+
+        """
+        eventos de checkbox
+        """
+
+        var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     window = Main()

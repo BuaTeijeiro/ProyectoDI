@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexionserver
@@ -129,7 +131,7 @@ class Clientes:
     @staticmethod
     def modifCliente():
         try:
-            modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(), var.ui.cmbMunicli.currentText()]
+            modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(), var.ui.cmbMunicli.currentText(), var.ui.txtBajacli.text()]
 
             camposObligatorios = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
                                   var.ui.txtNomcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text()]
@@ -160,7 +162,7 @@ class Clientes:
     @staticmethod
     def bajaCliente():
         try:
-            fecha = var.ui.txtBajacli.text()
+            fecha = datetime.now().strftime("%d/%m/%Y")
             dni = var.ui.txtDnicli.text()
             if fecha != "" and conexion.Conexion.bajaCliente(dni,fecha):
                 mbox = QtWidgets.QMessageBox()
@@ -183,3 +185,10 @@ class Clientes:
 
         except Exception as error:
             print("Error al dar de baja a cliente")
+
+    @staticmethod
+    def historicoCli():
+        try:
+            Clientes.cargaTablaClientes()
+        except Exception as error:
+            print("Error al actualizar historico")
