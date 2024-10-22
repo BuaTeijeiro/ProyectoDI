@@ -4,6 +4,7 @@ import clientes
 import conexion
 import conexionserver
 import eventos
+import propiedades
 import styles
 from venPrincipal import *
 from venAux import *
@@ -23,6 +24,7 @@ class Main(QtWidgets.QMainWindow):
 
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
+        eventos.Eventos.cargarMunicipiosprop()
 
 
         """
@@ -63,11 +65,14 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtEmailcli.editingFinished.connect(clientes.Clientes.checkEmail)
         var.ui.txtMovilcli.editingFinished.connect(clientes.Clientes.checkMovil)
 
+        var.ui.txtMovilprop.editingFinished.connect(propiedades.Propiedades.checkMovil)
+
 
         """
         combo box
         """
         var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipioscli)
+        var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosprop)
 
 
         """
