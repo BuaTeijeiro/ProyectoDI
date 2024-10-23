@@ -17,3 +17,7 @@ class Propiedades():
 
         except Exception as error:
             print("error check cliente", error)
+
+    @staticmethod
+    def cargaTablaPropiedades():
+        eventos.Eventos.resizeTablaPropiedades()

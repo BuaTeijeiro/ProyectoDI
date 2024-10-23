@@ -31,6 +31,7 @@ class Main(QtWidgets.QMainWindow):
         zona de eventos de tablas
         """
         clientes.Clientes.cargaTablaClientes()
+        propiedades.Propiedades.cargaTablaPropiedades()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
 
         """
