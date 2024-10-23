@@ -327,6 +327,7 @@ class Ui_venPrincipal(object):
         self.lblProp = QtWidgets.QLabel(parent=self.pesProp)
         self.lblProp.setMinimumSize(QtCore.QSize(30, 0))
         self.lblProp.setText("")
+        self.lblProp.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.lblProp.setObjectName("lblProp")
         self.horizontalLayout_22.addWidget(self.lblProp)
         spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
