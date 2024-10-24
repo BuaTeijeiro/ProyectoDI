@@ -5,3 +5,5 @@
 3. Valores obligatorios: informar al usuario de que es obligatario (diseño), controlarlo en el código
 
 4. Controlar en modificar y eliminar si el usuario existe: select count(*)
+
+Errores de diseño a corregir:

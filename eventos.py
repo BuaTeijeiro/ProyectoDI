@@ -114,13 +114,24 @@ class Eventos():
             print("error en abrir calendar ", error)
 
     @staticmethod
+    def abrirTipoprop():
+        try:
+            var.dlggestion.show()
+        except Exception as error:
+            print("error en abrir calendar ", error)
+
+    @staticmethod
     def cargaFecha(qDate):
         try:
             data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
-            if var.panel == var.ui.panPrincipal.currentIndex() and var.btn == 0:
+            if var.panel == 0 and var.btn == 0:
                 var.ui.txtAltacli.setText(str(data))
-            if var.panel == var.ui.panPrincipal.currentIndex() and var.btn == 1:
+            if var.panel == 0 and var.btn == 1:
                 var.ui.txtBajacli.setText(str(data))
+            if var.panel == 1 and var.btn == 0:
+                var.ui.txtFechaprop.setText(str(data))
+            if var.panel == 1 and var.btn == 1:
+                var.ui.txtFechabajaprop.setText(str(data))
             time.sleep(0.2)
             var.uicalendar.hide()
             return data

@@ -42,6 +42,10 @@ class Conexion:
                                            QtWidgets.QMessageBox.StandardButton.Cancel)
             return False
 
+    """
+    GESTIÓN PROVINCIAS Y MUNICIPIOS
+    """
+
     @staticmethod
     def listaProv():
         listaprov = []
@@ -66,6 +70,10 @@ class Conexion:
             return listamunicipios
         except Exception as e:
             print("Error al abrir el archivo")
+
+    """
+    GESTIÓN CLIENTES
+    """
 
     @staticmethod
     def altaCliente(nuevocli):
@@ -169,3 +177,7 @@ class Conexion:
                 return False
         except Exception as exec:
             print("Error al registrar la baja del cliente")
+
+    """
+    GESTIÓN PROPIEDADES
+    """
