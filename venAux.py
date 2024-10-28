@@ -18,12 +18,13 @@ class Calendar(QtWidgets.QDialog):
         var.uicalendar.Calendar.setSelectedDate((QtCore.QDate(ano,mes,dia)))
         var.uicalendar.Calendar.clicked.connect(eventos.Eventos.cargaFecha)
 
-class dlg_Tipo_prop(QtWidgets.QDialog):
+class dlg_Tipoprop(QtWidgets.QDialog):
     def __init__(self):
-        super(dlg_Tipo_prop, self).__init__()
-        var.dlggestion = Ui_dlg_Tipoprop()
-        var.dlggestion.setupUi(self)
-        var.dlggestion.btnAnadirtipoprop.clicked.connect(propiedades.Propiedades.altaTipoPropiedad)
+        super(dlg_Tipoprop, self).__init__()
+        self.interface = Ui_dlg_Tipoprop()
+        self.interface.setupUi(self)
+        self.interface.btnAnadirtipoprop.clicked.connect(propiedades.Propiedades.altaTipoPropiedad)
+        self.interface.btnDeltipoprop.clicked.connect(propiedades.Propiedades.deleteTipoPropiedad)
 
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):

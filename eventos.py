@@ -117,7 +117,7 @@ class Eventos():
         try:
             var.dlggestion.show()
         except Exception as error:
-            print("error en abrir calendar ", error)
+            print("error en abrir tipos de propiedades ", error)
 
     @staticmethod
     def cargaFecha(qDate):
@@ -232,3 +232,9 @@ class Eventos():
 
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
+
+    @staticmethod
+    def cargarTiposprop():
+        tipos = conexion.Conexion.listadoTipoprop()
+        var.ui.cmbTipoprop.clear()
+        var.ui.cmbTipoprop.addItems(tipos)

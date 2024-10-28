@@ -1,3 +1,4 @@
+import conexion
 import var
 import eventos
 
@@ -24,8 +25,25 @@ class Propiedades():
 
     @staticmethod
     def altaTipoPropiedad():
-        tipo = var.dlggestion.txtGestipoprop.text()
-        print("hola")
+        try:
+            tipo = var.dlggestion.interface.txtGestipoprop.text().title()
+            var.dlggestion.interface.txtGestipoprop.setText("")
+            if not conexion.Conexion.anadirTipoprop(tipo):
+                var.dlggestion.interface.txtGestipoprop.setPlaceholderText("No se ha podido guardar")
+            eventos.Eventos.cargarTiposprop()
+        except Exception as error:
+            print(error)
+
+    @staticmethod
+    def deleteTipoPropiedad():
+        try:
+            tipo = var.dlggestion.interface.txtGestipoprop.text().title()
+            var.dlggestion.interface.txtGestipoprop.setText("")
+            if not conexion.Conexion.eliminarTipoprop(tipo):
+                var.dlggestion.interface.txtGestipoprop.setPlaceholderText("No se ha podido eliminar")
+            eventos.Eventos.cargarTiposprop()
+        except Exception as error:
+            print("error al eliminar el tipo de propiedad")
 
     @staticmethod
     def altaPropiedad():

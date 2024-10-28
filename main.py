@@ -18,7 +18,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
-        var.dlggestion = dlg_Tipo_prop()
+        var.dlggestion = dlg_Tipoprop()
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion()
         #conexionserver.ConexionServer.crear_conexion(self)
@@ -26,6 +26,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
         eventos.Eventos.cargarMunicipiosprop()
+        eventos.Eventos.cargarTiposprop()
 
 
 

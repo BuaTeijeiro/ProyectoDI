@@ -44,7 +44,7 @@
      <x>20</x>
      <y>18</y>
      <width>341</width>
-     <height>201</height>
+     <height>161</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -79,16 +79,6 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="txtGestipoprop">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>140</y>
-      <width>111</width>
-      <height>20</height>
-     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -126,7 +116,7 @@
      <x>40</x>
      <y>230</y>
      <width>298</width>
-     <height>27</height>
+     <height>32</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -191,6 +181,16 @@
      </spacer>
     </item>
    </layout>
+  </widget>
+  <widget class="QLineEdit" name="txtGestipoprop">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>190</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -11,3 +11,4 @@ global dlgabrir
 global dlggestion
 global panel
 global btn
+global cuadro

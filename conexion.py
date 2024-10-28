@@ -181,3 +181,43 @@ class Conexion:
     """
     GESTIÓN PROPIEDADES
     """
+
+    @staticmethod
+    def listadoTipoprop():
+        tipos = []
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT tipo FROM tipoprop")
+            query.exec()
+            while query.next():
+                tipos.append(query.value(0))
+            return tipos
+
+        except Exception as error:
+            print("Error al cargar los tipos de propiedades")
+
+    @staticmethod
+    def anadirTipoprop(tipo):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INsert into tipoprop (tipo) values (:tipo) ")
+            query.bindValue(":tipo", str(tipo))
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al guardar el tipo de vivienda en la base de datos")
+
+    @staticmethod
+    def eliminarTipoprop(tipo):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE FROM tipoprop WHERE tipo = :tipo")
+            query.bindValue(":tipo", str(tipo).title())
+            if query.exec() and query.numRowsAffected() == 1:
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al eliminar el tipo de propiedad")
