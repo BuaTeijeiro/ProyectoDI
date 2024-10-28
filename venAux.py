@@ -2,6 +2,7 @@ from datetime import datetime
 from dlgCalendar import *
 import var
 import eventos
+import propiedades
 from dlgGestionProp import Ui_dlg_Tipoprop
 
 
@@ -22,10 +23,9 @@ class dlg_Tipo_prop(QtWidgets.QDialog):
         super(dlg_Tipo_prop, self).__init__()
         var.dlggestion = Ui_dlg_Tipoprop()
         var.dlggestion.setupUi(self)
-
-
-
+        var.dlggestion.btnAnadirtipoprop.clicked.connect(propiedades.Propiedades.altaTipoPropiedad)
 
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
         super(FileDialogAbrir, self).__init__()
+

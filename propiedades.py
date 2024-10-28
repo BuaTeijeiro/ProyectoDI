@@ -21,3 +21,16 @@ class Propiedades():
     @staticmethod
     def cargaTablaPropiedades():
         eventos.Eventos.resizeTablaPropiedades()
+
+    @staticmethod
+    def altaTipoPropiedad():
+        tipo = var.dlggestion.txtGestipoprop.text()
+        print("hola")
+
+    @staticmethod
+    def altaPropiedad():
+        try:
+            propiedad = [var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text(), var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.txtCPprop.text(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
+            print(propiedad)
+        except Exception as error:
+            print("Error al dar de alta la propiedad")
