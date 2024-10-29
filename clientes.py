@@ -4,9 +4,11 @@ from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexionserver
 import eventos
+import mapeo.cliente
 import var
 import conexion
 
+from mapeo.cliente import *
 class Clientes:
 
 
@@ -128,6 +130,10 @@ class Clientes:
 
             missingFields = camposObligatorios.count("")
 
+            cliente = Cliente()
+            cliente.loadFromPanel()
+            print(cliente.provincia)
+
             if missingFields == 0 and conexion.Conexion.modifCliente(modifcli):
                 eventos.Eventos.mostrarMensajeOk("Datos del cliente modificados correctamente")
                 Clientes.cargaTablaClientes()
@@ -136,7 +142,7 @@ class Clientes:
             else:
                 eventos.Eventos.mostrarMensajeError('No se pudo modificar al cliente correctamente, es posible que no exista en la base de datos')
         except Exception as error:
-            print("Error")
+            print("Error", error)
 
     @staticmethod
     def bajaCliente():
