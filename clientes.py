@@ -67,22 +67,12 @@ class Clientes:
         missingFields = camposObligatorios.count("")
 
         if missingFields ==0 and conexion.Conexion.altaCliente(nuevocli):
-            mbox = QtWidgets.QMessageBox()
-            mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-            mbox.setWindowTitle('Aviso')
-            mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
-            mbox.setText("Cliente dado de alta en base de datos correctamente")
-            mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-            mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-            mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-            mbox.exec()
+            eventos.Eventos.mostrarMensajeOk("Cliente dado de alta en base de datos correctamente")
             Clientes.cargaTablaClientes()
         elif missingFields > 0:
-            QtWidgets.QMessageBox.critical(None, 'Error', 'ES necesario rellenar todos los campos obligatorios',
-                                           QtWidgets.QMessageBox.StandardButton.Cancel)
+            eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios')
         else:
-            QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo guardar el cliente correctamente, es posible que ya se halle en la base de datos',
-                                           QtWidgets.QMessageBox.StandardButton.Cancel)
+            eventos.Eventos.mostrarMensajeError('No se pudo guardar el cliente correctamente, es posible que ya se halle en la base de datos')
 
     @staticmethod
     def cargaTablaClientes():
@@ -139,23 +129,12 @@ class Clientes:
             missingFields = camposObligatorios.count("")
 
             if missingFields == 0 and conexion.Conexion.modifCliente(modifcli):
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowTitle('Aviso')
-                mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
-                mbox.setText("Datos del cliente modificados correctamente")
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                mbox.exec()
+                eventos.Eventos.mostrarMensajeOk("Datos del cliente modificados correctamente")
                 Clientes.cargaTablaClientes()
             elif missingFields >0:
-                QtWidgets.QMessageBox.critical(None, 'Error',
-                                              'ES necesario rellenar todos los campos obligatorios',
-                                              QtWidgets.QMessageBox.StandardButton.Cancel)
+                eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios')
             else:
-                QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo modificar al cliente correctamente, es posible que no exista en la base de datos',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                eventos.Eventos.mostrarMensajeError('No se pudo modificar al cliente correctamente, es posible que no exista en la base de datos')
         except Exception as error:
             print("Error")
 
@@ -165,23 +144,12 @@ class Clientes:
             fecha = datetime.now().strftime("%d/%m/%Y")
             dni = var.ui.txtDnicli.text()
             if fecha != "" and conexion.Conexion.bajaCliente(dni,fecha):
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowTitle('Aviso')
-                mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
-                mbox.setText("Cliente dado de baja correctamente")
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                mbox.exec()
+                eventos.Eventos.mostrarMensajeOk("Cliente dado de baja correctamente")
                 Clientes.cargaTablaClientes()
             elif fecha == "":
-                QtWidgets.QMessageBox.critical(None, 'Error',
-                                               'No se pudo dar de baja al cliente correctamente: Es necesario rellenar el campo de fecha de baja',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                eventos.Eventos.mostrarMensajeError('No se pudo dar de baja al cliente correctamente: Es necesario rellenar el campo de fecha de baja')
             else:
-                QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo dar de baja al cliente correctamente: Cliente no existe o ya dado de baja',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                eventos.Eventos.mostrarMensajeError('No se pudo dar de baja al cliente correctamente: Cliente no existe o ya dado de baja')
 
         except Exception as error:
             print("Error al dar de baja a cliente")

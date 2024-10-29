@@ -152,11 +152,8 @@ class Conexion:
             query.bindValue(":municli", str(registro[8]))
             if registro[9] == "":
                 query.bindValue(":bajacli", QtCore.QVariant())
-                print("detecto")
             else:
                 query.bindValue(":bajacli", str(registro[9]))
-                print("no detecto")
-
             if query.exec() and query.numRowsAffected() == 1:
                 return True
             else:
@@ -168,11 +165,18 @@ class Conexion:
     def bajaCliente(dni, fecha):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("UPDATE clientes SET bajacli = :bajacli where dnicli = :dni")
+            query.prepare("Select bajacli from clientes where dnicli = :dni")
             query.bindValue(":dni", str(dni))
-            query.bindValue(":bajacli", str(fecha))
-            if query.exec():
-                return True
+            query.exec()
+            if query.next() and query.value(0) == "" :
+                print(query.value(0))
+                query.prepare("UPDATE clientes SET bajacli = :bajacli where dnicli = :dni")
+                query.bindValue(":dni", str(dni))
+                query.bindValue(":bajacli", str(fecha))
+                if query.exec() and query.numRowsAffected() == 1:
+                    return True
+                else:
+                    return False
             else:
                 return False
         except Exception as exec:
@@ -187,7 +191,7 @@ class Conexion:
         tipos = []
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT tipo FROM tipoprop")
+            query.prepare("SELECT tipo FROM tipoprop order by tipo asc")
             query.exec()
             while query.next():
                 tipos.append(query.value(0))
@@ -200,7 +204,7 @@ class Conexion:
     def anadirTipoprop(tipo):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("INsert into tipoprop (tipo) values (:tipo) ")
+            query.prepare("Insert into tipoprop (tipo) values (:tipo) ")
             query.bindValue(":tipo", str(tipo))
             if query.exec():
                 return True

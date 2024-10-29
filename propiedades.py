@@ -1,3 +1,5 @@
+from PyQt6 import QtWidgets, QtGui
+
 import conexion
 import var
 import eventos
@@ -28,9 +30,11 @@ class Propiedades():
         try:
             tipo = var.dlggestion.interface.txtGestipoprop.text().title()
             var.dlggestion.interface.txtGestipoprop.setText("")
-            if not conexion.Conexion.anadirTipoprop(tipo):
-                var.dlggestion.interface.txtGestipoprop.setPlaceholderText("No se ha podido guardar")
-            eventos.Eventos.cargarTiposprop()
+            if conexion.Conexion.anadirTipoprop(tipo):
+                eventos.Eventos.mostrarMensajeOk("Tipo de propiedad registrado correctamente")
+                eventos.Eventos.cargarTiposprop()
+            else:
+                eventos.Eventos.mostrarMensajeError("No se pudo registrar el tipo de propiedad, ya existe")
         except Exception as error:
             print(error)
 
@@ -39,9 +43,11 @@ class Propiedades():
         try:
             tipo = var.dlggestion.interface.txtGestipoprop.text().title()
             var.dlggestion.interface.txtGestipoprop.setText("")
-            if not conexion.Conexion.eliminarTipoprop(tipo):
-                var.dlggestion.interface.txtGestipoprop.setPlaceholderText("No se ha podido eliminar")
-            eventos.Eventos.cargarTiposprop()
+            if conexion.Conexion.eliminarTipoprop(tipo):
+                eventos.Eventos.mostrarMensajeOk("Tipo de propiedad eliminada correctamente")
+                eventos.Eventos.cargarTiposprop()
+            else:
+                eventos.Eventos.mostrarMensajeError("No se pudo eliminar el tipo de propiedad, no existe")
         except Exception as error:
             print("error al eliminar el tipo de propiedad")
 
