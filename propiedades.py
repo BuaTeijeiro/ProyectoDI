@@ -54,7 +54,25 @@ class Propiedades():
     @staticmethod
     def altaPropiedad():
         try:
-            propiedad = [var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text(), var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.txtCPprop.text(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
-            print(propiedad)
+            propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
+            tipooper = []
+            if var.ui.chkAlquilprop.isChecked():
+                tipooper.append(var.ui.chkAlquilprop.text())
+            if var.ui.chkVentaprop.isChecked():
+                tipooper.append(var.ui.chkVentaprop.text())
+            if var.ui.chkInterprop.isChecked():
+                tipooper.append(var.ui.chkInterprop.text())
+            propiedad.append(tipooper)
+            if var.ui.rbtDisponprop.isChecked():
+                propiedad.append(var.ui.rbtDisponprop.text())
+            elif var.ui.rbtAlquilprop.isChecked():
+                propiedad.append(var.ui.rbtAlquilprop.text())
+            else:
+                propiedad.append(var.ui.rbtVentaprop.text())
+
+            if conexion.Conexion.altaPropiedad(propiedad):
+                eventos.Eventos.mostrarMensajeOk("Se ha guardado la propiedad correctamente")
+            else:
+                eventos.Eventos.mostrarMensajeError("Error al guardar la propiedad")
         except Exception as error:
             print("Error al dar de alta la propiedad")
