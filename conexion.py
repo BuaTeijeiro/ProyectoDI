@@ -1,4 +1,6 @@
 import os
+from idlelib.query import Query
+
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import QVariant
 
@@ -152,11 +154,8 @@ class Conexion:
             query.bindValue(":municli", str(registro[8]))
             if registro[9] == "":
                 query.bindValue(":bajacli", QtCore.QVariant())
-                print("detecto")
             else:
                 query.bindValue(":bajacli", str(registro[9]))
-                print("no detecto")
-
             if query.exec() and query.numRowsAffected() == 1:
                 return True
             else:
@@ -168,11 +167,18 @@ class Conexion:
     def bajaCliente(dni, fecha):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("UPDATE clientes SET bajacli = :bajacli where dnicli = :dni")
+            query.prepare("Select bajacli from clientes where dnicli = :dni")
             query.bindValue(":dni", str(dni))
-            query.bindValue(":bajacli", str(fecha))
-            if query.exec():
-                return True
+            query.exec()
+            if query.next() and query.value(0) == "" :
+                print(query.value(0))
+                query.prepare("UPDATE clientes SET bajacli = :bajacli where dnicli = :dni")
+                query.bindValue(":dni", str(dni))
+                query.bindValue(":bajacli", str(fecha))
+                if query.exec() and query.numRowsAffected() == 1:
+                    return True
+                else:
+                    return False
             else:
                 return False
         except Exception as exec:
@@ -187,7 +193,7 @@ class Conexion:
         tipos = []
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT tipo FROM tipoprop")
+            query.prepare("SELECT tipo FROM tipoprop order by tipo asc")
             query.exec()
             while query.next():
                 tipos.append(query.value(0))
@@ -200,7 +206,7 @@ class Conexion:
     def anadirTipoprop(tipo):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("INsert into tipoprop (tipo) values (:tipo) ")
+            query.prepare("Insert into tipoprop (tipo) values (:tipo) ")
             query.bindValue(":tipo", str(tipo))
             if query.exec():
                 return True
@@ -221,3 +227,31 @@ class Conexion:
                 return False
         except Exception as error:
             print("Error al eliminar el tipo de propiedad")
+
+    @staticmethod
+    def altaPropiedad(propiedad):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("Insert into propiedades (fecha_publicacion, codigo_postal, direccion, provincia, municipio, tipo_propiedad, num_habitaciones, num_banos, superficie, precio_alquiler, precio_venta, observaciones, tipo_operacion, estado, nombre_propietario, movil) values (:fecha_publicacion, :codigo_postal, :direccion, :provincia, :municipio, :tipo_propiedad, :num_habitaciones, :num_banos, :superficie, :precio_alquiler, :precio_venta, :observaciones, :tipo_operacion, :estado, :nombre_propietario, :movil)")
+            query.bindValue(":fecha_publicacion", str(propiedad[0]))
+            query.bindValue(":codigo_postal", str(propiedad[1]))
+            query.bindValue(":direccion", str(propiedad[2]))
+            query.bindValue(":provincia", str(propiedad[3]))
+            query.bindValue(":municipio", str(propiedad[4]))
+            query.bindValue(":tipo_propiedad", str(propiedad[5]))
+            query.bindValue(":num_habitaciones", str(propiedad[6]))
+            query.bindValue(":num_banos", str(propiedad[7]))
+            query.bindValue(":superficie", str(propiedad[8]))
+            query.bindValue(":precio_alquiler", str(propiedad[9]))
+            query.bindValue(":precio_venta", str(propiedad[10]))
+            query.bindValue(":observaciones", str(propiedad[11]))
+            query.bindValue(":tipo_operacion", str(propiedad[14]))
+            query.bindValue(":estado", str(propiedad[15]))
+            query.bindValue(":nombre_propietario", str(propiedad[12]))
+            query.bindValue(":movil", str(propiedad[13]))
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al guardar la propiedad en la base de datos")
