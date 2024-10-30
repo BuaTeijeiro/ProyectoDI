@@ -2,6 +2,8 @@ import os.path
 import sys
 from datetime import datetime
 
+from PyQt6.QtWidgets import QSpinBox
+
 import clientes
 import conexion
 
@@ -159,7 +161,7 @@ class Eventos():
         try:
             header = var.ui.tablaPropiedades.horizontalHeader()
             for i in range(header.count()):
-                if i not in (0, 3, 4):
+                if i not in (0, 3, 4, 5):
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
@@ -223,15 +225,27 @@ class Eventos():
     def limpiarPanel():
         objetosPanel = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli,
                     var.ui.txtNomcli, var.ui.txtEmailcli, var.ui.txtMovilcli,
-                    var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli, var.ui.txtBajacli]
+                    var.ui.txtDircli, var.ui.txtBajacli, var.ui.lblProp, var.ui.txtFechaprop,
+                    var.ui.txtFechabajaprop, var.ui.txtCPprop, var.ui.txtDirprop, var.ui.spinHabprop,
+                    var.ui.spinBanosprop, var.ui.txtSuperprop, var.ui.txtPrecioalquilerprop,
+                    var.ui.txtPrecioventaprop, var.ui.txtComentarioprop, var.ui.txtNomeprop,
+                    var.ui.txtMovilprop]
+
+        var.ui.chkAlquilprop.setChecked(False)
+        var.ui.chkVentaprop.setChecked(False)
+        var.ui.chkInterprop.setChecked(False)
+        var.ui.rbtDisponprop.setChecked(True)
+
+
         for i, element in enumerate(objetosPanel):
-            if i in (7,8):
-                pass
+            if isinstance(element, QSpinBox):
+                element.setValue(0)
             else:
                 element.setText("")
 
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
+        eventos.Eventos.cargarTiposprop()
 
     @staticmethod
     def cargarTiposprop():

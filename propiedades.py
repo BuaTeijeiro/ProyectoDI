@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets, QtGui
+from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexion
 import var
@@ -21,9 +21,6 @@ class Propiedades():
         except Exception as error:
             print("error check cliente", error)
 
-    @staticmethod
-    def cargaTablaPropiedades():
-        eventos.Eventos.resizeTablaPropiedades()
 
     @staticmethod
     def altaTipoPropiedad():
@@ -72,7 +69,71 @@ class Propiedades():
 
             if conexion.Conexion.altaPropiedad(propiedad):
                 eventos.Eventos.mostrarMensajeOk("Se ha guardado la propiedad correctamente")
+                Propiedades.cargaTablaPropiedades()
             else:
                 eventos.Eventos.mostrarMensajeError("Error al guardar la propiedad")
         except Exception as error:
             print("Error al dar de alta la propiedad")
+
+    @staticmethod
+    def cargaTablaPropiedades():
+        try:
+            listado = conexion.Conexion.listadoPropiedades()
+            # listado = conexionserver.ConexionServer.listadoClientes()
+            index = 0
+            for registro in listado:
+                var.ui.tablaPropiedades.setRowCount(index + 1)
+                for j, dato in enumerate(registro):
+                    var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(str(dato)))
+
+
+                var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaPropiedades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                index += 1
+            eventos.Eventos.resizeTablaPropiedades()
+        except Exception as e:
+            print("Error al cargar la tabla de clientes", e)
+
+    @staticmethod
+    def cargaOnePropiedad():
+        try:
+            propiedad = var.ui.tablaPropiedades.selectedItems()
+            codigo = propiedad[0].text()
+            datos = conexion.Conexion.datosOnePropiedad(codigo)
+
+            var.ui.lblProp.setText(str(datos[0]))
+            var.ui.txtFechaprop.setText(datos[1])
+            var.ui.txtFechabajaprop.setText(datos[2])
+            var.ui.txtCPprop.setText(datos[3])
+            var.ui.txtDirprop.setText(datos[4])
+            var.ui.cmbProvprop.setCurrentText(datos[5])
+            var.ui.cmbMuniprop.setCurrentText(datos[6])
+            var.ui.cmbTipoprop.setCurrentText(datos[7])
+            var.ui.spinHabprop.setValue(datos[8])
+            var.ui.spinBanosprop.setValue(datos[9])
+            var.ui.txtSuperprop.setText(str(datos[10]))
+            var.ui.txtPrecioalquilerprop.setText(str(datos[11]))
+            var.ui.txtPrecioventaprop.setText(str(datos[12]))
+            var.ui.txtComentarioprop.setText(datos[13])
+
+            tipos_oper = datos[14].rsplit(",")
+            var.ui.chkAlquilprop.setChecked("Alquiler" in tipos_oper)
+            var.ui.chkVentaprop.setChecked("Venta" in tipos_oper)
+            var.ui.chkInterprop.setChecked("Intercambio" in tipos_oper)
+    
+            if datos[15] == "Disponible":
+                var.ui.rbtDisponprop.setChecked(True)
+            elif datos[15] == "Alquilado":
+                var.ui.rbtAlquilprop.setChecked(True)
+            elif datos[15] == "Vendido":
+                var.ui.rbtVentaprop.setChecked(True)
+
+            var.ui.txtNomeprop.setText(datos[16])
+            var.ui.txtMovilprop.setText(datos[17])
+        except Exception as e:
+            print("Error al cargar la tabla de clientes", e)

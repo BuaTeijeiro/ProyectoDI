@@ -245,7 +245,7 @@ class Conexion:
             query.bindValue(":precio_alquiler", str(propiedad[9]))
             query.bindValue(":precio_venta", str(propiedad[10]))
             query.bindValue(":observaciones", str(propiedad[11]))
-            query.bindValue(":tipo_operacion", str(propiedad[14]))
+            query.bindValue(":tipo_operacion", ",".join(propiedad[14]))
             query.bindValue(":estado", str(propiedad[15]))
             query.bindValue(":nombre_propietario", str(propiedad[12]))
             query.bindValue(":movil", str(propiedad[13]))
@@ -255,3 +255,29 @@ class Conexion:
                 return False
         except Exception as error:
             print("Error al guardar la propiedad en la base de datos")
+
+    @staticmethod
+    def listadoPropiedades():
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_venta, tipo_operacion FROM propiedades")
+            if query.exec():
+                while query.next():
+                    listado.append([query.value(i) for i in range(query.record().count())])
+            return listado
+        except Exception as error:
+            print("Error al cargar las propiedades", error)
+
+    @staticmethod
+    def datosOnePropiedad(codigo):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM propiedades where codigo = :codigo")
+            query.bindValue(":codigo", codigo)
+            if query.exec() and query.next():
+                registro = [query.value(i) for i in range(query.record().count())]
+            return registro
+        except Exception as error:
+            print("Error al cargar los datos de la propiedad", error)
