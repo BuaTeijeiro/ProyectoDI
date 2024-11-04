@@ -51,6 +51,11 @@ class Propiedades():
     @staticmethod
     def altaPropiedad():
         try:
+            camposObligatorios = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(), var.ui.txtSuperprop.text(),  var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
+
+            areFieldsMissing = camposObligatorios.count("") > 0
+
+
             propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
             tipooper = []
             if var.ui.chkAlquilprop.isChecked():
@@ -67,9 +72,12 @@ class Propiedades():
             else:
                 propiedad.append(var.ui.rbtVentaprop.text())
 
-            if conexion.Conexion.altaPropiedad(propiedad):
+
+            if not areFieldsMissing and conexion.Conexion.altaPropiedad(propiedad):
                 eventos.Eventos.mostrarMensajeOk("Se ha guardado la propiedad correctamente")
                 Propiedades.cargaTablaPropiedades()
+            elif areFieldsMissing:
+                eventos.Eventos.mostrarMensajeError("Es necesario rellenar todos los campos obligatorios")
             else:
                 eventos.Eventos.mostrarMensajeError("Error al guardar la propiedad")
         except Exception as error:
@@ -93,7 +101,8 @@ class Propiedades():
                 var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 index += 1
             eventos.Eventos.resizeTablaPropiedades()
         except Exception as e:
@@ -137,3 +146,48 @@ class Propiedades():
             var.ui.txtMovilprop.setText(datos[17])
         except Exception as e:
             print("Error al cargar la tabla de clientes", e)
+
+    @staticmethod
+    def modifProp():
+        camposObligatorios = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),
+                              var.ui.txtSuperprop.text(), var.ui.txtNomeprop.text(), var.ui.txtMovilprop.text()]
+
+        areFieldsMissing = camposObligatorios.count("") > 0
+        propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),
+                     var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(),
+                     var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(),
+                     var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(),
+                     var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(), var.ui.txtMovilprop.text()]
+        tipooper = []
+        if var.ui.chkAlquilprop.isChecked():
+            tipooper.append(var.ui.chkAlquilprop.text())
+        if var.ui.chkVentaprop.isChecked():
+            tipooper.append(var.ui.chkVentaprop.text())
+        if var.ui.chkInterprop.isChecked():
+            tipooper.append(var.ui.chkInterprop.text())
+        propiedad.append(tipooper)
+        if var.ui.rbtDisponprop.isChecked():
+            propiedad.append(var.ui.rbtDisponprop.text())
+        elif var.ui.rbtAlquilprop.isChecked():
+            propiedad.append(var.ui.rbtAlquilprop.text())
+        else:
+            propiedad.append(var.ui.rbtVentaprop.text())
+        propiedad.append(var.ui.txtFechabajaprop.text())
+        propiedad.append(var.ui.lblProp.text())
+
+        if not areFieldsMissing and conexion.Conexion.modifPropiedad(propiedad):
+            eventos.Eventos.mostrarMensajeOk("Propiedad modificada correctamente")
+            Propiedades.cargaTablaPropiedades()
+        elif areFieldsMissing:
+            eventos.Eventos.mostrarMensajeError("Es necesario rellenar todos los campos obligatorios")
+        else:
+            eventos.Eventos.mostrarMensajeError("No se pudo modificar la propiedad")
+
+    @staticmethod
+    def deleteProp():
+        codigo = var.ui.lblProp.text()
+        if conexion.Conexion.deletePropiedad(codigo):
+            eventos.Eventos.mostrarMensajeOk("Propiedad eliminada correctamente")
+            Propiedades.cargaTablaPropiedades()
+        else:
+            eventos.Eventos.mostrarMensajeError("Propiedad no pudo ser eliminada")

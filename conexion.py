@@ -4,6 +4,7 @@ from idlelib.query import Query
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import QVariant
 
+import eventos
 import var
 
 class Conexion:
@@ -261,7 +262,7 @@ class Conexion:
         try:
             listado = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_venta, tipo_operacion FROM propiedades")
+            query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion FROM propiedades")
             if query.exec():
                 while query.next():
                     listado.append([query.value(i) for i in range(query.record().count())])
@@ -281,3 +282,46 @@ class Conexion:
             return registro
         except Exception as error:
             print("Error al cargar los datos de la propiedad", error)
+
+    @staticmethod
+    def modifPropiedad(propiedad):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "Update propiedades set fecha_publicacion = :fecha_publicacion,fechabaja =:fechabaja, codigo_postal = :codigo_postal, direccion = :direccion, provincia= :provincia, municipio = :municipio, tipo_propiedad =:tipo_propiedad, num_habitaciones = :num_habitaciones, num_banos = :num_banos, superficie =:superficie, precio_alquiler=:precio_alquiler, precio_venta = :precio_venta, observaciones =:observaciones, tipo_operacion = :tipo_operacion, estado = :estado, nombre_propietario = :nombre_propietario, movil=:movil where codigo = :codigo")
+            query.bindValue(":fecha_publicacion", str(propiedad[0]))
+            query.bindValue(":codigo_postal", str(propiedad[1]))
+            query.bindValue(":direccion", str(propiedad[2]))
+            query.bindValue(":provincia", str(propiedad[3]))
+            query.bindValue(":municipio", str(propiedad[4]))
+            query.bindValue(":tipo_propiedad", str(propiedad[5]))
+            query.bindValue(":num_habitaciones", str(propiedad[6]))
+            query.bindValue(":num_banos", str(propiedad[7]))
+            query.bindValue(":superficie", str(propiedad[8]))
+            query.bindValue(":precio_alquiler", str(propiedad[9]))
+            query.bindValue(":precio_venta", str(propiedad[10]))
+            query.bindValue(":observaciones", str(propiedad[11]))
+            query.bindValue(":tipo_operacion", ",".join(propiedad[14]))
+            query.bindValue(":estado", str(propiedad[15]))
+            query.bindValue(":nombre_propietario", str(propiedad[12]))
+            query.bindValue(":movil", str(propiedad[13]))
+            query.bindValue(":fechabaja", str(propiedad[16]))
+            query.bindValue(":codigo", str(propiedad[17]))
+            if query.exec() and query.numRowsAffected() == 1:
+                print(query.lastError().text())
+                return True
+            else:
+                print(query.lastError().text())
+                return False
+        except Exception as error:
+            print("Error al guardar la propiedad en la base de datos")
+
+    @staticmethod
+    def deletePropiedad(codigo):
+        query = QtSql.QSqlQuery()
+        query.prepare("DELETE from propiedades where codigo = :codigo")
+        query.bindValue(":codigo", codigo)
+        if query.exec():
+            return True
+        else:
+            return False
