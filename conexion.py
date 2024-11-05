@@ -258,18 +258,20 @@ class Conexion:
             print("Error al guardar la propiedad en la base de datos")
 
     @staticmethod
-    def listadoPropiedades(filtertipoprop = None):
+    def listadoPropiedades():
         try:
             listado = []
             query = QtSql.QSqlQuery()
-            if filtertipoprop is not None:
+            if var.ui.btnBuscaprop.isChecked():
                 query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad order by municipio")
-                query.bindValue(":tipo_propiedad", filtertipoprop)
+                query.bindValue(":tipo_propiedad", var.ui.cmbTipoprop.currentText())
             else:
                 query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades order by municipio")
             if query.exec():
                 while query.next():
                     listado.append([query.value(i) for i in range(query.record().count())])
+            if not var.ui.chkHistoriprop.isChecked():
+                listado = [registro for registro in listado if registro[8] == ""]
             return listado
         except Exception as error:
             print("Error al cargar las propiedades", error)

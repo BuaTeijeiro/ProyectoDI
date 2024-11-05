@@ -70,7 +70,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
         var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
         var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
-        var.ui.btnBuscaprop.clicked.connect(propiedades.Propiedades.buscaTipoprop)
+        var.ui.btnBuscaprop.clicked.connect(propiedades.Propiedades.cargaTablaPropiedades)
 
 
         """
@@ -80,7 +80,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtDnicli.editingFinished.connect(lambda: clientes.Clientes.checkDNI(var.ui.txtDnicli.text()))
         var.ui.txtEmailcli.editingFinished.connect(clientes.Clientes.checkEmail)
         var.ui.txtMovilcli.editingFinished.connect(clientes.Clientes.checkMovil)
-
         var.ui.txtMovilprop.editingFinished.connect(propiedades.Propiedades.checkMovil)
 
 
@@ -89,6 +88,7 @@ class Main(QtWidgets.QMainWindow):
         """
         var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipioscli)
         var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosprop)
+        var.ui.cmbTipoprop.currentIndexChanged.connect(propiedades.Propiedades.cargaTablaPropiedadesSiNecesario)
 
 
         """

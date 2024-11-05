@@ -84,18 +84,13 @@ class Propiedades():
             print("Error al dar de alta la propiedad")
 
     @staticmethod
-    def cargaTablaPropiedades(filtertipoprop = None):
+    def cargaTablaPropiedades():
         try:
-            listado = conexion.Conexion.listadoPropiedades(filtertipoprop)
-            if not var.ui.chkHistoriprop.isChecked():
-                listado = [registro for registro in listado if registro[8] == ""]
+            listado = conexion.Conexion.listadoPropiedades()
             # listado = conexionserver.ConexionServer.listadoClientes()
             index = 0
-            if len(listado) == 0:
-                var.ui.tablaPropiedades.clearContents()
-                var.ui.tablaPropiedades.setRowCount(0)
+            var.ui.tablaPropiedades.setRowCount(len(listado))
             for registro in listado:
-                var.ui.tablaPropiedades.setRowCount(index + 1)
                 for j, dato in enumerate(registro):
                     if j in (5,6):
                         valor = (str(dato) if dato != "" else "-") + " €"
@@ -119,12 +114,12 @@ class Propiedades():
             print("Error al cargar la tabla de clientes", e)
 
     @staticmethod
-    def buscaTipoprop():
+    def cargaTablaPropiedadesSiNecesario():
         if var.ui.btnBuscaprop.isChecked():
-            tipo = var.ui.cmbTipoprop.currentText()
-            Propiedades.cargaTablaPropiedades(tipo)
-        else:
             Propiedades.cargaTablaPropiedades()
+        else:
+            pass
+
 
     @staticmethod
     def cargaOnePropiedad():
