@@ -270,6 +270,7 @@ class Conexion:
             if query.exec():
                 while query.next():
                     listado.append([query.value(i) for i in range(query.record().count())])
+
             if not var.ui.chkHistoriprop.isChecked():
                 listado = [registro for registro in listado if registro[8] == ""]
             return listado
