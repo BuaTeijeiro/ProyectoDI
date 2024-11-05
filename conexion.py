@@ -258,11 +258,15 @@ class Conexion:
             print("Error al guardar la propiedad en la base de datos")
 
     @staticmethod
-    def listadoPropiedades():
+    def listadoPropiedades(filtertipoprop = None):
         try:
             listado = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion FROM propiedades")
+            if filtertipoprop is not None:
+                query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad order by municipio")
+                query.bindValue(":tipo_propiedad", filtertipoprop)
+            else:
+                query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades order by municipio")
             if query.exec():
                 while query.next():
                     listado.append([query.value(i) for i in range(query.record().count())])
@@ -315,6 +319,17 @@ class Conexion:
                 return False
         except Exception as error:
             print("Error al guardar la propiedad en la base de datos")
+
+    @staticmethod
+    def bajaPropiedad(codigo, fechabaja):
+        query = QtSql.QSqlQuery()
+        query.prepare("Update propiedades set fechabaja = :fechabaja where codigo = :codigo")
+        query.bindValue(":fechabaja", fechabaja)
+        query.bindValue(":codigo", codigo)
+        if query.exec() and query.numRowsAffected() == 1:
+            return True
+        else:
+            return False
 
     @staticmethod
     def deletePropiedad(codigo):

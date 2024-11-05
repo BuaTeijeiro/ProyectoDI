@@ -84,15 +84,24 @@ class Propiedades():
             print("Error al dar de alta la propiedad")
 
     @staticmethod
-    def cargaTablaPropiedades():
+    def cargaTablaPropiedades(filtertipoprop = None):
         try:
-            listado = conexion.Conexion.listadoPropiedades()
+            listado = conexion.Conexion.listadoPropiedades(filtertipoprop)
+            if not var.ui.chkHistoriprop.isChecked():
+                listado = [registro for registro in listado if registro[8] == ""]
             # listado = conexionserver.ConexionServer.listadoClientes()
             index = 0
+            if len(listado) == 0:
+                var.ui.tablaPropiedades.clearContents()
+                var.ui.tablaPropiedades.setRowCount(0)
             for registro in listado:
                 var.ui.tablaPropiedades.setRowCount(index + 1)
                 for j, dato in enumerate(registro):
-                    var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(str(dato)))
+                    if j in (5,6):
+                        valor = (str(dato) if dato != "" else "-") + " €"
+                        var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(valor))
+                    else:
+                        var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(str(dato)))
 
 
                 var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -103,10 +112,19 @@ class Propiedades():
                 var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 index += 1
             eventos.Eventos.resizeTablaPropiedades()
         except Exception as e:
             print("Error al cargar la tabla de clientes", e)
+
+    @staticmethod
+    def buscaTipoprop():
+        if var.ui.btnBuscaprop.isChecked():
+            tipo = var.ui.cmbTipoprop.currentText()
+            Propiedades.cargaTablaPropiedades(tipo)
+        else:
+            Propiedades.cargaTablaPropiedades()
 
     @staticmethod
     def cargaOnePropiedad():
@@ -182,6 +200,18 @@ class Propiedades():
             eventos.Eventos.mostrarMensajeError("Es necesario rellenar todos los campos obligatorios")
         else:
             eventos.Eventos.mostrarMensajeError("No se pudo modificar la propiedad")
+
+    @staticmethod
+    def bajaProp():
+        codigo = var.ui.lblProp.text()
+        fechabaja = var.ui.txtFechabajaprop.text()
+        if fechabaja and conexion.Conexion.bajaPropiedad(codigo, fechabaja):
+            eventos.Eventos.mostrarMensajeOk("Propiedad dada de baja correctamente")
+            Propiedades.cargaTablaPropiedades()
+        elif not fechabaja:
+            eventos.Eventos.mostrarMensajeError("Debe introducir una fecha para dar de baja a la propiedad")
+        else:
+            eventos.Eventos.mostrarMensajeError("No se pudo dar de baja a la propiedad")
 
     @staticmethod
     def deleteProp():

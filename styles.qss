@@ -36,3 +36,9 @@ QPushButton{
     color: white;
     border-radius: 5px;
 }
+
+QPushButton:checked{
+    background-color: #ccc;
+    color: white;
+    border-radius: 5px;
+}

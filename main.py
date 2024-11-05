@@ -68,7 +68,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
         var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
-        var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.deleteProp)
+        var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
+        var.ui.btnBuscaprop.clicked.connect(propiedades.Propiedades.buscaTipoprop)
 
 
         """
@@ -94,6 +95,7 @@ class Main(QtWidgets.QMainWindow):
         """
 
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
+        var.ui.chkHistoriprop.stateChanged.connect(lambda: propiedades.Propiedades.cargaTablaPropiedades())
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
