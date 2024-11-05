@@ -37,7 +37,13 @@ QPushButton{
     border-radius: 5px;
 }
 
-QPushButton:checked{
+#btnBuscaprop{
+    background-color: #FFF;
+    color: white;
+    border-radius: 5px;
+}
+
+#btnBuscaprop:checked{
     background-color: #ccc;
     color: white;
     border-radius: 5px;

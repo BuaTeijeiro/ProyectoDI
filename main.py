@@ -54,6 +54,7 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mensajeSalir)
         var.ui.actionbarLimpiar.triggered.connect(eventos.Eventos.limpiarPanel)
+        var.ui.actionGestipoprop.triggered.connect(eventos.Eventos.abrirTipoprop)
 
         """
         zona de eventos de botones

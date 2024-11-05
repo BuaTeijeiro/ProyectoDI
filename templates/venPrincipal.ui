@@ -2194,6 +2194,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionGestipoprop"/>
    <addaction name="actionbarLimpiar"/>
    <addaction name="separator"/>
    <addaction name="actionbarSalir"/>
@@ -2243,6 +2244,18 @@
   <action name="actionTipoPropiedades">
    <property name="text">
     <string>Tipos de propiedad</string>
+   </property>
+  </action>
+  <action name="actionGestipoprop">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/gestprop.ico</normaloff>../img/gestprop.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Gestionar tipos de propiedad</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+G</string>
    </property>
   </action>
  </widget>
