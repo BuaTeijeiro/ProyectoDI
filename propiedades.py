@@ -175,7 +175,9 @@ class Propiedades():
 
         areFieldsMissing = camposObligatorios.count("") > 0
         isBajaOk = var.ui.rbtDisponprop.isChecked() if not var.ui.txtFechabajaprop.text() else not var.ui.rbtDisponprop.isChecked()
-        areRequirementsOK = not areFieldsMissing and isBajaOk
+        isAlquilerOk = (var.ui.txtPrecioalquilerprop.text() and var.ui.chkAlquilprop.isChecked()) or (not var.ui.txtPrecioalquilerprop.text() and not var.ui.chkAlquilprop.isChecked())
+        isVentaOk = (var.ui.txtPrecioventaprop.text() and var.ui.chkVentaprop.isChecked()) or (not var.ui.txtPrecioventaprop.text() and not var.ui.chkVentaprop.isChecked())
+        areRequirementsOK = not areFieldsMissing and isBajaOk and isAlquilerOk and isVentaOk
 
         propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),
                      var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(),
@@ -202,10 +204,15 @@ class Propiedades():
         if areRequirementsOK and conexion.Conexion.modifPropiedad(propiedad):
             eventos.Eventos.mostrarMensajeOk("Propiedad modificada correctamente")
             Propiedades.cargaTablaPropiedades()
-        elif not isBajaOk:
-            eventos.Eventos.mostrarMensajeError("No se puede modificar porque la fecha de baja y el estado no son coherentes\n -Las propiedades sin fecha de baja deben estar disponibles\n -Las propiedades con fecha de baja no pueden estar disponibles")
         elif areFieldsMissing:
             eventos.Eventos.mostrarMensajeError("Es necesario rellenar todos los campos obligatorios")
+        elif not isBajaOk:
+            eventos.Eventos.mostrarMensajeError(
+            "No se puede modificar porque la fecha de baja y el estado no son coherentes\n -Las propiedades sin fecha de baja deben estar disponibles\n -Las propiedades con fecha de baja no pueden estar disponibles")
+        elif not isAlquilerOk:
+            eventos.Eventos.mostrarMensajeError("Si es alquilable debe tener precio de Alquiler y vicerversa")
+        elif not isVentaOk:
+            eventos.Eventos.mostrarMensajeError("Si se puede vender debe tener precio de venta y vicerversa")
         else:
             eventos.Eventos.mostrarMensajeError("No se pudo modificar la propiedad")
 
