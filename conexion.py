@@ -262,11 +262,7 @@ class Conexion:
         try:
             listado = []
             query = QtSql.QSqlQuery()
-            if var.ui.btnBuscaprop.isChecked():
-                query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad order by municipio")
-                query.bindValue(":tipo_propiedad", var.ui.cmbTipoprop.currentText())
-            else:
-                query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades order by municipio")
+            query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades order by municipio")
             if query.exec():
                 while query.next():
                     listado.append([query.value(i) for i in range(query.record().count())])
@@ -276,6 +272,21 @@ class Conexion:
             return listado
         except Exception as error:
             print("Error al cargar las propiedades", error)
+
+    @staticmethod
+    def listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia):
+        listado = []
+        query = QtSql.QSqlQuery()
+        query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad and municipio = :municipio and provincia = :provincia and estado = :estado")
+        query.bindValue(":tipo_propiedad", tipo_propiedad)
+        query.bindValue(":municipio", municipio)
+        query.bindValue(":provincia", provincia)
+        query.bindValue(":estado", "Disponible")
+        if query.exec():
+            while query.next():
+                listado.append([query.value(i) for i in range(query.record().count())])
+        return listado
+
 
     @staticmethod
     def datosOnePropiedad(codigo):
@@ -312,7 +323,10 @@ class Conexion:
             query.bindValue(":estado", str(propiedad[15]))
             query.bindValue(":nombre_propietario", str(propiedad[12]))
             query.bindValue(":movil", str(propiedad[13]))
-            query.bindValue(":fechabaja", str(propiedad[16]))
+            if propiedad[16]=="":
+                query.bindValue(":fechabaja", QtCore.QVariant())
+            else:
+                query.bindValue(":fechabaja", str(propiedad[16]))
             query.bindValue(":codigo", str(propiedad[17]))
             if query.exec() and query.numRowsAffected() == 1:
                 print(query.lastError().text())

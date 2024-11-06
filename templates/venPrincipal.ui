@@ -1312,32 +1312,6 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btnBuscaprop">
-                <property name="minimumSize">
-                 <size>
-                  <width>24</width>
-                  <height>24</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>24</width>
-                  <height>24</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>../img/lupa.ico</normaloff>../img/lupa.ico</iconset>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
                <spacer name="horizontalSpacer_29">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -2194,6 +2168,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionGestipoprop"/>
+   <addaction name="actionBuscar"/>
    <addaction name="actionbarLimpiar"/>
    <addaction name="separator"/>
    <addaction name="actionbarSalir"/>
@@ -2255,6 +2230,21 @@
    </property>
    <property name="shortcut">
     <string>Alt+G</string>
+   </property>
+  </action>
+  <action name="actionBuscar">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/lupa.ico</normaloff>../img/lupa.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Buscar</string>
+   </property>
+   <property name="toolTip">
+    <string>Buscar Por Municipio y Tipo de Propiedad</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+B</string>
    </property>
   </action>
  </widget>

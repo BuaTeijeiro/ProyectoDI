@@ -88,37 +88,45 @@ class Propiedades():
         try:
             listado = conexion.Conexion.listadoPropiedades()
             # listado = conexionserver.ConexionServer.listadoClientes()
-            index = 0
-            var.ui.tablaPropiedades.setRowCount(len(listado))
-            for registro in listado:
-                for j, dato in enumerate(registro):
-                    if j in (5,6):
-                        valor = (str(dato) if dato != "" else "-") + " €"
-                        var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(valor))
-                    else:
-                        var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(str(dato)))
+            Propiedades.setTablaPropiedades(listado)
 
-
-                var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaPropiedades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                var.ui.tablaPropiedades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaPropiedades.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                index += 1
-            eventos.Eventos.resizeTablaPropiedades()
         except Exception as e:
             print("Error al cargar la tabla de clientes", e)
 
     @staticmethod
-    def cargaTablaPropiedadesSiNecesario():
-        if var.ui.btnBuscaprop.isChecked():
-            Propiedades.cargaTablaPropiedades()
-        else:
-            pass
+    def filtrarTablaPropiedades():
+        try:
+            tipo_propiedad = var.ui.cmbTipoprop.currentText()
+            provincia = var.ui.cmbProvprop.currentText()
+            municipio = var.ui.cmbMuniprop.currentText()
+            listado = conexion.Conexion.listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia)
+            Propiedades.setTablaPropiedades(listado)
+        except Exception as e:
+            print("Error al cargar la tabla de clientes", e)
+
+    @staticmethod
+    def setTablaPropiedades(listado):
+        index = 0
+        var.ui.tablaPropiedades.setRowCount(len(listado))
+        for registro in listado:
+            for j, dato in enumerate(registro):
+                if j in (5, 6):
+                    valor = (str(dato) if dato != "" else "-") + " €"
+                    var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(valor))
+                else:
+                    var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(str(dato)))
+
+            var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            var.ui.tablaPropiedades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+            var.ui.tablaPropiedades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+            var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            var.ui.tablaPropiedades.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+            var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+            index += 1
+        eventos.Eventos.resizeTablaPropiedades()
 
 
     @staticmethod
@@ -166,6 +174,9 @@ class Propiedades():
                               var.ui.txtSuperprop.text(), var.ui.txtNomeprop.text(), var.ui.txtMovilprop.text()]
 
         areFieldsMissing = camposObligatorios.count("") > 0
+        isBajaOk = var.ui.rbtDisponprop.isChecked() if not var.ui.txtFechabajaprop.text() else not var.ui.rbtDisponprop.isChecked()
+        areRequirementsOK = not areFieldsMissing and isBajaOk
+
         propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),
                      var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(),
                      var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(),
@@ -188,9 +199,11 @@ class Propiedades():
         propiedad.append(var.ui.txtFechabajaprop.text())
         propiedad.append(var.ui.lblProp.text())
 
-        if not areFieldsMissing and conexion.Conexion.modifPropiedad(propiedad):
+        if areRequirementsOK and conexion.Conexion.modifPropiedad(propiedad):
             eventos.Eventos.mostrarMensajeOk("Propiedad modificada correctamente")
             Propiedades.cargaTablaPropiedades()
+        elif not isBajaOk:
+            eventos.Eventos.mostrarMensajeError("No se puede modificar porque la fecha de baja y el estado no son coherentes\n -Las propiedades sin fecha de baja deben estar disponibles\n -Las propiedades con fecha de baja no pueden estar disponibles")
         elif areFieldsMissing:
             eventos.Eventos.mostrarMensajeError("Es necesario rellenar todos los campos obligatorios")
         else:
@@ -200,9 +213,13 @@ class Propiedades():
     def bajaProp():
         codigo = var.ui.lblProp.text()
         fechabaja = var.ui.txtFechabajaprop.text()
-        if fechabaja and conexion.Conexion.bajaPropiedad(codigo, fechabaja):
+        isDisponible = var.ui.rbtDisponprop.isChecked()
+        requirement = fechabaja and not isDisponible
+        if requirement and conexion.Conexion.bajaPropiedad(codigo, fechabaja):
             eventos.Eventos.mostrarMensajeOk("Propiedad dada de baja correctamente")
             Propiedades.cargaTablaPropiedades()
+        elif isDisponible:
+            eventos.Eventos.mostrarMensajeError("Una propiedad no puede estar disponible y darla de baja")
         elif not fechabaja:
             eventos.Eventos.mostrarMensajeError("Debe introducir una fecha para dar de baja a la propiedad")
         else:

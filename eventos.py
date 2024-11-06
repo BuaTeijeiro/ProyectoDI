@@ -12,6 +12,7 @@ import re
 
 import conexionserver
 import eventos
+import propiedades
 import var
 import time
 import zipfile
@@ -246,6 +247,9 @@ class Eventos():
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
         eventos.Eventos.cargarTiposprop()
+
+        clientes.Clientes.cargaTablaClientes()
+        propiedades.Propiedades.cargaTablaPropiedades()
 
     @staticmethod
     def cargarTiposprop():

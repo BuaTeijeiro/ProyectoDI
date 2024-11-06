@@ -55,6 +55,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mensajeSalir)
         var.ui.actionbarLimpiar.triggered.connect(eventos.Eventos.limpiarPanel)
         var.ui.actionGestipoprop.triggered.connect(eventos.Eventos.abrirTipoprop)
+        var.ui.actionBuscar.triggered.connect(propiedades.Propiedades.filtrarTablaPropiedades)
 
         """
         zona de eventos de botones
@@ -70,7 +71,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
         var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
         var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
-        var.ui.btnBuscaprop.clicked.connect(propiedades.Propiedades.cargaTablaPropiedades)
 
 
         """
@@ -88,8 +88,6 @@ class Main(QtWidgets.QMainWindow):
         """
         var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipioscli)
         var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosprop)
-        var.ui.cmbTipoprop.currentIndexChanged.connect(propiedades.Propiedades.cargaTablaPropiedadesSiNecesario)
-
 
         """
         eventos de checkbox
