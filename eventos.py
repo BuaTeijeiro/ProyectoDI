@@ -108,6 +108,12 @@ class Eventos():
         return re.fullmatch(regex, movil)
 
     @staticmethod
+    def checkFechas(date1, date2):
+        date1 = Eventos.convertStringToDate(date1)
+        date2 = Eventos.convertStringToDate(date2)
+        return date2 >= date1
+
+    @staticmethod
     def abrirCalendar(btn):
         try:
             var.btn = btn
@@ -280,3 +286,12 @@ class Eventos():
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
         mbox.exec()
+
+    @staticmethod
+    def convertStringToDate(date):
+        date = date.split('/')
+        day = date[0]
+        month = date[1]
+        year = date[2]
+        date = datetime(year=int(year), month=int(month), day=int(day))
+        return date

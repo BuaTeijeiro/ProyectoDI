@@ -1,4 +1,5 @@
 from datetime import datetime
+from importlib.metadata import requires
 
 from PyQt6 import QtWidgets, QtGui, QtCore
 
@@ -127,13 +128,18 @@ class Clientes:
             camposObligatorios = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
                                   var.ui.txtNomcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text()]
 
-            missingFields = camposObligatorios.count("")
+            areFieldsMissing = camposObligatorios.count("") > 0
+            areDatesOk = eventos.Eventos.checkFechas(var.ui.txtAltacli.text(), var.ui.txtBajacli.text()) if var.ui.txtBajacli.text() != "" else True
+            requirements = not areFieldsMissing and areDatesOk
 
-            if missingFields == 0 and conexion.Conexion.modifCliente(modifcli):
+            if requirements and conexion.Conexion.modifCliente(modifcli):
                 eventos.Eventos.mostrarMensajeOk("Datos del cliente modificados correctamente")
                 Clientes.cargaTablaClientes()
-            elif missingFields >0:
+            elif areFieldsMissing:
                 eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios')
+            elif not areDatesOk:
+                eventos.Eventos.mostrarMensajeError('La fecha de baja no puede ser anterior a la de alta')
+                var.ui.txtBajacli.setText("")
             else:
                 eventos.Eventos.mostrarMensajeError('No se pudo modificar al cliente correctamente, es posible que no exista en la base de datos')
         except Exception as error:

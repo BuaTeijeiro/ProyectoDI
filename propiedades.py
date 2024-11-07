@@ -190,7 +190,9 @@ class Propiedades():
         isBajaOk = var.ui.rbtDisponprop.isChecked() if not var.ui.txtFechabajaprop.text() else not var.ui.rbtDisponprop.isChecked()
         isAlquilerOk = (var.ui.txtPrecioalquilerprop.text() and var.ui.chkAlquilprop.isChecked()) or (not var.ui.txtPrecioalquilerprop.text() and not var.ui.chkAlquilprop.isChecked())
         isVentaOk = (var.ui.txtPrecioventaprop.text() and var.ui.chkVentaprop.isChecked()) or (not var.ui.txtPrecioventaprop.text() and not var.ui.chkVentaprop.isChecked())
-        areRequirementsOK = not areFieldsMissing and isBajaOk and isAlquilerOk and isVentaOk
+        areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text()) if var.ui.txtFechabajaprop.text() != "" else True
+
+        areRequirementsOK = not areFieldsMissing and isBajaOk and isAlquilerOk and isVentaOk and areDatesOk
 
         propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),
                      var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(),
@@ -226,6 +228,9 @@ class Propiedades():
             eventos.Eventos.mostrarMensajeError("Si es alquilable debe tener precio de Alquiler y vicerversa")
         elif not isVentaOk:
             eventos.Eventos.mostrarMensajeError("Si se puede vender debe tener precio de venta y vicerversa")
+        elif not areDatesOk:
+            eventos.Eventos.mostrarMensajeError("La fecha de baja no puede ser anterior a la de alta")
+            var.ui.txtFechabajaprop.setText("")
         else:
             eventos.Eventos.mostrarMensajeError("No se pudo modificar la propiedad")
 
@@ -235,7 +240,8 @@ class Propiedades():
         fechabaja = var.ui.txtFechabajaprop.text()
         isDisponible = var.ui.rbtDisponprop.isChecked()
         isBajaOk = (var.ui.rbtAlquilprop.isChecked() and var.ui.chkAlquilprop.isChecked()) or (var.ui.rbtVentaprop.isChecked() and var.ui.chkVentaprop.isChecked())
-        requirement = fechabaja and not isDisponible and isBajaOk
+        areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text())
+        requirement = fechabaja and not isDisponible and isBajaOk and areDatesOk
         if requirement and conexion.Conexion.bajaPropiedad(codigo, fechabaja):
             eventos.Eventos.mostrarMensajeOk("Propiedad dada de baja correctamente")
             Propiedades.cargaTablaPropiedades()
@@ -245,6 +251,9 @@ class Propiedades():
             eventos.Eventos.mostrarMensajeError("Debe introducir una fecha para dar de baja a la propiedad")
         elif not isBajaOk:
             eventos.Eventos.mostrarMensajeError("Para que una propiedad se alquile o venda, debe tener esa posibilidad, modifíquela primero")
+        elif not areDatesOk:
+            eventos.Eventos.mostrarMensajeError("La fecha de baja no puede ser anterior a la de alta")
+            var.ui.txtFechabajaprop.setText("")
         else:
             eventos.Eventos.mostrarMensajeError("No se pudo dar de baja a la propiedad")
 
