@@ -55,6 +55,13 @@ class Propiedades():
 
             areFieldsMissing = camposObligatorios.count("") > 0
 
+            isAlquilerOk = (var.ui.txtPrecioalquilerprop.text() and var.ui.chkAlquilprop.isChecked()) or (
+                        not var.ui.txtPrecioalquilerprop.text() and not var.ui.chkAlquilprop.isChecked())
+            isVentaOk = (var.ui.txtPrecioventaprop.text() and var.ui.chkVentaprop.isChecked()) or (
+                        not var.ui.txtPrecioventaprop.text() and not var.ui.chkVentaprop.isChecked())
+            isAltaOk = not var.ui.txtFechabajaprop.text() and var.ui.rbtDisponprop.isChecked()
+            areRequirementsOK = not areFieldsMissing and isAlquilerOk and isVentaOk and isAltaOk
+
 
             propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
             tipooper = []
@@ -73,9 +80,15 @@ class Propiedades():
                 propiedad.append(var.ui.rbtVentaprop.text())
 
 
-            if not areFieldsMissing and conexion.Conexion.altaPropiedad(propiedad):
+            if areRequirementsOK and conexion.Conexion.altaPropiedad(propiedad):
                 eventos.Eventos.mostrarMensajeOk("Se ha guardado la propiedad correctamente")
                 Propiedades.cargaTablaPropiedades()
+            elif not isAltaOk:
+                eventos.Eventos.mostrarMensajeError("Al dar de alta una propiedad debe estar disponible y sin fecha de baja")
+            elif not isAlquilerOk:
+                eventos.Eventos.mostrarMensajeError("Si es alquilable debe tener precio de Alquiler y vicerversa")
+            elif not isVentaOk:
+                eventos.Eventos.mostrarMensajeError("Si se puede vender debe tener precio de venta y vicerversa")
             elif areFieldsMissing:
                 eventos.Eventos.mostrarMensajeError("Es necesario rellenar todos los campos obligatorios")
             else:
@@ -221,7 +234,8 @@ class Propiedades():
         codigo = var.ui.lblProp.text()
         fechabaja = var.ui.txtFechabajaprop.text()
         isDisponible = var.ui.rbtDisponprop.isChecked()
-        requirement = fechabaja and not isDisponible
+        isBajaOk = (var.ui.rbtAlquilprop.isChecked() and var.ui.chkAlquilprop.isChecked()) or (var.ui.rbtVentaprop.isChecked() and var.ui.chkVentaprop.isChecked())
+        requirement = fechabaja and not isDisponible and isBajaOk
         if requirement and conexion.Conexion.bajaPropiedad(codigo, fechabaja):
             eventos.Eventos.mostrarMensajeOk("Propiedad dada de baja correctamente")
             Propiedades.cargaTablaPropiedades()
@@ -229,6 +243,8 @@ class Propiedades():
             eventos.Eventos.mostrarMensajeError("Una propiedad no puede estar disponible y darla de baja")
         elif not fechabaja:
             eventos.Eventos.mostrarMensajeError("Debe introducir una fecha para dar de baja a la propiedad")
+        elif not isBajaOk:
+            eventos.Eventos.mostrarMensajeError("Para que una propiedad se alquile o venda, debe tener esa posibilidad, modifíquela primero")
         else:
             eventos.Eventos.mostrarMensajeError("No se pudo dar de baja a la propiedad")
 

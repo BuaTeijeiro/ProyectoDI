@@ -31,12 +31,13 @@ class Clientes:
             mail = str(var.ui.txtEmailcli.text())
             if eventos.Eventos.validarMail(mail):
                 var.ui.txtEmailcli.setStyleSheet('background-color: rgb(255, 255, 255);')
+                var.ui.txtEmailcli.setPlaceholderText("")
                 var.ui.txtEmailcli.setText(mail.lower())
 
             else:
                 var.ui.txtEmailcli.setStyleSheet('background-color:#FFC0CB; font-style: italic;')
                 var.ui.txtEmailcli.setText(None)
-                var.ui.txtEmailcli.setText("correo no válido")
+                var.ui.txtEmailcli.setPlaceholderText("correo no válido")
                 var.ui.txtEmailcli.setFocus()
 
         except Exception as error:
@@ -80,8 +81,8 @@ class Clientes:
             listado = conexion.Conexion.listadoClientes()
             #listado = conexionserver.ConexionServer.listadoClientes()
             index = 0
+            var.ui.tablaClientes.setRowCount(len(listado))
             for registro in listado:
-                var.ui.tablaClientes.setRowCount(index + 1)
                 var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(registro[0]))
                 var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[2]))
                 var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[3]))

@@ -96,8 +96,8 @@ class Eventos():
     @staticmethod
     def validarMail(mail):
         mail = mail.lower()
-        regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
-        if re.match(regex, mail) or mail == "":
+        regex = r'[a-zA-Z0-9]+([\._][a-zA-Z0-9]+)*[@]\w+[.]\w+'
+        if re.fullmatch(regex, mail) or mail == "":
             return True
         else:
             return False

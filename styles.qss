@@ -10,13 +10,20 @@ QTabWidget {
     background-color: whitesmoke;
 }
 
-QTableWidget::item:alternate {
-    background-color: #E0E0E0;
+QTableWidget::item:alternate{
+    background-color: #eee;
 }
 
+QTableWidget::item:selected{
+    background-color: #ddd;
+    color: black;
+}
 
-QTableView::item:hover{
-    background-color: deepskyblue;
+QHeaderView::section{
+    padding: 5px;
+    background-color: #d7eff6;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 /* --- Estilo Menu bar ---- */
@@ -33,18 +40,6 @@ QToolBar{
  /* --- Estilo botones ---*/
 QPushButton{
     background-color: #0ea2ae;
-    color: white;
-    border-radius: 5px;
-}
-
-#btnBuscaprop{
-    background-color: #FFF;
-    color: white;
-    border-radius: 5px;
-}
-
-#btnBuscaprop:checked{
-    background-color: #ccc;
     color: white;
     border-radius: 5px;
 }
