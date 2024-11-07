@@ -2,9 +2,6 @@ from calendar import Calendar
 
 import clientes
 import conexion
-import conexionserver
-import eventos
-import propiedades
 import styles
 from venPrincipal import *
 from venAux import *

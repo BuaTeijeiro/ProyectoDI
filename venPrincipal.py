@@ -831,7 +831,7 @@ class Ui_venPrincipal(object):
         self.toolBar.addAction(self.actionbarSalir)
 
         self.retranslateUi(venPrincipal)
-        self.panPrincipal.setCurrentIndex(1)
+        self.panPrincipal.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(venPrincipal)
         venPrincipal.setTabOrder(self.txtAltacli, self.txtNomcli)
         venPrincipal.setTabOrder(self.txtNomcli, self.txtEmailcli)
