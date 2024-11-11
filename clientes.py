@@ -66,13 +66,17 @@ class Clientes:
 
         camposObligatorios = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text()]
 
-        missingFields = camposObligatorios.count("")
+        areFieldsMissing = camposObligatorios.count("") > 0
+        areDatesOk = eventos.Eventos.checkFechas(var.ui.txtAltacli.text(), var.ui.txtBajacli.text())
+        requirements = not areFieldsMissing and areDatesOk
 
-        if missingFields ==0 and conexion.Conexion.altaCliente(nuevocli):
+        if requirements and conexion.Conexion.altaCliente(nuevocli):
             eventos.Eventos.mostrarMensajeOk("Cliente dado de alta en base de datos correctamente")
             Clientes.cargaTablaClientes()
-        elif missingFields > 0:
+        elif areFieldsMissing:
             eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios')
+        elif not areDatesOk:
+            eventos.Eventos.mostrarMensajeError("El formato de la fecha debe ser dd/mm/aaaa")
         else:
             eventos.Eventos.mostrarMensajeError('No se pudo guardar el cliente correctamente, es posible que ya se halle en la base de datos')
 
@@ -129,7 +133,7 @@ class Clientes:
                                   var.ui.txtNomcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text()]
 
             areFieldsMissing = camposObligatorios.count("") > 0
-            areDatesOk = eventos.Eventos.checkFechas(var.ui.txtAltacli.text(), var.ui.txtBajacli.text()) if var.ui.txtBajacli.text() != "" else True
+            areDatesOk = eventos.Eventos.checkFechas(var.ui.txtAltacli.text(), var.ui.txtBajacli.text())
             requirements = not areFieldsMissing and areDatesOk
 
             if requirements and conexion.Conexion.modifCliente(modifcli):
@@ -138,7 +142,7 @@ class Clientes:
             elif areFieldsMissing:
                 eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios')
             elif not areDatesOk:
-                eventos.Eventos.mostrarMensajeError('La fecha de baja no puede ser anterior a la de alta')
+                eventos.Eventos.mostrarMensajeError("Hay algún problema con las fechas, compruebe lo siguiente:\n -Las fechas deben de tener el formato dd/mm/aaaa o estar el campo vacío\n -La fecha de baja no puede ser anterior a la de alta")
                 var.ui.txtBajacli.setText("")
             else:
                 eventos.Eventos.mostrarMensajeError('No se pudo modificar al cliente correctamente, es posible que no exista en la base de datos')

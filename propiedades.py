@@ -60,7 +60,10 @@ class Propiedades():
             isVentaOk = (var.ui.txtPrecioventaprop.text() and var.ui.chkVentaprop.isChecked()) or (
                         not var.ui.txtPrecioventaprop.text() and not var.ui.chkVentaprop.isChecked())
             isAltaOk = not var.ui.txtFechabajaprop.text() and var.ui.rbtDisponprop.isChecked()
-            areRequirementsOK = not areFieldsMissing and isAlquilerOk and isVentaOk and isAltaOk
+            areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text())
+            areRequirementsOK = not areFieldsMissing and isAlquilerOk and isVentaOk and isAltaOk and areDatesOk
+
+
 
 
             propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
@@ -91,6 +94,10 @@ class Propiedades():
                 eventos.Eventos.mostrarMensajeError("Si se puede vender debe tener precio de venta y vicerversa")
             elif areFieldsMissing:
                 eventos.Eventos.mostrarMensajeError("Es necesario rellenar todos los campos obligatorios")
+            elif not areDatesOk:
+                eventos.Eventos.mostrarMensajeError(
+                    "Las fecha de alta deben de tener el formato dd/mm/aaaa")
+                var.ui.txtFechabajaprop.setText("")
             else:
                 eventos.Eventos.mostrarMensajeError("Error al guardar la propiedad")
         except Exception as error:
@@ -190,7 +197,7 @@ class Propiedades():
         isBajaOk = var.ui.rbtDisponprop.isChecked() if not var.ui.txtFechabajaprop.text() else not var.ui.rbtDisponprop.isChecked()
         isAlquilerOk = (var.ui.txtPrecioalquilerprop.text() and var.ui.chkAlquilprop.isChecked()) or (not var.ui.txtPrecioalquilerprop.text() and not var.ui.chkAlquilprop.isChecked())
         isVentaOk = (var.ui.txtPrecioventaprop.text() and var.ui.chkVentaprop.isChecked()) or (not var.ui.txtPrecioventaprop.text() and not var.ui.chkVentaprop.isChecked())
-        areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text()) if var.ui.txtFechabajaprop.text() != "" else True
+        areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text())
 
         areRequirementsOK = not areFieldsMissing and isBajaOk and isAlquilerOk and isVentaOk and areDatesOk
 
@@ -229,7 +236,7 @@ class Propiedades():
         elif not isVentaOk:
             eventos.Eventos.mostrarMensajeError("Si se puede vender debe tener precio de venta y vicerversa")
         elif not areDatesOk:
-            eventos.Eventos.mostrarMensajeError("La fecha de baja no puede ser anterior a la de alta")
+            eventos.Eventos.mostrarMensajeError("Hay algún problema con las fechas, compruebe lo siguiente:\n -Las fechas deben de tener el formato dd/mm/aaaa o estar el campo vacío\n -La fecha de baja no puede ser anterior a la de alta")
             var.ui.txtFechabajaprop.setText("")
         else:
             eventos.Eventos.mostrarMensajeError("No se pudo modificar la propiedad")
@@ -252,7 +259,7 @@ class Propiedades():
         elif not isBajaOk:
             eventos.Eventos.mostrarMensajeError("Para que una propiedad se alquile o venda, debe tener esa posibilidad, modifíquela primero")
         elif not areDatesOk:
-            eventos.Eventos.mostrarMensajeError("La fecha de baja no puede ser anterior a la de alta")
+            eventos.Eventos.mostrarMensajeError("Hay algún problema con las fechas, compruebe lo siguiente:\n -Las fechas deben de tener el formato dd/mm/aaaa o estar el campo vacío\n -La fecha de baja no puede ser anterior a la de alta")
             var.ui.txtFechabajaprop.setText("")
         else:
             eventos.Eventos.mostrarMensajeError("No se pudo dar de baja a la propiedad")
