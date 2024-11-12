@@ -245,11 +245,18 @@ class Propiedades():
     def bajaProp():
         codigo = var.ui.lblProp.text()
         fechabaja = var.ui.txtFechabajaprop.text()
+        if var.ui.rbtDisponprop.isChecked():
+            disponibilidad = var.ui.rbtDisponprop.text()
+        elif var.ui.rbtAlquilprop.isChecked():
+            disponibilidad = var.ui.rbtAlquilprop.text()
+        else:
+            disponibilidad = var.ui.rbtVentaprop.text()
+
         isDisponible = var.ui.rbtDisponprop.isChecked()
         isBajaOk = (var.ui.rbtAlquilprop.isChecked() and var.ui.chkAlquilprop.isChecked()) or (var.ui.rbtVentaprop.isChecked() and var.ui.chkVentaprop.isChecked())
         areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text())
         requirement = fechabaja and not isDisponible and isBajaOk and areDatesOk
-        if requirement and conexion.Conexion.bajaPropiedad(codigo, fechabaja):
+        if requirement and conexion.Conexion.bajaPropiedad(codigo, fechabaja, disponibilidad):
             eventos.Eventos.mostrarMensajeOk("Propiedad dada de baja correctamente")
             Propiedades.cargaTablaPropiedades()
         elif isDisponible:

@@ -277,11 +277,18 @@ class Conexion:
     def listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia):
         listado = []
         query = QtSql.QSqlQuery()
-        query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad and municipio = :municipio and provincia = :provincia and estado = :estado")
-        query.bindValue(":tipo_propiedad", tipo_propiedad)
-        query.bindValue(":municipio", municipio)
-        query.bindValue(":provincia", provincia)
-        query.bindValue(":estado", "Disponible")
+        if var.ui.chkHistoriprop.isChecked():
+            query.prepare(
+                "SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad and municipio = :municipio and provincia = :provincia")
+            query.bindValue(":tipo_propiedad", tipo_propiedad)
+            query.bindValue(":municipio", municipio)
+            query.bindValue(":provincia", provincia)
+        else:
+            query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad and municipio = :municipio and provincia = :provincia and estado = :estado")
+            query.bindValue(":tipo_propiedad", tipo_propiedad)
+            query.bindValue(":municipio", municipio)
+            query.bindValue(":provincia", provincia)
+            query.bindValue(":estado", "Disponible")
         if query.exec():
             while query.next():
                 listado.append([query.value(i) for i in range(query.record().count())])
@@ -338,11 +345,12 @@ class Conexion:
             print("Error al guardar la propiedad en la base de datos")
 
     @staticmethod
-    def bajaPropiedad(codigo, fechabaja):
+    def bajaPropiedad(codigo, fechabaja, disponibilidad):
         query = QtSql.QSqlQuery()
-        query.prepare("Update propiedades set fechabaja = :fechabaja where codigo = :codigo")
+        query.prepare("Update propiedades set fechabaja = :fechabaja, estado =:estado where codigo = :codigo")
         query.bindValue(":fechabaja", fechabaja)
         query.bindValue(":codigo", codigo)
+        query.bindValue(":estado", disponibilidad)
         if query.exec() and query.numRowsAffected() == 1:
             return True
         else:
