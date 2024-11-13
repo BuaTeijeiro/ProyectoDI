@@ -49,7 +49,7 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pesClientes">
        <attribute name="title">
@@ -1794,6 +1794,12 @@
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::WheelFocus</enum>
+                  </property>
+                  <property name="contextMenuPolicy">
+                   <enum>Qt::ActionsContextMenu</enum>
+                  </property>
                   <property name="text">
                    <string>Alquilado</string>
                   </property>
@@ -2277,14 +2283,52 @@
   </action>
  </widget>
  <tabstops>
+  <tabstop>txtFechaprop</tabstop>
+  <tabstop>btnFechaprop</tabstop>
+  <tabstop>txtFechabajaprop</tabstop>
+  <tabstop>btnFechabajaprop</tabstop>
+  <tabstop>chkHistoriprop</tabstop>
+  <tabstop>txtCPprop</tabstop>
+  <tabstop>txtDirprop</tabstop>
+  <tabstop>cmbProvprop</tabstop>
+  <tabstop>cmbMuniprop</tabstop>
+  <tabstop>cmbTipoprop</tabstop>
+  <tabstop>spinHabprop</tabstop>
+  <tabstop>spinBanosprop</tabstop>
+  <tabstop>txtSuperprop</tabstop>
+  <tabstop>txtPrecioalquilerprop</tabstop>
+  <tabstop>txtPrecioventaprop</tabstop>
+  <tabstop>txtComentarioprop</tabstop>
+  <tabstop>chkAlquilprop</tabstop>
+  <tabstop>chkVentaprop</tabstop>
+  <tabstop>chkInterprop</tabstop>
+  <tabstop>rbtDisponprop</tabstop>
+  <tabstop>rbtAlquilprop</tabstop>
+  <tabstop>rbtVentaprop</tabstop>
+  <tabstop>txtNomeprop</tabstop>
+  <tabstop>txtMovilprop</tabstop>
+  <tabstop>btnGrabarprop</tabstop>
+  <tabstop>btnModifprop</tabstop>
+  <tabstop>btnDelprop</tabstop>
+  <tabstop>tablaPropiedades</tabstop>
+  <tabstop>txtDnicli</tabstop>
   <tabstop>txtAltacli</tabstop>
+  <tabstop>btnAltacli</tabstop>
+  <tabstop>txtBajacli</tabstop>
+  <tabstop>btnBajacli</tabstop>
+  <tabstop>chkHistoriacli</tabstop>
+  <tabstop>txtApelcli</tabstop>
   <tabstop>txtNomcli</tabstop>
   <tabstop>txtEmailcli</tabstop>
+  <tabstop>txtMovilcli</tabstop>
   <tabstop>txtDircli</tabstop>
+  <tabstop>cmbProvcli</tabstop>
+  <tabstop>cmbMunicli</tabstop>
   <tabstop>btnGrabarcli</tabstop>
   <tabstop>btnModifcli</tabstop>
   <tabstop>btnDelcli</tabstop>
-  <tabstop>btnAltacli</tabstop>
+  <tabstop>tablaClientes</tabstop>
+  <tabstop>panPrincipal</tabstop>
  </tabstops>
  <resources/>
  <connections/>
