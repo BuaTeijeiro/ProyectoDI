@@ -260,7 +260,6 @@ class Eventos():
         var.ui.chkInterprop.setChecked(False)
         var.ui.rbtDisponprop.setChecked(True)
 
-
         for i, element in enumerate(objetosPanel):
             if isinstance(element, QSpinBox):
                 element.setValue(0)

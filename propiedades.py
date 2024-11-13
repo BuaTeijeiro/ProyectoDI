@@ -21,6 +21,30 @@ class Propiedades():
         except Exception as error:
             print("error check cliente", error)
 
+    @staticmethod
+    def reloadDisponibility():
+        if var.ui.txtFechabajaprop.text() == "":
+            var.ui.rbtDisponprop.setEnabled(True)
+            var.ui.rbtAlquilprop.setEnabled(False)
+            var.ui.rbtVentaprop.setEnabled(False)
+            var.ui.rbtDisponprop.setChecked(True)
+        else:
+            var.ui.rbtAlquilprop.setChecked(True)
+            var.ui.rbtDisponprop.setEnabled(False)
+            var.ui.rbtAlquilprop.setEnabled(True)
+            var.ui.rbtVentaprop.setEnabled(True)
+
+    @staticmethod
+    def reloadTipoOperacion():
+        var.ui.chkAlquilprop.setChecked(var.ui.txtPrecioalquilerprop.text()!="")
+        var.ui.chkVentaprop.setChecked(var.ui.txtPrecioventaprop.text() != "")
+
+    @staticmethod
+    def reloadPrecio():
+        if not var.ui.chkAlquilprop.isChecked():
+            var.ui.txtPrecioalquilerprop.setText("")
+        if not var.ui.chkVentaprop.isChecked():
+            var.ui.txtPrecioventaprop.setText("")
 
     @staticmethod
     def altaTipoPropiedad():

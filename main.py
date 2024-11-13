@@ -2,6 +2,7 @@ from calendar import Calendar
 
 import clientes
 import conexion
+import propiedades
 import styles
 from venPrincipal import *
 from venAux import *
@@ -78,6 +79,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtEmailcli.editingFinished.connect(clientes.Clientes.checkEmail)
         var.ui.txtMovilcli.editingFinished.connect(clientes.Clientes.checkMovil)
         var.ui.txtMovilprop.editingFinished.connect(propiedades.Propiedades.checkMovil)
+        var.ui.txtFechabajaprop.textChanged.connect(propiedades.Propiedades.reloadDisponibility)
+        var.ui.txtPrecioventaprop.textChanged.connect(propiedades.Propiedades.reloadTipoOperacion)
+        var.ui.txtPrecioalquilerprop.textChanged.connect(propiedades.Propiedades.reloadTipoOperacion)
 
 
         """
@@ -89,9 +93,16 @@ class Main(QtWidgets.QMainWindow):
         """
         eventos de checkbox
         """
-
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
         var.ui.chkHistoriprop.stateChanged.connect(lambda: propiedades.Propiedades.cargaTablaPropiedades())
+        var.ui.chkVentaprop.stateChanged.connect(propiedades.Propiedades.reloadPrecio)
+        var.ui.chkAlquilprop.stateChanged.connect(propiedades.Propiedades.reloadPrecio)
+
+        """
+        Radio buttons
+        """
+        var.ui.rbtAlquilprop.setEnabled(False)
+        var.ui.rbtVentaprop.setEnabled(False)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

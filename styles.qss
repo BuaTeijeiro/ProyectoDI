@@ -43,3 +43,7 @@ QPushButton{
     color: white;
     border-radius: 5px;
 }
+
+QRadioButton:disabled{
+    color: #aaa;
+}
