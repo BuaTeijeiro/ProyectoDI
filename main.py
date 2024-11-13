@@ -34,7 +34,7 @@ class Main(QtWidgets.QMainWindow):
         clientes.Clientes.cargaTablaClientes()
         propiedades.Propiedades.cargaTablaPropiedades()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
-        var.ui.tablaPropiedades.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
+        var.ui.tablaPropiedades.clicked.connect(lambda: propiedades.Propiedades.cargaOnePropiedad())
 
         """
         zona de eventos del menubar

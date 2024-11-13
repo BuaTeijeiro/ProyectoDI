@@ -12,3 +12,4 @@ global dlggestion
 global panel
 global btn
 global cuadro
+global lastid

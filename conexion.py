@@ -251,6 +251,7 @@ class Conexion:
             query.bindValue(":nombre_propietario", str(propiedad[12]))
             query.bindValue(":movil", str(propiedad[13]))
             if query.exec():
+                var.lastid = query.lastInsertId()
                 return True
             else:
                 return False

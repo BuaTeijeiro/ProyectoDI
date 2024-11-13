@@ -87,9 +87,6 @@ class Propiedades():
             areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text())
             areRequirementsOK = not areFieldsMissing and isAlquilerOk and isVentaOk and isAltaOk and areDatesOk
 
-
-
-
             propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
             tipooper = []
             if var.ui.chkAlquilprop.isChecked():
@@ -109,6 +106,7 @@ class Propiedades():
 
             if areRequirementsOK and conexion.Conexion.altaPropiedad(propiedad):
                 eventos.Eventos.mostrarMensajeOk("Se ha guardado la propiedad correctamente")
+                Propiedades.cargaOnePropiedad(var.lastid)
                 Propiedades.cargaTablaPropiedades()
             elif not isAltaOk:
                 eventos.Eventos.mostrarMensajeError("Al dar de alta una propiedad debe estar disponible y sin fecha de baja")
@@ -174,10 +172,13 @@ class Propiedades():
 
 
     @staticmethod
-    def cargaOnePropiedad():
+    def cargaOnePropiedad(code = ""):
         try:
-            propiedad = var.ui.tablaPropiedades.selectedItems()
-            codigo = propiedad[0].text()
+            if code == "":
+                propiedad = var.ui.tablaPropiedades.selectedItems()
+                codigo = propiedad[0].text()
+            else:
+                codigo = code
             datos = conexion.Conexion.datosOnePropiedad(codigo)
 
             var.ui.lblProp.setText(str(datos[0]))
@@ -210,7 +211,7 @@ class Propiedades():
             var.ui.txtNomeprop.setText(datos[16])
             var.ui.txtMovilprop.setText(datos[17])
         except Exception as e:
-            print("Error al cargar la tabla de clientes", e)
+            print("Error al cargar a un cliente", e)
 
     @staticmethod
     def modifProp():
