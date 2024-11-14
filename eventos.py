@@ -9,7 +9,7 @@ from PyQt6.QtWidgets import QSpinBox
 import clientes
 import conexion
 
-from PyQt6 import QtWidgets, QtGui
+from PyQt6 import QtWidgets, QtGui, QtCore
 import re
 
 import conexionserver
@@ -51,6 +51,7 @@ class Eventos():
         var.ui.cmbProvcli.clear()
 
         listado = conexion.Conexion.listaProv()
+        var.provincias = listado
         #listado = conexionserver.ConexionServer.listaProv()
         var.ui.cmbProvcli.addItems(listado)
 
@@ -64,6 +65,12 @@ class Eventos():
         listadoCli = conexion.Conexion.listaMunicipios(provinciaCli)
         #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMunicli.addItems(listadoCli)
+        var.municli = listadoCli
+
+        completer = QtWidgets.QCompleter(var.municli, var.ui.cmbMunicli)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbMunicli.setCompleter(completer)
 
     @staticmethod
     def cargarMunicipiosprop():
@@ -73,6 +80,32 @@ class Eventos():
         # listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMuniprop.addItems(listadoProp)
         var.muniprop = listadoProp
+
+
+        completer = QtWidgets.QCompleter(var.muniprop, var.ui.cmbMuniprop)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbMuniprop.setCompleter(completer)
+
+    @staticmethod
+    def checkMunicipioCli():
+        if var.ui.cmbMunicli.currentText() not in var.municli:
+            var.ui.cmbMunicli.setCurrentIndex(0)
+
+    @staticmethod
+    def checkProvinciaCli():
+        if var.ui.cmbProvcli.currentText() not in var.provincias:
+            var.ui.cmbProvcli.setCurrentIndex(0)
+
+    @staticmethod
+    def checkMunicipioProp():
+        if var.ui.cmbMuniprop.currentText() not in var.muniprop:
+            var.ui.cmbMuniprop.setCurrentIndex(0)
+
+    @staticmethod
+    def checkProvinciaProp():
+        if var.ui.cmbProvprop.currentText() not in var.provincias:
+            var.ui.cmbProvprop.setCurrentIndex(0)
 
 
     @staticmethod

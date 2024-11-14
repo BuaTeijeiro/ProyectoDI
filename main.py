@@ -2,6 +2,7 @@ from calendar import Calendar
 
 import clientes
 import conexion
+import eventos
 import propiedades
 import styles
 from venPrincipal import *
@@ -94,10 +95,24 @@ class Main(QtWidgets.QMainWindow):
         var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosprop)
 
         var.ui.cmbMuniprop.setEditable(True)
-        completer = QtWidgets.QCompleter(var.muniprop, var.ui.cmbMuniprop)
+        var.ui.cmbProvprop.setEditable(True)
+        var.ui.cmbMunicli.setEditable(True)
+        var.ui.cmbProvcli.setEditable(True)
+
+        completer = QtWidgets.QCompleter(var.provincias, var.ui.cmbProvprop)
         completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
         completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
-        var.ui.cmbMuniprop.setCompleter(completer)
+        var.ui.cmbProvprop.setCompleter(completer)
+
+        completer = QtWidgets.QCompleter(var.provincias, var.ui.cmbProvcli)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbProvcli.setCompleter(completer)
+
+        var.ui.cmbProvprop.lineEdit().editingFinished.connect(eventos.Eventos.checkProvinciaProp)
+        var.ui.cmbMuniprop.lineEdit().editingFinished.connect(eventos.Eventos.checkMunicipioProp)
+        var.ui.cmbProvcli.lineEdit().editingFinished.connect(eventos.Eventos.checkProvinciaCli)
+        var.ui.cmbMunicli.lineEdit().editingFinished.connect(eventos.Eventos.checkMunicipioCli)
 
         """
         eventos de checkbox

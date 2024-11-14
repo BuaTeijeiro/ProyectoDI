@@ -14,3 +14,5 @@ global btn
 global cuadro
 global lastid
 global muniprop
+global municli
+global provincias
