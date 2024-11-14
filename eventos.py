@@ -1,3 +1,5 @@
+import csv
+import json
 import os.path
 import sys
 from datetime import datetime
@@ -274,6 +276,44 @@ class Eventos():
         propiedades.Propiedades.cargaTablaPropiedades()
 
     @staticmethod
+    def exportarCSVProp():
+        try:
+            fecha = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+            file = str(fecha) + "_datosPropiedades.csv"
+            directorio, fichero = var.dlgabrir.getSaveFileName(None, "Exportar Datos Propiedades", file, ".csv")
+            if var.dlgabrir.accept and fichero:
+                registros = conexion.Conexion.listadoPropiedadesAllData()
+                with open(fichero, "w", newline="",encoding="utf-8") as csvfile:
+                    writer = csv.writer(csvfile)
+                    writer.writerow(["Codigo","Alta","Baja","Código Postal", "Dirección", "Provincia", "Municipio", "Tipo propiedad", "Num Habitaciones", "Num Baños", "Superficie", "Precio Alquiler", "Precio Venta", "Observaciones", "Tipo operación", "Estado", "Nombre propietario", "Móvil"])
+                    for registro in registros:
+                        writer.writerow(registro)
+                shutil.move(fichero, directorio)
+            else:
+                Eventos.mostrarMensajeError("Error de exportación de Datos de Propiedades a CSV")
+        except Exception as error:
+            print("error en exportar csv: ", error)
+
+    @staticmethod
+    def exportarJsonProp():
+        try:
+            fecha = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+            file = str(fecha) + "_datosPropiedades.json"
+            directorio, fichero = var.dlgabrir.getSaveFileName(None, "Exportar Datos Propiedades", file, ".json")
+            if var.dlgabrir.accept and fichero:
+                keys = ["Codigo","Alta","Baja","Código Postal", "Dirección", "Provincia", "Municipio", "Tipo propiedad", "Num Habitaciones", "Num Baños", "Superficie", "Precio Alquiler", "Precio Venta", "Observaciones", "Tipo operación", "Estado", "Nombre propietario", "Móvil"]
+                registros = conexion.Conexion.listadoPropiedadesAllData()
+                listado = [dict(zip(keys, registro)) for registro in registros]
+                with open(fichero, "w", newline="", encoding="utf-8") as jsonfile:
+                    json.dump(listado, jsonfile, indent=4, ensure_ascii=False)
+                shutil.move(fichero, directorio)
+            else:
+                Eventos.mostrarMensajeError("Error de exportación de Datos de Propiedades a CSV")
+        except Exception as error:
+            print("error en exportar csv: ", error)
+
+
+    @staticmethod
     def cargarTiposprop():
         tipos = conexion.Conexion.listadoTipoprop()
         var.ui.cmbTipoprop.clear()
@@ -302,4 +342,5 @@ class Eventos():
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
         mbox.exec()
+
 

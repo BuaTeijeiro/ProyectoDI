@@ -843,7 +843,7 @@ class Ui_venPrincipal(object):
         self.toolBar.addAction(self.actionbarSalir)
 
         self.retranslateUi(venPrincipal)
-        self.panPrincipal.setCurrentIndex(0)
+        self.panPrincipal.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(venPrincipal)
         venPrincipal.setTabOrder(self.txtFechaprop, self.btnFechaprop)
         venPrincipal.setTabOrder(self.btnFechaprop, self.txtFechabajaprop)
@@ -995,5 +995,5 @@ class Ui_venPrincipal(object):
         self.actionBuscar.setText(_translate("venPrincipal", "Buscar"))
         self.actionBuscar.setToolTip(_translate("venPrincipal", "Buscar Por Municipio y Tipo de Propiedad"))
         self.actionBuscar.setShortcut(_translate("venPrincipal", "Alt+B"))
-        self.actionExportar_Clientes_CSV.setText(_translate("venPrincipal", "Exportar Clientes CSV"))
-        self.actionExportar_Clientes_JSON.setText(_translate("venPrincipal", "Exportar Clientes JSON"))
+        self.actionExportar_Clientes_CSV.setText(_translate("venPrincipal", "Exportar Propiedades CSV"))
+        self.actionExportar_Clientes_JSON.setText(_translate("venPrincipal", "Exportar Propiedades JSON"))

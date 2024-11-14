@@ -275,6 +275,20 @@ class Conexion:
             print("Error al cargar las propiedades", error)
 
     @staticmethod
+    def listadoPropiedadesAllData():
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "SELECT * FROM propiedades order by municipio")
+            if query.exec():
+                while query.next():
+                    listado.append([query.value(i) for i in range(query.record().count())])
+            return listado
+        except Exception as error:
+            print("Error al cargar las propiedades", error)
+
+    @staticmethod
     def listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia):
         listado = []
         query = QtSql.QSqlQuery()

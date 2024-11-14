@@ -49,7 +49,7 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pesClientes">
        <attribute name="title">
@@ -2273,12 +2273,12 @@
   </action>
   <action name="actionExportar_Clientes_CSV">
    <property name="text">
-    <string>Exportar Clientes CSV</string>
+    <string>Exportar Propiedades CSV</string>
    </property>
   </action>
   <action name="actionExportar_Clientes_JSON">
    <property name="text">
-    <string>Exportar Clientes JSON</string>
+    <string>Exportar Propiedades JSON</string>
    </property>
   </action>
  </widget>

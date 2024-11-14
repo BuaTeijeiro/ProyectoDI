@@ -1,0 +1,13 @@
+Codigo,Alta,Baja,Código Postal,Dirección,Provincia,Municipio,Tipo propiedad,Num Habitaciones,Num Baños,Superficie,Precio Alquiler,Precio Venta,Observaciones,Tipo operación,Estado,Nombre propietario,Móvil
+6,04/11/2024,,42747,"CUESTA REAL, 99",Soria,Almazán,Casa,3,1,200.0,,,Vistas a olivos,Intercambio,Disponible,ALICIA CASTELLANOS CASTRO,661643506
+9,30/10/2024,,58558215P,"AVENIDA DE ESPAÑA, 82 1ºC",Zamora,Casaseca de Campeán,Apartamento,2,1,60.0,300.0,,,Alquiler,Disponible,JULIO CUEVAS CANTERO,748951865
+10,30/10/2024,,31773,"TRAVESSERA NUEVA, 38",Navarra,Cizur,Casa,4,4,400.0,200.0,,,Alquiler,Disponible,OMAR RIVERA AGUADO,721286970
+8,04/10/2024,,31916,"PLACETA PEDRALBES, 53",Navarra,Romanzado,Casa,2,1,150.0,,,,Intercambio,Disponible,GISELA BALLESTEROS JORGE,772197241
+11,01/11/2024,,50395,"PLACETA MAYOR, 62",Zaragoza,Sástago,Casa,3,1,100.0,300.0,,,Alquiler,Disponible,MARIA ANGELES LLAMAS LOZANO,651167185
+4,30/10/2024,31/10/2024,36207,"Sanjurjo Badía 93, 2ºIzq",Pontevedra,Vigo,Apartamento,3,2,120.5,800.0,120000.0,Vistas a la ría,"Alquiler,Venta",Alquilado,Manuel Búa Santos,698136408
+12,01/11/2024,07/11/2024,36207,"Av. Galicia, 83",Pontevedra,Vigo,Casa,3,2,200.0,,185000.0,,Venta,Vendido,MANUEL ANTONIO ALVAREZ MENENDEZ,706675501
+13,05/11/2024,,36207,"Sanjurjo Badía 104, 2ºA",Pontevedra,Vigo,Apartamento,2,1,75.0,600.0,,,Alquiler,Disponible,AINHOA MOSQUERA VILLANUEVA,644120180
+14,07/11/2024,,36207,"Sanjurjo Badía 93, Bajo A",Pontevedra,Vigo,Bajo Comercial,0,0,250.0,200.0,300000.0,,"Alquiler,Venta",Disponible,José Luis Barja Llorís,652121254
+15,11/11/2024,,36207,"Sanjurjo Badía 97, 1D",Pontevedra,Vigo,Apartamento,1,1,50.0,400.0,,,Alquiler,Disponible,Joaquín Reyes Sabina,652152421
+16,13/11/2024,,36207,"Sanjurjo Badía 97, Bajo",Pontevedra,Vigo,Bajo Comercial,0,0,500.0,1200.0,,,Alquiler,Disponible,Joaquín Muñoz Pérez,652525252
+17,06/11/2024,,36207,"Sanjurjo Badía 24, Bajo",Pontevedra,Vigo,Bajo Comercial,0,1,600.0,,2000000.0,,Venta,Disponible,Doleres Cospedal Núñez,745859615
