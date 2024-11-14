@@ -72,6 +72,7 @@ class Eventos():
         listadoProp = conexion.Conexion.listaMunicipios(provinciaProp)
         # listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMuniprop.addItems(listadoProp)
+        var.muniprop = listadoProp
 
 
     @staticmethod

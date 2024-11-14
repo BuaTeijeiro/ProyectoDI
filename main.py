@@ -8,7 +8,6 @@ from venPrincipal import *
 from venAux import *
 import sys
 import var
-
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -25,6 +24,8 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarMunicipioscli()
         eventos.Eventos.cargarMunicipiosprop()
         eventos.Eventos.cargarTiposprop()
+
+
 
 
 
@@ -91,6 +92,12 @@ class Main(QtWidgets.QMainWindow):
         """
         var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipioscli)
         var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosprop)
+
+        var.ui.cmbMuniprop.setEditable(True)
+        completer = QtWidgets.QCompleter(var.muniprop, var.ui.cmbMuniprop)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbMuniprop.setCompleter(completer)
 
         """
         eventos de checkbox

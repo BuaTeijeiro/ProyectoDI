@@ -13,3 +13,4 @@ global panel
 global btn
 global cuadro
 global lastid
+global muniprop
