@@ -182,6 +182,13 @@ class Eventos():
             print("error en abrir tipos de propiedades ", error)
 
     @staticmethod
+    def abrirAbout():
+        try:
+            var.dlgabout.show()
+        except Exception as error:
+            print("error en abrir About ", error)
+
+    @staticmethod
     def cargaFecha(qDate):
         try:
             data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))

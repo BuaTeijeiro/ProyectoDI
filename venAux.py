@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from dlgAbout import Ui_dlgAbout
 from dlgCalendar import *
 import var
 import eventos
@@ -29,4 +31,11 @@ class dlg_Tipoprop(QtWidgets.QDialog):
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
         super(FileDialogAbrir, self).__init__()
+
+class dlg_About(QtWidgets.QDialog):
+    def __init__(self):
+        super(dlg_About, self).__init__()
+        self.interface = Ui_dlgAbout()
+        self.interface.setupUi(self)
+        self.interface.btnCerrarAbout.clicked.connect(self.close)
 

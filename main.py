@@ -17,6 +17,7 @@ class Main(QtWidgets.QMainWindow):
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlg_Tipoprop()
+        var.dlgabout = dlg_About()
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion()
         #conexionserver.ConexionServer.crear_conexion(self)
@@ -48,6 +49,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Clientes_CSV.triggered.connect(eventos.Eventos.exportarCSVProp)
         var.ui.actionExportar_Clientes_JSON.triggered.connect(eventos.Eventos.exportarJsonProp)
         var.ui.actionTipoPropiedades.triggered.connect(eventos.Eventos.abrirTipoprop)
+        var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.abrirAbout)
 
 
         """
