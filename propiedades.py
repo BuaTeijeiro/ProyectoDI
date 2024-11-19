@@ -151,6 +151,7 @@ class Propiedades():
         index = 0
         var.ui.tablaPropiedades.setRowCount(len(listado))
         for registro in listado:
+            var.ui.tablaPropiedades.setSpan(0, 0, 1, 1)
             for j, dato in enumerate(registro):
                 if j in (5, 6):
                     valor = (str(dato) if dato != "" else "-") + " €"
@@ -168,6 +169,11 @@ class Propiedades():
             var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
             var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
             index += 1
+        if len(listado) == 0:
+            var.ui.tablaPropiedades.setRowCount(4)
+            var.ui.tablaPropiedades.setItem(0, 0, QtWidgets.QTableWidgetItem("No hay propiedades con estos filtros"))
+            var.ui.tablaPropiedades.setSpan(0,0,4,9)
+            var.ui.tablaPropiedades.item(0,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         eventos.Eventos.resizeTablaPropiedades()
 
 
