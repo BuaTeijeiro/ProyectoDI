@@ -141,7 +141,7 @@ class Clientes:
                     else:
                         listado[i].setText(registro[i])
             else:
-                eventos.Eventos.mostrarMensajeError("No existe el cliente en la base de datos")
+                eventos.Eventos.mostrarMensajeError(f"No existe el cliente con dni = %s en la base de datos" %(dni))
         except Exception as error:
             print("Error: ", error)
 
