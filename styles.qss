@@ -44,6 +44,10 @@ QPushButton{
     border-radius: 5px;
 }
 
+#btnBuscarCliente{
+    background-color: none;
+}
+
 QRadioButton:disabled{
     color: #aaa;
 }

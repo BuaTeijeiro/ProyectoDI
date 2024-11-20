@@ -132,8 +132,7 @@ class Conexion:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT * FROM clientes where dnicli = :dni")
             query.bindValue(":dni", str(dni))
-            if query.exec():
-                query.next()
+            if query.exec() and query.next():
                 registro = [query.value(i) for i in range(query.record().count())]
             return registro
         except Exception as error:

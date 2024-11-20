@@ -49,7 +49,7 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pesClientes">
        <attribute name="title">
@@ -238,7 +238,7 @@
               <item>
                <widget class="QLabel" name="lblAltacli">
                 <property name="text">
-                 <string>Fecha Alta:</string>
+                 <string>Fecha Alta(*):</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -325,7 +325,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>Móvil:</string>
+                 <string>Móvil(*):</string>
                 </property>
                </widget>
               </item>
@@ -361,7 +361,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>Nombre:</string>
+                 <string>Nombre(*):</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -520,7 +520,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>DNI/CIF:</string>
+                 <string>DNI/CIF(*):</string>
                 </property>
                </widget>
               </item>
@@ -540,6 +540,26 @@
                 </property>
                 <property name="styleSheet">
                  <string notr="true">background-color:rgb(252, 255, 225)</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnBuscarCliente">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../img/lupa.ico</normaloff>../img/lupa.ico</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -572,7 +592,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>Dirección:</string>
+                 <string>Dirección(*):</string>
                 </property>
                </widget>
               </item>
@@ -610,6 +630,77 @@
            </layout>
           </item>
           <item>
+           <widget class="QLabel" name="label_7">
+            <property name="palette">
+             <palette>
+              <active>
+               <colorrole role="WindowText">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="255">
+                  <red>255</red>
+                  <green>0</green>
+                  <blue>4</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Text">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="255">
+                  <red>255</red>
+                  <green>0</green>
+                  <blue>4</blue>
+                 </color>
+                </brush>
+               </colorrole>
+              </active>
+              <inactive>
+               <colorrole role="WindowText">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="255">
+                  <red>255</red>
+                  <green>0</green>
+                  <blue>4</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Text">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="255">
+                  <red>255</red>
+                  <green>0</green>
+                  <blue>4</blue>
+                 </color>
+                </brush>
+               </colorrole>
+              </inactive>
+              <disabled>
+               <colorrole role="WindowText">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="255">
+                  <red>120</red>
+                  <green>120</green>
+                  <blue>120</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Text">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="255">
+                  <red>120</red>
+                  <green>120</green>
+                  <blue>120</blue>
+                 </color>
+                </brush>
+               </colorrole>
+              </disabled>
+             </palette>
+            </property>
+            <property name="text">
+             <string>(*) Obligatorios</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="horizontalSpacer_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -623,6 +714,22 @@
            </spacer>
           </item>
          </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>5</width>
+            <height>15</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -714,6 +821,22 @@
            </spacer>
           </item>
          </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>15</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <widget class="Line" name="line">
@@ -1915,6 +2038,50 @@
                </spacer>
               </item>
              </layout>
+            </item>
+            <item row="0" column="7">
+             <widget class="QLabel" name="label_8">
+              <property name="palette">
+               <palette>
+                <active>
+                 <colorrole role="WindowText">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>255</red>
+                    <green>0</green>
+                    <blue>4</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </active>
+                <inactive>
+                 <colorrole role="WindowText">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>255</red>
+                    <green>0</green>
+                    <blue>4</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </inactive>
+                <disabled>
+                 <colorrole role="WindowText">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>120</red>
+                    <green>120</green>
+                    <blue>120</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </disabled>
+               </palette>
+              </property>
+              <property name="text">
+               <string>(*) Obligatorio</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

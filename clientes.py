@@ -74,7 +74,7 @@ class Clientes:
             eventos.Eventos.mostrarMensajeOk("Cliente dado de alta en base de datos correctamente")
             Clientes.cargaTablaClientes()
         elif areFieldsMissing:
-            eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios')
+            eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios, marcados con (*)')
         elif not areDatesOk:
             eventos.Eventos.mostrarMensajeError("El formato de la fecha debe ser dd/mm/aaaa")
         else:
@@ -121,8 +121,29 @@ class Clientes:
                     listado[i].setCurrentText(registro[i])
                 else:
                     listado[i].setText(registro[i])
+            Clientes.checkDNI(var.ui.txtDnicli.text())
         except Exception as error:
             print("Error")
+
+    @staticmethod
+    def cargaClienteBuscado():
+        try:
+            dni = var.ui.txtDnicli.text()
+            registro = conexion.Conexion.datosOneCliente(dni)
+            # Clientes.cargarCliente(registro)
+            if registro:
+                listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
+                           var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,
+                           var.ui.cmbMunicli, var.ui.txtBajacli]
+                for i in range(len(listado)):
+                    if i in (7, 8):
+                        listado[i].setCurrentText(registro[i])
+                    else:
+                        listado[i].setText(registro[i])
+            else:
+                eventos.Eventos.mostrarMensajeError("No existe el cliente en la base de datos")
+        except Exception as error:
+            print("Error: ", error)
 
     @staticmethod
     def modifCliente():
@@ -140,7 +161,7 @@ class Clientes:
                 eventos.Eventos.mostrarMensajeOk("Datos del cliente modificados correctamente")
                 Clientes.cargaTablaClientes()
             elif areFieldsMissing:
-                eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios')
+                eventos.Eventos.mostrarMensajeError('Es necesario rellenar todos los campos obligatorios, marcados con (*)')
             elif not areDatesOk:
                 eventos.Eventos.mostrarMensajeError("Hay algún problema con las fechas, compruebe lo siguiente:\n -Las fechas deben de tener el formato dd/mm/aaaa o estar el campo vacío\n -La fecha de baja no puede ser anterior a la de alta")
                 var.ui.txtBajacli.setText("")
