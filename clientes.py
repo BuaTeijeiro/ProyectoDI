@@ -71,6 +71,7 @@ class Clientes:
         requirements = not areFieldsMissing and areDatesOk
 
         if requirements and conexion.Conexion.altaCliente(nuevocli):
+        #if requirements and conexionserver.ConexionServer.altaCliente(nuevocli):
             eventos.Eventos.mostrarMensajeOk("Cliente dado de alta en base de datos correctamente")
             Clientes.cargaTablaClientes()
         elif areFieldsMissing:
@@ -94,7 +95,7 @@ class Clientes:
                 var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem("  " + registro[5] + "  "))
                 var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(registro[7]))
                 var.ui.tablaClientes.setItem(index, 5, QtWidgets.QTableWidgetItem(registro[8]))
-                var.ui.tablaClientes.setItem(index, 6, QtWidgets.QTableWidgetItem("  " + registro[9] + "  "))
+                var.ui.tablaClientes.setItem(index, 6, QtWidgets.QTableWidgetItem(registro[9]))
 
                 var.ui.tablaClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
@@ -114,7 +115,8 @@ class Clientes:
             file = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in file]
             registro = conexion.Conexion.datosOneCliente(datos[0])
-            #Clientes.cargarCliente(registro)
+            #registro = conexionserver.ConexionServer.datosOneCliente(datos[0])
+            registro = [x if x != 'None' else '' for x in registro]
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli, var.ui.txtBajacli]
             for i in range(len(listado)):
                 if i in (7,8):
@@ -130,7 +132,8 @@ class Clientes:
         try:
             dni = var.ui.txtDnicli.text()
             registro = conexion.Conexion.datosOneCliente(dni)
-            # Clientes.cargarCliente(registro)
+            #registro = conexionserver.ConexionServer.datosOneCliente(dni)
+            registro = [x if x != 'None' else '' for x in registro]
             if registro:
                 listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                            var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,
@@ -158,6 +161,7 @@ class Clientes:
             requirements = not areFieldsMissing and areDatesOk
 
             if requirements and conexion.Conexion.modifCliente(modifcli):
+            #if requirements and conexionserver.ConexionServer.modifCliente(modifcli):
                 eventos.Eventos.mostrarMensajeOk("Datos del cliente modificados correctamente")
                 Clientes.cargaTablaClientes()
             elif areFieldsMissing:

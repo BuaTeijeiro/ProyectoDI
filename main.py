@@ -2,6 +2,7 @@ from calendar import Calendar
 
 import clientes
 import conexion
+import conexionserver
 import eventos
 import propiedades
 import styles
@@ -14,27 +15,28 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
+
+        self.setStyleSheet(styles.load_stylesheet())
+        conexion.Conexion.db_conexion()
+        #conexionserver.ConexionServer.crear_conexion()
+
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlg_Tipoprop()
         var.dlgabout = dlg_About()
-        self.setStyleSheet(styles.load_stylesheet())
-        conexion.Conexion.db_conexion()
-        #conexionserver.ConexionServer.crear_conexion(self)
+
 
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargarMunicipioscli()
         eventos.Eventos.cargarMunicipiosprop()
         eventos.Eventos.cargarTiposprop()
 
-
-
-
-
         """
         zona de eventos de tablas
         """
         clientes.Clientes.cargaTablaClientes()
+
+
         propiedades.Propiedades.cargaTablaPropiedades()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(lambda: propiedades.Propiedades.cargaOnePropiedad())

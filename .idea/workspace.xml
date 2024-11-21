@@ -7,10 +7,9 @@
     <list default="true" id="f63c1f4e-5169-43db-9da9-b31e82100483" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clientes.py" beforeDir="false" afterPath="$PROJECT_DIR$/clientes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexion.py" beforeDir="false" afterPath="$PROJECT_DIR$/conexion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexionserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/conexionserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventos.py" beforeDir="false" afterPath="$PROJECT_DIR$/eventos.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles.qss" beforeDir="false" afterPath="$PROJECT_DIR$/styles.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/venPrincipal.ui" beforeDir="false" afterPath="$PROJECT_DIR$/templates/venPrincipal.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +156,8 @@
       <workItem from="1731574353180" duration="5622000" />
       <workItem from="1731933633928" duration="4680000" />
       <workItem from="1732000076749" duration="4565000" />
-      <workItem from="1732103369282" duration="4828000" />
+      <workItem from="1732103369282" duration="4934000" />
+      <workItem from="1732178986190" duration="5214000" />
     </task>
     <servers />
   </component>
@@ -166,7 +166,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/buateijeiro$main.coverage" NAME="main Coverage Results" MODIFIED="1728369377665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1732108885745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1732184232303" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/buateijeiro$eventos.coverage" NAME="eventos Coverage Results" MODIFIED="1727857564494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/buateijeiro$date.coverage" NAME="date Coverage Results" MODIFIED="1728633921854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../PSP/Bloque1_Multiproceso/Proyectos_Prueba/Prueba1" />
   </component>

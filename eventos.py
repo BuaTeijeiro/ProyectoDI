@@ -51,8 +51,9 @@ class Eventos():
         var.ui.cmbProvcli.clear()
 
         listado = conexion.Conexion.listaProv()
-        var.provincias = listado
         #listado = conexionserver.ConexionServer.listaProv()
+        var.provincias = listado
+
         var.ui.cmbProvcli.addItems(listado)
 
         var.ui.cmbProvprop.clear()
@@ -63,7 +64,7 @@ class Eventos():
         var.ui.cmbMunicli.clear()
         provinciaCli = var.ui.cmbProvcli.currentText()
         listadoCli = conexion.Conexion.listaMunicipios(provinciaCli)
-        #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
+        #listadoCli = conexionserver.ConexionServer.listaMuniProv(provinciaCli)
         var.ui.cmbMunicli.addItems(listadoCli)
         var.municli = listadoCli
 
@@ -77,7 +78,7 @@ class Eventos():
         var.ui.cmbMuniprop.clear()
         provinciaProp = var.ui.cmbProvprop.currentText()
         listadoProp = conexion.Conexion.listaMunicipios(provinciaProp)
-        # listado = conexionserver.ConexionServer.listaMuniProv(provincia)
+        #listadoProp = conexionserver.ConexionServer.listaMuniProv(provinciaProp)
         var.ui.cmbMuniprop.addItems(listadoProp)
         var.muniprop = listadoProp
 
