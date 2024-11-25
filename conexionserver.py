@@ -3,6 +3,9 @@ from mysql.connector import Error
 import os
 from PyQt6 import QtSql, QtWidgets
 
+from eventos import Eventos
+
+
 class ConexionServer():
     @staticmethod
     def crear_conexion():
@@ -69,7 +72,7 @@ class ConexionServer():
             conexion = ConexionServer().crear_conexion()
             listadoclientes = []
             cursor = conexion.cursor()
-            cursor.execute("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC")
+            cursor.execute("SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli FROM clientes ORDER BY apelcli, nomecli ASC")
             resultados = cursor.fetchall()
             # Procesar cada fila de los resultados
             for fila in resultados:
@@ -108,7 +111,7 @@ class ConexionServer():
                 cursor = conexion.cursor()
                 # Definir la consulta de inserción
                 query = """
-                INSERT INTO clientes (dnicli, altacli, apelcli, nomecli, dircli, emailcli, movilcli, provcli, municli)
+                INSERT INTO clientes (dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 cursor.execute(query, cliente)          # Ejecutar la consulta pasando la lista directamente
@@ -127,7 +130,7 @@ class ConexionServer():
             if conexion:
                 cursor = conexion.cursor()
                 # Definir la consulta de selección
-                query = '''SELECT * FROM clientes WHERE dnicli = %s'''  # Usa %s para el placeholder
+                query = '''SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli FROM clientes WHERE dnicli = %s'''  # Usa %s para el placeholder
                 cursor.execute(query, (dni,))  # Pasar 'dni' como una tupla
                 # Recuperar los datos de la consulta
                 for row in cursor.fetchall():
@@ -137,3 +140,42 @@ class ConexionServer():
         except Exception as e:
             print("Error al obtener datos de un cliente:", e)
             return None  # Devolver None en caso de error
+
+    @staticmethod
+    def modifCliente(cliente):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                clienteReordenado = cliente[1:] + [cliente [0]]
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = """
+                UPDATE clientes 
+                set altacli = %s, apelcli = %s, nomecli = %s, emailcli = %s, movilcli = %s, dircli = %s, provcli = %s, municli = %s, bajacli = %s where dnicli = %s
+                """
+                cursor.execute(query, clienteReordenado)
+                conexion.commit()
+                cursor.close()
+                conexion.close()
+                return True
+        except Error as e:
+            Eventos.mostrarMensajeError(e.msg)
+            return False
+
+    @staticmethod
+    def bajaCliente(dni, fecha):
+        try:
+            conexion = ConexionServer.crear_conexion()
+            if conexion:
+                datos = (fecha, dni)
+                cursor = conexion.cursor()
+                query = """
+                UPDATE clientes set bajacli = %s where dnicli = %s
+                """
+                cursor.execute(query, datos)
+                conexion.commit()  # Confirmar la transacción
+                cursor.close()  # Cerrar el cursor y la conexión
+                conexion.close()
+                return True
+        except Error as e:
+            return False

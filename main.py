@@ -17,8 +17,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
 
         self.setStyleSheet(styles.load_stylesheet())
-        conexion.Conexion.db_conexion()
-        #conexionserver.ConexionServer.crear_conexion()
+        #conexion.Conexion.db_conexion()
+        conexionserver.ConexionServer.crear_conexion()
 
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
