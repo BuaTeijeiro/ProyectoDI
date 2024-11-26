@@ -3,6 +3,7 @@ from mysql.connector import Error
 import os
 from PyQt6 import QtSql, QtWidgets
 
+import var
 from eventos import Eventos
 
 
@@ -87,12 +88,26 @@ class ConexionServer():
             print("error listado de clientes en conexión", e)
 
     @staticmethod
+    def listadoTipoprop():
+        tipos = []
+        try:
+            conexion = ConexionServer().crear_conexion()
+            cursor = conexion.cursor()
+            cursor.execute("SELECT tipo FROM tipopropiedad order by tipo asc")
+            resultados = cursor.fetchall()
+            for fila in resultados:
+                tipos.append(fila[0])
+        except Exception as error:
+            print("Error al cargar los tipos de propiedades", error)
+        return tipos
+
+    @staticmethod
     def listadoPropiedades():
         try:
             conexion = ConexionServer().crear_conexion()
             listadoPropiedades = []
             cursor = conexion.cursor()
-            cursor.execute("SELECT * FROM propiedades ORDER BY municipio ASC")
+            cursor.execute("SELECT codigo, muniprop, tipoprop, habprop, banprop, prealquiprop, prevenprop, tipooper, bajaprop FROM propiedades ORDER BY muniprop ASC")
             resultados = cursor.fetchall()
             for fila in resultados:
                 listadoPropiedades.append(list(fila))
@@ -104,7 +119,23 @@ class ConexionServer():
             print("error listado de propiedades en conexión", e)
 
     @staticmethod
+    def datosOnePropiedad(codigo):
+        registro = []
+        try:
+            conexion = ConexionServer().crear_conexion()
+            cursor = conexion.cursor()
+            query = "SELECT codigo, altaprop, bajaprop, cpprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, superprop, prealquiprop, prevenprop, obserprop, tipooper, estadoprop, nomeprop, movilprop FROM propiedades where codigo = %s"
+            cursor.execute(query, (codigo,))
+            # Recuperar los datos de la consulta
+            for row in cursor.fetchall():
+                registro.extend([str(col) for col in row])
+            return registro
+        except Exception as e:
+            print("error listado de propiedades en conexión", e)
+
+    @staticmethod
     def altaCliente(cliente):
+
         try:
             conexion = ConexionServer().crear_conexion()
             if conexion:
@@ -121,6 +152,25 @@ class ConexionServer():
                 return True
         except Error as e:
             print(f"Error al insertar el cliente: {e}")
+
+    @staticmethod
+    def altaPropiedad(propiedad):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = "Insert into propiedades (altaprop, cpprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, superprop, prealquiprop, prevenprop, obserprop, nomeprop, movilprop, tipooper, estadoprop) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(query, propiedad)  # Ejecutar la consulta pasando la lista directamente
+                conexion.commit()  # Confirmar la transacción
+                cursor.close()  # Cerrar el cursor y la conexión
+                conexion.close()
+                return True
+        except Exception as error:
+            print("Error al guardar la propiedad en la base de datos", error)
+            return False
+
+
 
     @staticmethod
     def datosOneCliente(dni):

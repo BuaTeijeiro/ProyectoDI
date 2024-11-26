@@ -1,6 +1,7 @@
 from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexion
+import conexionserver
 import var
 import eventos
 
@@ -87,7 +88,7 @@ class Propiedades():
             areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text())
             areRequirementsOK = not areFieldsMissing and isAlquilerOk and isVentaOk and isAltaOk and areDatesOk
 
-            propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
+            propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text().title(),var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(), var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(), var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text().title(),var.ui.txtMovilprop.text()]
             tipooper = []
             if var.ui.chkAlquilprop.isChecked():
                 tipooper.append(var.ui.chkAlquilprop.text())
@@ -95,7 +96,7 @@ class Propiedades():
                 tipooper.append(var.ui.chkVentaprop.text())
             if var.ui.chkInterprop.isChecked():
                 tipooper.append(var.ui.chkInterprop.text())
-            propiedad.append(tipooper)
+            propiedad.append(",".join(tipooper))
             if var.ui.rbtDisponprop.isChecked():
                 propiedad.append(var.ui.rbtDisponprop.text())
             elif var.ui.rbtAlquilprop.isChecked():
@@ -104,7 +105,8 @@ class Propiedades():
                 propiedad.append(var.ui.rbtVentaprop.text())
 
 
-            if areRequirementsOK and conexion.Conexion.altaPropiedad(propiedad):
+            #if areRequirementsOK and conexion.Conexion.altaPropiedad(propiedad):
+            if areRequirementsOK and conexionserver.ConexionServer.altaPropiedad(propiedad):
                 eventos.Eventos.mostrarMensajeOk("Se ha guardado la propiedad correctamente")
                 Propiedades.cargaOnePropiedad(var.lastid)
                 Propiedades.cargaTablaPropiedades()
@@ -125,11 +127,12 @@ class Propiedades():
         except Exception as error:
             print("Error al dar de alta la propiedad")
 
+
     @staticmethod
     def cargaTablaPropiedades():
         try:
-            listado = conexion.Conexion.listadoPropiedades()
-            # listado = conexionserver.ConexionServer.listadoClientes()
+            #listado = conexion.Conexion.listadoPropiedades()
+            listado = conexionserver.ConexionServer.listadoPropiedades()
             Propiedades.setTablaPropiedades(listado)
 
         except Exception as e:
@@ -185,22 +188,23 @@ class Propiedades():
                 codigo = propiedad[0].text()
             else:
                 codigo = code
-            datos = conexion.Conexion.datosOnePropiedad(codigo)
+            #datos = conexion.Conexion.datosOnePropiedad(codigo)
+            datos = conexionserver.ConexionServer.datosOnePropiedad(codigo)
 
             var.ui.lblProp.setText(str(datos[0]))
-            var.ui.txtFechaprop.setText(datos[1])
-            var.ui.txtFechabajaprop.setText(datos[2])
-            var.ui.txtCPprop.setText(datos[3])
-            var.ui.txtDirprop.setText(datos[4])
-            var.ui.cmbProvprop.setCurrentText(datos[5])
-            var.ui.cmbMuniprop.setCurrentText(datos[6])
-            var.ui.cmbTipoprop.setCurrentText(datos[7])
-            var.ui.spinHabprop.setValue(datos[8])
-            var.ui.spinBanosprop.setValue(datos[9])
+            var.ui.txtFechaprop.setText(str(datos[1]))
+            var.ui.txtFechabajaprop.setText(str(datos[2]))
+            var.ui.txtCPprop.setText(str(datos[3]))
+            var.ui.txtDirprop.setText(str(datos[4]))
+            var.ui.cmbProvprop.setCurrentText(str(datos[5]))
+            var.ui.cmbMuniprop.setCurrentText(str(datos[6]))
+            var.ui.cmbTipoprop.setCurrentText(str(datos[7]))
+            var.ui.spinHabprop.setValue(int(datos[8]))
+            var.ui.spinBanosprop.setValue(int(datos[9]))
             var.ui.txtSuperprop.setText(str(datos[10]))
             var.ui.txtPrecioalquilerprop.setText(str(datos[11]))
             var.ui.txtPrecioventaprop.setText(str(datos[12]))
-            var.ui.txtComentarioprop.setText(datos[13])
+            var.ui.txtComentarioprop.setText(str(datos[13]))
 
             tipos_oper = datos[14].rsplit(",")
             var.ui.chkAlquilprop.setChecked("Alquiler" in tipos_oper)
@@ -217,7 +221,7 @@ class Propiedades():
             var.ui.txtNomeprop.setText(datos[16])
             var.ui.txtMovilprop.setText(datos[17])
         except Exception as e:
-            print("Error al cargar a un cliente", e)
+            print("Error al cargar a una propiedad", e)
 
     @staticmethod
     def modifProp():
@@ -232,11 +236,11 @@ class Propiedades():
 
         areRequirementsOK = not areFieldsMissing and isBajaOk and isAlquilerOk and isVentaOk and areDatesOk
 
-        propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),
+        propiedad = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text().title(),
                      var.ui.cmbProvprop.currentText(), var.ui.cmbMuniprop.currentText(),
                      var.ui.cmbTipoprop.currentText(), var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(),
                      var.ui.txtSuperprop.text(), var.ui.txtPrecioalquilerprop.text(), var.ui.txtPrecioventaprop.text(),
-                     var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text(), var.ui.txtMovilprop.text()]
+                     var.ui.txtComentarioprop.toPlainText(), var.ui.txtNomeprop.text().title(), var.ui.txtMovilprop.text()]
         tipooper = []
         if var.ui.chkAlquilprop.isChecked():
             tipooper.append(var.ui.chkAlquilprop.text())

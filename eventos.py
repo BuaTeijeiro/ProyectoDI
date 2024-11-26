@@ -357,7 +357,8 @@ class Eventos():
 
     @staticmethod
     def cargarTiposprop():
-        tipos = conexion.Conexion.listadoTipoprop()
+        #tipos = conexion.Conexion.listadoTipoprop()
+        tipos = conexionserver.ConexionServer.listadoTipoprop()
         var.ui.cmbTipoprop.clear()
         var.ui.cmbTipoprop.addItems(tipos)
 
