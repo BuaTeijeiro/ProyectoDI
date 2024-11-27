@@ -194,7 +194,6 @@ class Propiedades():
             datos = conexionserver.ConexionServer.datosOnePropiedad(codigo)
 
             datos = [x if x != 'None' else '' for x in datos]
-            print(datos)
 
             var.ui.lblProp.setText(str(datos[0]))
             var.ui.txtFechaprop.setText(str(datos[1]))
