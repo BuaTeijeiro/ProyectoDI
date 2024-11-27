@@ -1,3 +1,5 @@
+from os.path import curdir
+
 import mysql.connector
 from mysql.connector import Error
 import os
@@ -69,6 +71,7 @@ class ConexionServer():
 
     @staticmethod
     def listadoClientes():
+        historico = var.ui.chkHistoriacli.isChecked()
         try:
             conexion = ConexionServer().crear_conexion()
             listadoclientes = []
@@ -79,7 +82,8 @@ class ConexionServer():
             for fila in resultados:
                 # Crear una lista con los valores de la fila
                 listadoclientes.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
-
+            if not historico:
+                listadoclientes = [x for x in listadoclientes if x[9] is None or x[9] ==""]
             # Cerrar el cursor y la conexión si no los necesitas más
             cursor.close()
             conexion.close()
@@ -103,6 +107,7 @@ class ConexionServer():
 
     @staticmethod
     def listadoPropiedades():
+        historico = var.ui.chkHistoriprop.isChecked()
         try:
             conexion = ConexionServer().crear_conexion()
             listadoPropiedades = []
@@ -111,12 +116,32 @@ class ConexionServer():
             resultados = cursor.fetchall()
             for fila in resultados:
                 listadoPropiedades.append(list(fila))
-
+            if not historico:
+                listadoPropiedades = [x for x in listadoPropiedades if x[8] is None or x[8] == ""]
             cursor.close()
             conexion.close()
             return listadoPropiedades
         except Exception as e:
             print("error listado de propiedades en conexión", e)
+
+    @staticmethod
+    def listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia):
+        listado = []
+        try:
+            conexion = ConexionServer().crear_conexion()
+            cursor = conexion.cursor()
+            if var.ui.chkHistoriprop.isChecked():
+                query = "SELECT codigo, muniprop, tipoprop, habprop, banprop, prealquiprop, prevenprop, tipooper, bajaprop FROM propiedades where tipoprop = %s and muniprop = %s and provprop = %s"
+            else:
+                query =" SELECT codigo, muniprop, tipoprop, habprop, banprop, prealquiprop, prevenprop, tipooper, bajaprop FROM propiedades where tipoprop = %s and muniprop = %s and provprop = %s and estadoprop = 'Disponible'"
+            cursor.execute(query, (tipo_propiedad, municipio, provincia))
+            resultados = cursor.fetchall()
+            for fila in resultados:
+                listado.append(list(fila))
+            return listado
+        except Exception as error:
+            print("error listado de propiedades filtrado ", error)
+            return False
 
     @staticmethod
     def datosOnePropiedad(codigo):
@@ -228,4 +253,38 @@ class ConexionServer():
                 conexion.close()
                 return True
         except Error as e:
+            return False
+
+    @staticmethod
+    def modifPropiedad(propiedad):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = "update propiedades set altaprop = %s, cpprop = %s, dirprop = %s, provprop =%s, muniprop = %s, tipoprop =%s, habprop =%s, banprop =%s, superprop =%s, prealquiprop =%s, prevenprop =%s, obserprop = %s, nomeprop = %s, movilprop =%s, tipooper =%s, estadoprop =%s, bajaprop = %s where codigo = %s"
+                cursor.execute(query, propiedad)  # Ejecutar la consulta pasando la lista directamente
+                conexion.commit()  # Confirmar la transacción
+                cursor.close()  # Cerrar el cursor y la conexión
+                conexion.close()
+                return True
+        except Exception as error:
+            print("Error al modificar la propiedad en la base de datos", error)
+            return False
+
+    @staticmethod
+    def bajaPropiedad(codigo, fechabaja, disponibilidad):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = "update propiedades set bajaprop = %s, estadoprop =%s  where codigo = %s"
+                cursor.execute(query, (fechabaja, disponibilidad, codigo))  #
+                conexion.commit()
+                cursor.close()
+                conexion.close()
+                return True
+        except Exception as error:
+            print("Error al dar de baja la propiedad en la base de datos", error)
             return False
