@@ -194,6 +194,7 @@ class Propiedades():
             datos = conexionserver.ConexionServer.datosOnePropiedad(codigo)
 
             datos = [x if x != 'None' else '' for x in datos]
+            print(datos)
 
             var.ui.lblProp.setText(str(datos[0]))
             var.ui.txtFechaprop.setText(str(datos[1]))
@@ -210,7 +211,7 @@ class Propiedades():
             var.ui.txtPrecioventaprop.setText(str(datos[12]))
             var.ui.txtComentarioprop.setText(str(datos[13]))
 
-            tipos_oper = datos[14].rsplit(",")
+            tipos_oper = datos[14]
             var.ui.chkAlquilprop.setChecked("Alquiler" in tipos_oper)
             var.ui.chkVentaprop.setChecked("Venta" in tipos_oper)
             var.ui.chkInterprop.setChecked("Intercambio" in tipos_oper)
