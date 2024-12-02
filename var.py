@@ -17,3 +17,6 @@ global lastid
 global muniprop
 global municli
 global provincias
+global currentindextablacli
+global rowstablacli
+rowstablacli = 5

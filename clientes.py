@@ -70,8 +70,8 @@ class Clientes:
         areDatesOk = eventos.Eventos.checkFechas(var.ui.txtAltacli.text(), var.ui.txtBajacli.text())
         requirements = not areFieldsMissing and areDatesOk
 
-        #if requirements and conexion.Conexion.altaCliente(nuevocli):
-        if requirements and conexionserver.ConexionServer.altaCliente(nuevocli):
+        if requirements and conexion.Conexion.altaCliente(nuevocli):
+        #if requirements and conexionserver.ConexionServer.altaCliente(nuevocli):
             eventos.Eventos.mostrarMensajeOk("Cliente dado de alta en base de datos correctamente")
             Clientes.cargaTablaClientes()
         elif areFieldsMissing:
@@ -84,11 +84,22 @@ class Clientes:
     @staticmethod
     def cargaTablaClientes():
         try:
-            #listado = conexion.Conexion.listadoClientes()
-            listado = conexionserver.ConexionServer.listadoClientes()
+            listado = conexion.Conexion.listadoClientes()
+            #listado = conexionserver.ConexionServer.listadoClientes()
             index = 0
-            var.ui.tablaClientes.setRowCount(len(listado))
-            for registro in listado:
+            sublistado = listado[var.currentindextablacli: var.currentindextablacli + var.rowstablacli]
+            if listado[0] == sublistado[0]:
+                var.ui.btnAnteriorcli.setDisabled(True)
+            else:
+                var.ui.btnAnteriorcli.setDisabled(False)
+
+            if listado[-1] == sublistado[-1]:
+                var.ui.btnSiguientecli.setDisabled(True)
+            else:
+                var.ui.btnSiguientecli.setDisabled(False)
+
+            var.ui.tablaClientes.setRowCount(len(sublistado))
+            for registro in sublistado:
                 var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(registro[0]))
                 var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[2]))
                 var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[3]))
@@ -114,8 +125,8 @@ class Clientes:
         try:
             file = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in file]
-            #registro = conexion.Conexion.datosOneCliente(datos[0])
-            registro = conexionserver.ConexionServer.datosOneCliente(datos[0])
+            registro = conexion.Conexion.datosOneCliente(datos[0])
+            #registro = conexionserver.ConexionServer.datosOneCliente(datos[0])
             registro = [x if x != 'None' else '' for x in registro]
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli, var.ui.txtBajacli]
             for i in range(len(listado)):
@@ -131,8 +142,8 @@ class Clientes:
     def cargaClienteBuscado():
         try:
             dni = var.ui.txtDnicli.text()
-            #registro = conexion.Conexion.datosOneCliente(dni)
-            registro = conexionserver.ConexionServer.datosOneCliente(dni)
+            registro = conexion.Conexion.datosOneCliente(dni)
+            #registro = conexionserver.ConexionServer.datosOneCliente(dni)
             registro = [x if x != 'None' else '' for x in registro]
             if registro:
                 listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
@@ -160,8 +171,8 @@ class Clientes:
             areDatesOk = eventos.Eventos.checkFechas(var.ui.txtAltacli.text(), var.ui.txtBajacli.text())
             requirements = not areFieldsMissing and areDatesOk
 
-            #if requirements and conexion.Conexion.modifCliente(modifcli):
-            if requirements and conexionserver.ConexionServer.modifCliente(modifcli):
+            if requirements and conexion.Conexion.modifCliente(modifcli):
+            #if requirements and conexionserver.ConexionServer.modifCliente(modifcli):
                 eventos.Eventos.mostrarMensajeOk("Datos del cliente modificados correctamente")
                 Clientes.cargaTablaClientes()
             elif areFieldsMissing:
@@ -179,8 +190,8 @@ class Clientes:
         try:
             fecha = datetime.now().strftime("%d/%m/%Y")
             dni = var.ui.txtDnicli.text()
-            #if fecha != "" and conexion.Conexion.bajaCliente(dni,fecha):
-            if fecha != "" and conexionserver.ConexionServer.bajaCliente(dni, fecha):
+            if fecha != "" and conexion.Conexion.bajaCliente(dni,fecha):
+            #if fecha != "" and conexionserver.ConexionServer.bajaCliente(dni, fecha):
                 eventos.Eventos.mostrarMensajeOk("Cliente dado de baja correctamente")
                 Clientes.cargaTablaClientes()
             elif fecha == "":
@@ -194,6 +205,7 @@ class Clientes:
     @staticmethod
     def historicoCli():
         try:
+            var.currentindextablacli = 0
             Clientes.cargaTablaClientes()
         except Exception as error:
             print("Error al actualizar historico")

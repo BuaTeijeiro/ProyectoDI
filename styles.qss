@@ -51,3 +51,7 @@ QPushButton{
 QRadioButton:disabled{
     color: #aaa;
 }
+
+QPushButton:disabled{
+    background-color: #aaa;
+}

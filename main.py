@@ -17,13 +17,15 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
 
         self.setStyleSheet(styles.load_stylesheet())
-        #conexion.Conexion.db_conexion()
-        conexionserver.ConexionServer.crear_conexion()
+        conexion.Conexion.db_conexion()
+        #conexionserver.ConexionServer.crear_conexion()
 
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlg_Tipoprop()
         var.dlgabout = dlg_About()
+        var.currentindextablacli = 0
+        var.ui.btnAnteriorcli.setDisabled(True)
 
 
         eventos.Eventos.cargarProv()
@@ -78,6 +80,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
         var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
         var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
+        var.ui.btnSiguientecli.clicked.connect(eventos.Eventos.avanzarTablacli)
+        var.ui.btnAnteriorcli.clicked.connect(eventos.Eventos.retrocederTablacli)
 
 
         """

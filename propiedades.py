@@ -105,8 +105,8 @@ class Propiedades():
                 propiedad.append(var.ui.rbtVentaprop.text())
 
 
-            #if areRequirementsOK and conexion.Conexion.altaPropiedad(propiedad):
-            if areRequirementsOK and conexionserver.ConexionServer.altaPropiedad(propiedad):
+            if areRequirementsOK and conexion.Conexion.altaPropiedad(propiedad):
+            #if areRequirementsOK and conexionserver.ConexionServer.altaPropiedad(propiedad):
                 eventos.Eventos.mostrarMensajeOk("Se ha guardado la propiedad correctamente")
                 Propiedades.cargaOnePropiedad(var.lastid)
                 Propiedades.cargaTablaPropiedades()
@@ -131,8 +131,8 @@ class Propiedades():
     @staticmethod
     def cargaTablaPropiedades():
         try:
-            #listado = conexion.Conexion.listadoPropiedades()
-            listado = conexionserver.ConexionServer.listadoPropiedades()
+            listado = conexion.Conexion.listadoPropiedades()
+            #listado = conexionserver.ConexionServer.listadoPropiedades()
             Propiedades.setTablaPropiedades(listado)
 
         except Exception as e:
@@ -144,8 +144,8 @@ class Propiedades():
             tipo_propiedad = var.ui.cmbTipoprop.currentText()
             provincia = var.ui.cmbProvprop.currentText()
             municipio = var.ui.cmbMuniprop.currentText()
-            #listado = conexion.Conexion.listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia)
-            listado = conexionserver.ConexionServer.listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia)
+            listado = conexion.Conexion.listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia)
+            #listado = conexionserver.ConexionServer.listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia)
             Propiedades.setTablaPropiedades(listado)
         except Exception as e:
             print("Error al cargar la tabla de clientes", e)
@@ -190,8 +190,8 @@ class Propiedades():
                 codigo = propiedad[0].text()
             else:
                 codigo = code
-            #datos = conexion.Conexion.datosOnePropiedad(codigo)
-            datos = conexionserver.ConexionServer.datosOnePropiedad(codigo)
+            datos = conexion.Conexion.datosOnePropiedad(codigo)
+            #datos = conexionserver.ConexionServer.datosOnePropiedad(codigo)
 
             datos = [x if x != 'None' else '' for x in datos]
 
@@ -262,8 +262,8 @@ class Propiedades():
         propiedad.append(var.ui.txtFechabajaprop.text())
         propiedad.append(var.ui.lblProp.text())
 
-        #if areRequirementsOK and conexion.Conexion.modifPropiedad(propiedad):
-        if areRequirementsOK and conexionserver.ConexionServer.modifPropiedad(propiedad):
+        if areRequirementsOK and conexion.Conexion.modifPropiedad(propiedad):
+        #if areRequirementsOK and conexionserver.ConexionServer.modifPropiedad(propiedad):
             eventos.Eventos.mostrarMensajeOk("Propiedad modificada correctamente")
             Propiedades.cargaTablaPropiedades()
         elif areFieldsMissing:
@@ -296,8 +296,8 @@ class Propiedades():
         isBajaOk = (var.ui.rbtAlquilprop.isChecked() and var.ui.chkAlquilprop.isChecked()) or (var.ui.rbtVentaprop.isChecked() and var.ui.chkVentaprop.isChecked())
         areDatesOk = eventos.Eventos.checkFechas(var.ui.txtFechaprop.text(), var.ui.txtFechabajaprop.text())
         requirement = fechabaja and not isDisponible and isBajaOk and areDatesOk
-        #if requirement and conexion.Conexion.bajaPropiedad(codigo, fechabaja, disponibilidad):
-        if requirement and conexionserver.ConexionServer.bajaPropiedad(codigo, fechabaja, disponibilidad):
+        if requirement and conexion.Conexion.bajaPropiedad(codigo, fechabaja, disponibilidad):
+        #if requirement and conexionserver.ConexionServer.bajaPropiedad(codigo, fechabaja, disponibilidad):
             eventos.Eventos.mostrarMensajeOk("Propiedad dada de baja correctamente")
             Propiedades.cargaTablaPropiedades()
         elif isDisponible:
