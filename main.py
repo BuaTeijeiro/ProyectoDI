@@ -84,6 +84,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
         var.ui.btnSiguientecli.clicked.connect(eventos.Eventos.avanzarTablacli)
         var.ui.btnAnteriorcli.clicked.connect(eventos.Eventos.retrocederTablacli)
+        var.ui.btnSiguienteprop.clicked.connect(eventos.Eventos.avanzarTablaprop)
+        var.ui.btnAnteriorprop.clicked.connect(eventos.Eventos.retrocederTablaprop)
 
 
         """

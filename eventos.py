@@ -218,6 +218,16 @@ class Eventos():
         clientes.Clientes.cargaTablaClientes()
 
     @staticmethod
+    def avanzarTablaprop():
+        var.currentindextablacli += var.rowstablacli
+        propiedades.Propiedades.cargaTablaPropiedades()
+
+    @staticmethod
+    def retrocederTablaprop():
+        var.currentindextablacli -= var.rowstablacli
+        propiedades.Propiedades.cargaTablaPropiedades()
+
+    @staticmethod
     def resizeTablaClientes():
         try:
             header = var.ui.tablaClientes.horizontalHeader()
