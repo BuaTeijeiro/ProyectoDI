@@ -219,13 +219,13 @@ class Eventos():
 
     @staticmethod
     def avanzarTablaprop():
-        var.currentindextablacli += var.rowstablacli
-        propiedades.Propiedades.cargaTablaPropiedades()
+        var.currentindextablaprop += var.rowstablaprop
+        propiedades.Propiedades.setTablaPropiedades()
 
     @staticmethod
     def retrocederTablaprop():
-        var.currentindextablacli -= var.rowstablacli
-        propiedades.Propiedades.cargaTablaPropiedades()
+        var.currentindextablaprop -= var.rowstablaprop
+        propiedades.Propiedades.setTablaPropiedades()
 
     @staticmethod
     def resizeTablaClientes():

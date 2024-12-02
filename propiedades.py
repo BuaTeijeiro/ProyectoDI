@@ -133,7 +133,8 @@ class Propiedades():
         try:
             listado = conexion.Conexion.listadoPropiedades()
             #listado = conexionserver.ConexionServer.listadoPropiedades()
-            Propiedades.setTablaPropiedades(listado)
+            var.currentlistapropiedades = listado
+            Propiedades.setTablaPropiedades()
 
         except Exception as e:
             print("Error al cargar la tabla de clientes", e)
@@ -141,46 +142,66 @@ class Propiedades():
     @staticmethod
     def filtrarTablaPropiedades():
         try:
+            var.currentindextablaprop = 0
             tipo_propiedad = var.ui.cmbTipoprop.currentText()
             provincia = var.ui.cmbProvprop.currentText()
             municipio = var.ui.cmbMuniprop.currentText()
             listado = conexion.Conexion.listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia)
             #listado = conexionserver.ConexionServer.listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia)
-            Propiedades.setTablaPropiedades(listado)
+            var.currentlistapropiedades = listado
+            Propiedades.setTablaPropiedades()
         except Exception as e:
             print("Error al cargar la tabla de clientes", e)
 
     @staticmethod
-    def setTablaPropiedades(listado):
-        index = 0
-        sublistado = listado[var.currentindextablaprop: var.currentindextablaprop + var.rowstablaprop]
-        var.ui.tablaPropiedades.setRowCount(len(sublistado))
-        for registro in sublistado:
-            registro = [x if x != None else '' for x in registro]
-            var.ui.tablaPropiedades.setSpan(0, 0, 1, 1)
-            for j, dato in enumerate(registro):
-                if j in (5, 6):
-                    valor = (str(dato) if dato != "" else "-") + " €"
-                    var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(valor))
-                else:
-                    var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(str(dato)))
+    def setTablaPropiedades():
+        listado = var.currentlistapropiedades
 
-            var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tablaPropiedades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-            var.ui.tablaPropiedades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-            var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tablaPropiedades.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-            var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-            index += 1
         if len(listado) == 0:
-            var.ui.tablaPropiedades.setRowCount(4)
-            var.ui.tablaPropiedades.setItem(0, 0, QtWidgets.QTableWidgetItem("No hay propiedades con estos filtros"))
-            var.ui.tablaPropiedades.setSpan(0,0,4,9)
-            var.ui.tablaPropiedades.item(0,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        eventos.Eventos.resizeTablaPropiedades()
+            var.ui.btnAnteriorprop.setDisabled(True)
+            var.ui.btnSiguienteprop.setDisabled(True)
+
+        else:
+            index = 0
+            sublistado = listado[var.currentindextablaprop: var.currentindextablaprop + var.rowstablaprop]
+            var.ui.tablaPropiedades.setRowCount(len(sublistado))
+
+            if listado[0] == sublistado[0]:
+                var.ui.btnAnteriorprop.setDisabled(True)
+            else:
+                var.ui.btnAnteriorprop.setDisabled(False)
+
+            if listado[-1] == sublistado[-1]:
+                var.ui.btnSiguienteprop.setDisabled(True)
+            else:
+                var.ui.btnSiguienteprop.setDisabled(False)
+
+            for registro in sublistado:
+                registro = [x if x != None else '' for x in registro]
+                var.ui.tablaPropiedades.setSpan(0, 0, 1, 1)
+                for j, dato in enumerate(registro):
+                    if j in (5, 6):
+                        valor = (str(dato) if dato != "" else "-") + " €"
+                        var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(valor))
+                    else:
+                        var.ui.tablaPropiedades.setItem(index, j, QtWidgets.QTableWidgetItem(str(dato)))
+
+                var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaPropiedades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                index += 1
+            if len(listado) == 0:
+                var.ui.tablaPropiedades.setRowCount(4)
+                var.ui.tablaPropiedades.setItem(0, 0, QtWidgets.QTableWidgetItem("No hay propiedades con estos filtros"))
+                var.ui.tablaPropiedades.setSpan(0,0,4,9)
+                var.ui.tablaPropiedades.item(0,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            eventos.Eventos.resizeTablaPropiedades()
 
 
     @staticmethod

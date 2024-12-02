@@ -23,4 +23,6 @@ rowstablacli = 5
 
 global currentindextablaprop
 global rowstablaprop
-rowstablaprop = 5
+rowstablaprop = 2
+
+global currentlistapropiedades
