@@ -164,7 +164,7 @@
       <workItem from="1732708165347" duration="5376000" />
       <workItem from="1732886183907" duration="16000" />
       <workItem from="1733127139082" duration="5207000" />
-      <workItem from="1733139186300" duration="404000" />
+      <workItem from="1733139186300" duration="715000" />
     </task>
     <servers />
   </component>
@@ -173,7 +173,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/buateijeiro$main.coverage" NAME="main Coverage Results" MODIFIED="1728369377665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1733139590883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1733139903353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/buateijeiro$eventos.coverage" NAME="eventos Coverage Results" MODIFIED="1727857564494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/buateijeiro$date.coverage" NAME="date Coverage Results" MODIFIED="1728633921854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../PSP/Bloque1_Multiproceso/Proyectos_Prueba/Prueba1" />
   </component>

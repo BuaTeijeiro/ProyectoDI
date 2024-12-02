@@ -160,6 +160,10 @@ class Propiedades():
         if len(listado) == 0:
             var.ui.btnAnteriorprop.setDisabled(True)
             var.ui.btnSiguienteprop.setDisabled(True)
+            var.ui.tablaPropiedades.setRowCount(4)
+            var.ui.tablaPropiedades.setItem(0, 0, QtWidgets.QTableWidgetItem("No hay propiedades con estos filtros"))
+            var.ui.tablaPropiedades.setSpan(0, 0, 4, 9)
+            var.ui.tablaPropiedades.item(0, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
         else:
             index = 0
@@ -196,11 +200,7 @@ class Propiedades():
                 var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 index += 1
-            if len(listado) == 0:
-                var.ui.tablaPropiedades.setRowCount(4)
-                var.ui.tablaPropiedades.setItem(0, 0, QtWidgets.QTableWidgetItem("No hay propiedades con estos filtros"))
-                var.ui.tablaPropiedades.setSpan(0,0,4,9)
-                var.ui.tablaPropiedades.item(0,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
             eventos.Eventos.resizeTablaPropiedades()
 
 
