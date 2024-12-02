@@ -25,7 +25,9 @@ class Main(QtWidgets.QMainWindow):
         var.dlggestion = dlg_Tipoprop()
         var.dlgabout = dlg_About()
         var.currentindextablacli = 0
+        var.currentindextablaprop = 0
         var.ui.btnAnteriorcli.setDisabled(True)
+        var.ui.btnAnteriorprop.setDisabled(True)
 
 
         eventos.Eventos.cargarProv()
@@ -127,7 +129,7 @@ class Main(QtWidgets.QMainWindow):
         eventos de checkbox
         """
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
-        var.ui.chkHistoriprop.stateChanged.connect(lambda: propiedades.Propiedades.cargaTablaPropiedades())
+        var.ui.chkHistoriprop.stateChanged.connect(propiedades.Propiedades.historicoProp)
         var.ui.chkVentaprop.stateChanged.connect(propiedades.Propiedades.reloadPrecio)
         var.ui.chkAlquilprop.stateChanged.connect(propiedades.Propiedades.reloadPrecio)
 

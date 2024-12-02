@@ -20,3 +20,7 @@ global provincias
 global currentindextablacli
 global rowstablacli
 rowstablacli = 5
+
+global currentindextablaprop
+global rowstablaprop
+rowstablaprop = 5

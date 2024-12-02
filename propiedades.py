@@ -153,8 +153,9 @@ class Propiedades():
     @staticmethod
     def setTablaPropiedades(listado):
         index = 0
-        var.ui.tablaPropiedades.setRowCount(len(listado))
-        for registro in listado:
+        sublistado = listado[var.currentindextablaprop: var.currentindextablaprop + var.rowstablaprop]
+        var.ui.tablaPropiedades.setRowCount(len(sublistado))
+        for registro in sublistado:
             registro = [x if x != None else '' for x in registro]
             var.ui.tablaPropiedades.setSpan(0, 0, 1, 1)
             for j, dato in enumerate(registro):
@@ -320,3 +321,11 @@ class Propiedades():
             Propiedades.cargaTablaPropiedades()
         else:
             eventos.Eventos.mostrarMensajeError("Propiedad no pudo ser eliminada")
+
+    @staticmethod
+    def historicoProp():
+        try:
+            var.currentindextablaprop = 0
+            Propiedades.cargaTablaPropiedades()
+        except Exception as error:
+            print("Error al actualizar historico")
