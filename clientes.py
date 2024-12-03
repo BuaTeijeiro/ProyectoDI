@@ -1,5 +1,4 @@
 from datetime import datetime
-from importlib.metadata import requires
 
 from PyQt6 import QtWidgets, QtGui, QtCore
 
@@ -85,6 +84,9 @@ class Clientes:
     def cargaTablaClientes():
         try:
             listado = conexion.Conexion.listadoClientes()
+            var.totalpaginascli = len(listado) // var.rowstablacli
+            if (len(listado) % var.rowstablacli) != 0:
+                var.totalpaginascli += 1
             #listado = conexionserver.ConexionServer.listadoClientes()
             index = 0
             sublistado = listado[var.currentindextablacli: var.currentindextablacli + var.rowstablacli]
@@ -117,6 +119,7 @@ class Clientes:
                 var.ui.tablaClientes.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
             eventos.Eventos.resizeTablaClientes()
+            eventos.Eventos.setCurrentPageCli()
         except Exception as e:
             print("Error al cargar la tabla de clientes", e)
 
@@ -193,6 +196,7 @@ class Clientes:
             if fecha != "" and conexion.Conexion.bajaCliente(dni,fecha):
             #if fecha != "" and conexionserver.ConexionServer.bajaCliente(dni, fecha):
                 eventos.Eventos.mostrarMensajeOk("Cliente dado de baja correctamente")
+                var.currentindextablacli = 0
                 Clientes.cargaTablaClientes()
             elif fecha == "":
                 eventos.Eventos.mostrarMensajeError('No se pudo dar de baja al cliente correctamente: Es necesario rellenar el campo de fecha de baja')
@@ -209,3 +213,14 @@ class Clientes:
             Clientes.cargaTablaClientes()
         except Exception as error:
             print("Error al actualizar historico")
+
+    @staticmethod
+    def resetFilas():
+        try:
+            if (int(var.ui.filastablacli.text()) < 1):
+                var.ui.filastablacli.setValue(1)
+            var.rowstablacli = int(var.ui.filastablacli.text())
+            var.currentindextablacli = 0
+            Clientes.cargaTablaClientes()
+        except Exception as error:
+            print("Error al reset filas: ", error)

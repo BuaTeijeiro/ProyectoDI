@@ -17,12 +17,15 @@ global lastid
 global muniprop
 global municli
 global provincias
+
+#tabla clientes
 global currentindextablacli
 global rowstablacli
-rowstablacli = 5
+global totalpaginascli
+rowstablacli = 10
 
 global currentindextablaprop
 global rowstablaprop
-rowstablaprop = 2
+rowstablaprop = 5
 
 global currentlistapropiedades

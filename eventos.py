@@ -3,7 +3,6 @@ import json
 import os.path
 import sys
 from datetime import datetime
-
 from PyQt6.QtWidgets import QSpinBox
 
 import clientes
@@ -13,14 +12,12 @@ from PyQt6 import QtWidgets, QtGui, QtCore
 import re
 
 import conexionserver
-import eventos
 import propiedades
 import var
 import time
 import zipfile
 import shutil
 import locale
-
 
 #Establecer configuracion regional
 
@@ -218,6 +215,12 @@ class Eventos():
         clientes.Clientes.cargaTablaClientes()
 
     @staticmethod
+    def setCurrentPageCli():
+        currentPage = var.currentindextablacli / var.rowstablacli + 1
+        totalpaginascli = var.totalpaginascli
+        var.ui.lbl_pagcli.setText(f"Página %i/%i" %(currentPage, totalpaginascli))
+
+    @staticmethod
     def avanzarTablaprop():
         var.currentindextablaprop += var.rowstablaprop
         propiedades.Propiedades.setTablaPropiedades()
@@ -226,6 +229,14 @@ class Eventos():
     def retrocederTablaprop():
         var.currentindextablaprop -= var.rowstablaprop
         propiedades.Propiedades.setTablaPropiedades()
+
+    @staticmethod
+    def setCurrentPageProp():
+        currentPage = var.currentindextablaprop / var.rowstablaprop + 1
+        totalpaginasprop = len (var.currentlistapropiedades) // var.rowstablaprop
+        if len(var.currentlistapropiedades) % var.rowstablaprop != 0:
+            totalpaginasprop += 1
+        var.ui.lbl_pagprop.setText(f"Página %i/%i" % (currentPage, totalpaginasprop))
 
     @staticmethod
     def resizeTablaClientes():

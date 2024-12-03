@@ -48,6 +48,10 @@ QPushButton{
     background-color: none;
 }
 
+#btnAnteriorcli, #btnSiguientecli, #btnSiguienteprop, #btnAnteriorprop{
+    background-color: #fff
+}
+
 QRadioButton:disabled{
     color: #aaa;
 }

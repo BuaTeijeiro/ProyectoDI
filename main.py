@@ -136,6 +136,14 @@ class Main(QtWidgets.QMainWindow):
         var.ui.chkAlquilprop.stateChanged.connect(propiedades.Propiedades.reloadPrecio)
 
         """
+        eventos de spinbox
+        """
+        var.ui.filastablacli.setValue(var.rowstablacli)
+        var.ui.filastablacli.valueChanged.connect(clientes.Clientes.resetFilas)
+        var.ui.filastablaprop.setValue(var.rowstablaprop)
+        var.ui.filastablaprop.valueChanged.connect(propiedades.Propiedades.resetFilas)
+
+        """
         Radio buttons
         """
         var.ui.rbtAlquilprop.setEnabled(False)

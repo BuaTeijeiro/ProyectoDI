@@ -156,6 +156,7 @@ class Propiedades():
     @staticmethod
     def setTablaPropiedades():
         listado = var.currentlistapropiedades
+        eventos.Eventos.setCurrentPageProp()
 
         if len(listado) == 0:
             var.ui.btnAnteriorprop.setDisabled(True)
@@ -321,6 +322,7 @@ class Propiedades():
         if requirement and conexion.Conexion.bajaPropiedad(codigo, fechabaja, disponibilidad):
         #if requirement and conexionserver.ConexionServer.bajaPropiedad(codigo, fechabaja, disponibilidad):
             eventos.Eventos.mostrarMensajeOk("Propiedad dada de baja correctamente")
+            var.currentindextablaprop = 0
             Propiedades.cargaTablaPropiedades()
         elif isDisponible:
             eventos.Eventos.mostrarMensajeError("Una propiedad no puede estar disponible y darla de baja")
@@ -339,9 +341,21 @@ class Propiedades():
         codigo = var.ui.lblProp.text()
         if conexion.Conexion.deletePropiedad(codigo):
             eventos.Eventos.mostrarMensajeOk("Propiedad eliminada correctamente")
+            var.currentindextablaprop = 0
             Propiedades.cargaTablaPropiedades()
         else:
             eventos.Eventos.mostrarMensajeError("Propiedad no pudo ser eliminada")
+
+    @staticmethod
+    def resetFilas():
+        try:
+            if (int(var.ui.filastablaprop.text()) < 1):
+                var.ui.filastablaprop.setValue(1)
+            var.rowstablaprop = int(var.ui.filastablaprop.text())
+            var.currentindextablaprop = 0
+            Propiedades.setTablaPropiedades()
+        except Exception as error:
+            print("Error al reset filas: ", error)
 
     @staticmethod
     def historicoProp():
