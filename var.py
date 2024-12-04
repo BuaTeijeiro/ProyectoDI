@@ -21,11 +21,15 @@ global provincias
 #tabla clientes
 global currentindextablacli
 global rowstablacli
+global maxrowstablacli
 global totalpaginascli
 rowstablacli = 10
+maxrowstablacli = 10
 
 global currentindextablaprop
 global rowstablaprop
+global maxrowstablaprop
 rowstablaprop = 5
+maxrowstablaprop = 5
 
 global currentlistapropiedades

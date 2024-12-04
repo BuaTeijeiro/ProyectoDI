@@ -314,8 +314,8 @@ class Eventos():
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
                 conexion.Conexion.db_conexion()
-                eventos.Eventos.cargarProv()
-                eventos.Eventos.cargarMunicipioscli()
+                Eventos.cargarProv()
+                Eventos.cargarMunicipioscli()
                 clientes.Clientes.cargaTablaClientes()
         except Exception as error:
             print("error en restaurar backup: ", error)
@@ -341,9 +341,9 @@ class Eventos():
             else:
                 element.setText("")
 
-        eventos.Eventos.cargarProv()
-        eventos.Eventos.cargarMunicipioscli()
-        eventos.Eventos.cargarTiposprop()
+        Eventos.cargarProv()
+        Eventos.cargarMunicipioscli()
+        Eventos.cargarTiposprop()
 
         clientes.Clientes.cargaTablaClientes()
         propiedades.Propiedades.cargaTablaPropiedades()

@@ -351,11 +351,14 @@ class Propiedades():
         try:
             if (int(var.ui.filastablaprop.text()) < 1):
                 var.ui.filastablaprop.setValue(1)
+            if (int(var.ui.filastablaprop.text()) > var.maxrowstablaprop):
+                var.ui.filastablaprop.setValue(var.maxrowstablaprop)
             var.rowstablaprop = int(var.ui.filastablaprop.text())
             var.currentindextablaprop = 0
             Propiedades.setTablaPropiedades()
         except Exception as error:
             print("Error al reset filas: ", error)
+
 
     @staticmethod
     def historicoProp():

@@ -219,6 +219,8 @@ class Clientes:
         try:
             if (int(var.ui.filastablacli.text()) < 1):
                 var.ui.filastablacli.setValue(1)
+            if (int(var.ui.filastablacli.text()) > var.maxrowstablacli):
+                var.ui.filastablacli.setValue(var.maxrowstablacli)
             var.rowstablacli = int(var.ui.filastablacli.text())
             var.currentindextablacli = 0
             Clientes.cargaTablaClientes()
