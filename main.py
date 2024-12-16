@@ -20,6 +20,11 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.db_conexion()
         #conexionserver.ConexionServer.crear_conexion()
 
+        var.ui.cmbMuniprop.setEditable(True)
+        var.ui.cmbProvprop.setEditable(True)
+        var.ui.cmbMunicli.setEditable(True)
+        var.ui.cmbProvcli.setEditable(True)
+
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlg_Tipoprop()
@@ -106,11 +111,6 @@ class Main(QtWidgets.QMainWindow):
         """
         var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipioscli)
         var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosprop)
-
-        var.ui.cmbMuniprop.setEditable(True)
-        var.ui.cmbProvprop.setEditable(True)
-        var.ui.cmbMunicli.setEditable(True)
-        var.ui.cmbProvcli.setEditable(True)
 
         completer = QtWidgets.QCompleter(var.provincias, var.ui.cmbProvprop)
         completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
