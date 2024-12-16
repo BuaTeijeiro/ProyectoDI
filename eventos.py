@@ -56,6 +56,9 @@ class Eventos():
         var.ui.cmbProvprop.clear()
         var.ui.cmbProvprop.addItems(listado)
 
+        var.ui.cmbProvvend.clear()
+        var.ui.cmbProvvend.addItems(listado)
+
     @staticmethod
     def cargarMunicipioscli():
         var.ui.cmbMunicli.clear()
@@ -198,6 +201,10 @@ class Eventos():
                 var.ui.txtFechaprop.setText(str(data))
             if var.ui.panPrincipal.currentIndex() == 1 and var.btn == 1:
                 var.ui.txtFechabajaprop.setText(str(data))
+            if var.ui.panPrincipal.currentIndex() == 2 and var.btn == 0:
+                var.ui.txtAltavend.setText(str(data))
+            if var.ui.panPrincipal.currentIndex() == 2 and var.btn == 1:
+                var.ui.txtBajavend.setText(str(data))
             time.sleep(0.2)
             var.uicalendar.hide()
             return data
@@ -249,6 +256,23 @@ class Eventos():
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
                 header_item = var.ui.tablaClientes.horizontalHeaderItem(i)
+                font = header_item.font()
+                font.setBold(True)
+                header_item.setFont(font)
+        except Exception as e:
+            print("error en resize tabla clientes: ", e)
+
+    @staticmethod
+    def resizeTablaVendedores():
+        try:
+            header = var.ui.tablaVendedores.horizontalHeader()
+            for i in range(header.count()):
+                if i in (1, 3):
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_item = var.ui.tablaVendedores.horizontalHeaderItem(i)
                 font = header_item.font()
                 font.setBold(True)
                 header_item.setFont(font)
@@ -328,7 +352,9 @@ class Eventos():
                     var.ui.txtFechabajaprop, var.ui.txtCPprop, var.ui.txtDirprop, var.ui.spinHabprop,
                     var.ui.spinBanosprop, var.ui.txtSuperprop, var.ui.txtPrecioalquilerprop,
                     var.ui.txtPrecioventaprop, var.ui.txtComentarioprop, var.ui.txtNomeprop,
-                    var.ui.txtMovilprop]
+                    var.ui.txtMovilprop, var.ui.lblidvend, var.ui.txtDnivend, var.ui.txtNombrevend,
+                    var.ui.txtAltavend, var.ui.txtBajavend, var.ui.txtMovilvend,
+                    var.ui.txtEmailvend]
 
         var.ui.chkAlquilprop.setChecked(False)
         var.ui.chkVentaprop.setChecked(False)
@@ -341,9 +367,16 @@ class Eventos():
             else:
                 element.setText("")
 
+        var.ui.txtDnivend.setPlaceholderText('')
+        var.ui.txtMovilvend.setPlaceholderText('')
+        var.ui.txtEmailvend.setPlaceholderText('')
+
         Eventos.cargarProv()
         Eventos.cargarMunicipioscli()
         Eventos.cargarTiposprop()
+
+        var.ui.btnGrabarvend.setEnabled(True)
+        var.ui.txtDnivend.setEnabled(True)
 
         clientes.Clientes.cargaTablaClientes()
         propiedades.Propiedades.cargaTablaPropiedades()
@@ -381,15 +414,33 @@ class Eventos():
                     json.dump(listado, jsonfile, indent=4, ensure_ascii=False)
                 shutil.move(fichero, directorio)
             else:
-                Eventos.mostrarMensajeError("Error de exportación de Datos de Propiedades a CSV")
+                Eventos.mostrarMensajeError("Error de exportación de Datos de Propiedades a JSON")
         except Exception as error:
             print("error en exportar csv: ", error)
+
+    @staticmethod
+    def exportarJsonVend():
+        try:
+            fecha = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+            file = str(fecha) + "_datosVendedores.json"
+            directorio, fichero = var.dlgabrir.getSaveFileName(None, "Exportar Datos Vendedores", file, ".json")
+            if var.dlgabrir.accept and fichero:
+                keys = ["idVendedor","dniVendedor", "nombreVendedor", "altaVendedor", "bajaVendedor", "movilVendedor", "mailVendedor","delegacionVendedor"]
+                registros = conexion.Conexion.listadoVendedores()
+                listado = [dict(zip(keys, registro)) for registro in registros]
+                with open(fichero, "w", newline="", encoding="utf-8") as jsonfile:
+                    json.dump(listado, jsonfile, indent=4, ensure_ascii=False)
+                shutil.move(fichero, directorio)
+            else:
+                Eventos.mostrarMensajeError("Error de exportación de Datos de Vendedores a JSON")
+        except Exception as error:
+            print("error en exportar json: ", error)
 
 
     @staticmethod
     def cargarTiposprop():
-        #tipos = conexion.Conexion.listadoTipoprop()
-        tipos = conexionserver.ConexionServer.listadoTipoprop()
+        tipos = conexion.Conexion.listadoTipoprop()
+        #tipos = conexionserver.ConexionServer.listadoTipoprop()
         var.ui.cmbTipoprop.clear()
         var.ui.cmbTipoprop.addItems(tipos)
 

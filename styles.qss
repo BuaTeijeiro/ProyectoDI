@@ -44,7 +44,7 @@ QPushButton{
     border-radius: 5px;
 }
 
-#btnBuscarCliente{
+#btnBuscarCliente, #btnBuscarVendedor{
     background-color: none;
 }
 
@@ -59,3 +59,9 @@ QRadioButton:disabled{
 QPushButton:disabled{
     background-color: #aaa;
 }
+
+#txtDnivend:disabled{
+    color: #666;
+    background-color: #ddd;
+}
+

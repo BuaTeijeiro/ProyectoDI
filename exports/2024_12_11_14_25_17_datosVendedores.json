@@ -1,0 +1,22 @@
+[
+    {
+        "idVendedor": 3,
+        "dniVendedor": "X0000000T",
+        "nombreVendedor": "Laura Blanco Estévez",
+        "altaVendedor": "11/12/2024",
+        "bajaVendedor": "",
+        "movilVendedor": "656231212",
+        "mailVendedor": "laurablanco@gmail.com",
+        "delegacionVendedor": "Álava"
+    },
+    {
+        "idVendedor": 4,
+        "dniVendedor": "00000001R",
+        "nombreVendedor": "Martina Veiga",
+        "altaVendedor": "",
+        "bajaVendedor": "",
+        "movilVendedor": "636121212",
+        "mailVendedor": "mv@gmail.com",
+        "delegacionVendedor": "Álava"
+    }
+]

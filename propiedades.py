@@ -183,7 +183,7 @@ class Propiedades():
 
             for registro in sublistado:
                 registro = [x if x != None else '' for x in registro]
-                var.ui.tablaPropiedades.setSpan(0, 0, 1, 1)
+                var.ui.tablaPropiedades.clearSpans()
                 for j, dato in enumerate(registro):
                     if j in (5, 6):
                         valor = (str(dato) if dato != "" else "-") + " €"

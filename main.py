@@ -6,6 +6,7 @@ import conexionserver
 import eventos
 import propiedades
 import styles
+import vendedores
 from venPrincipal import *
 from venAux import *
 import sys
@@ -19,6 +20,11 @@ class Main(QtWidgets.QMainWindow):
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion()
         #conexionserver.ConexionServer.crear_conexion()
+
+        var.ui.cmbMuniprop.setEditable(True)
+        var.ui.cmbProvprop.setEditable(True)
+        var.ui.cmbMunicli.setEditable(True)
+        var.ui.cmbProvcli.setEditable(True)
 
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
@@ -39,11 +45,12 @@ class Main(QtWidgets.QMainWindow):
         zona de eventos de tablas
         """
         clientes.Clientes.cargaTablaClientes()
-
-
         propiedades.Propiedades.cargaTablaPropiedades()
+        vendedores.Vendedores.cargaTablaVendedores()
+
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(lambda: propiedades.Propiedades.cargaOnePropiedad())
+        var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargaCurrentVendedor)
 
         """
         zona de eventos del menubar
@@ -54,6 +61,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionRestaurar_Backup.triggered.connect(eventos.Eventos.restaurarBackup)
         var.ui.actionExportar_Clientes_CSV.triggered.connect(eventos.Eventos.exportarCSVProp)
         var.ui.actionExportar_Clientes_JSON.triggered.connect(eventos.Eventos.exportarJsonProp)
+        var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportarJsonVend)
         var.ui.actionTipoPropiedades.triggered.connect(eventos.Eventos.abrirTipoprop)
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.abrirAbout)
 
@@ -73,10 +81,13 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.btnGrabarcli.clicked.connect(clientes.Clientes.altaCliente)
         var.ui.btnBuscarCliente.clicked.connect(clientes.Clientes.cargaClienteBuscado)
+
         var.ui.btnAltacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
         var.ui.btnBajacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1))
         var.ui.btnFechaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
         var.ui.btnFechabajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1))
+
+
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
@@ -86,6 +97,14 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnAnteriorcli.clicked.connect(eventos.Eventos.retrocederTablacli)
         var.ui.btnSiguienteprop.clicked.connect(eventos.Eventos.avanzarTablaprop)
         var.ui.btnAnteriorprop.clicked.connect(eventos.Eventos.retrocederTablaprop)
+
+        #Zona examen
+        var.ui.btnAltavend.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
+        var.ui.btnBajavend.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1))
+        var.ui.btnGrabarvend.clicked.connect(vendedores.Vendedores.altaVendedor)
+        var.ui.btnModifvend.clicked.connect(vendedores.Vendedores.modifVendedor)
+        var.ui.btnDelvend.clicked.connect(vendedores.Vendedores.bajaVendedor)
+        var.ui.btnBuscarVendedor.clicked.connect(vendedores.Vendedores.buscarVendedor)
 
 
         """
@@ -100,17 +119,17 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtPrecioventaprop.textChanged.connect(propiedades.Propiedades.reloadTipoOperacion)
         var.ui.txtPrecioalquilerprop.textChanged.connect(propiedades.Propiedades.reloadTipoOperacion)
 
+        #Eventos de examen
+        var.ui.txtDnivend.editingFinished.connect(lambda: vendedores.Vendedores.checkDNI(var.ui.txtDnivend.text()))
+        var.ui.txtEmailvend.editingFinished.connect(vendedores.Vendedores.checkEmail)
+        var.ui.txtMovilvend.editingFinished.connect(vendedores.Vendedores.checkMovil)
+
 
         """
         combo box
         """
         var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipioscli)
         var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosprop)
-
-        var.ui.cmbMuniprop.setEditable(True)
-        var.ui.cmbProvprop.setEditable(True)
-        var.ui.cmbMunicli.setEditable(True)
-        var.ui.cmbProvcli.setEditable(True)
 
         completer = QtWidgets.QCompleter(var.provincias, var.ui.cmbProvprop)
         completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
@@ -134,6 +153,10 @@ class Main(QtWidgets.QMainWindow):
         var.ui.chkHistoriprop.stateChanged.connect(propiedades.Propiedades.historicoProp)
         var.ui.chkVentaprop.stateChanged.connect(propiedades.Propiedades.reloadPrecio)
         var.ui.chkAlquilprop.stateChanged.connect(propiedades.Propiedades.reloadPrecio)
+
+        #Zona examen
+        var.ui.chkHistoriavend.stateChanged.connect(vendedores.Vendedores.cargaTablaVendedores)
+
 
         """
         eventos de spinbox

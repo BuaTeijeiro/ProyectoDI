@@ -379,3 +379,135 @@ class Conexion:
             return True
         else:
             return False
+
+    #Metodos Examen
+    @staticmethod
+    def altaVendedor(nuevovend):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "INSERT into vendedores (dniVendedor,nombreVendedor, altaVendedor, movilVendedor, mailVendedor,delegacionVendedor) values (:dniVendedor, :nombreVendedor, :altaVendedor, :movilVendedor, :mailVendedor, :delegacionVendedor)")
+            query.bindValue(":dniVendedor", str(nuevovend[0]))
+            query.bindValue(":nombreVendedor", str(nuevovend[1]))
+            if str(nuevovend[2])=="":
+                query.bindValue(":altaVendedor", QtCore.QVariant())
+            else:
+                query.bindValue(":altaVendedor", str(nuevovend[2]))
+            query.bindValue(":movilVendedor", str(nuevovend[3]))
+            if (str(nuevovend[4])==""):
+                query.bindValue(":mailVendedor", QtCore.QVariant())
+            else:
+                query.bindValue(":mailVendedor", str(nuevovend[4]))
+            query.bindValue(":delegacionVendedor", str(nuevovend[5]))
+
+            if query.exec():
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print("Error alta vendedor", e)
+
+    @staticmethod
+    def listadoVendedores():
+        try:
+            listado = []
+            historico = var.ui.chkHistoriavend.isChecked()
+            if (historico):
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM vendedores order by idVendedor ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+                return listado
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM vendedores where bajaVendedor is null order by idVendedor ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+                return listado
+        except Exception as e:
+            print("Error al abrir el archivo")
+
+    @staticmethod
+    def datosOneVendedor(id):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM vendedores where idVendedor = :idVendedor")
+            query.bindValue(":idVendedor", str(id))
+            if query.exec() and query.next():
+                registro = [query.value(i) for i in range(query.record().count())]
+            return registro
+        except Exception as error:
+            print("Error al abrir el archivo")
+
+    @staticmethod
+    def getIdVendedor(movil):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT idVendedor FROM vendedores where movilVendedor = :movilVendedor")
+            query.bindValue(":movilVendedor", str(movil))
+            if query.exec() and query.next():
+                id = query.value(0)
+                return id
+            else:
+                return False
+        except Exception as error:
+            print("Error al abrir el archivo")
+
+    @staticmethod
+    def modifVendedor(modifvend):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "update vendedores  set nombreVendedor = :nombreVendedor, altaVendedor = :altaVendedor,bajaVendedor =:bajaVendedor, movilVendedor = :movilVendedor, mailVendedor =:mailVendedor, delegacionVendedor =:delegacionVendedor where idVendedor = :idVendedor")
+            query.bindValue(":nombreVendedor", str(modifvend[0]))
+            if str(modifvend[1]) == "":
+                query.bindValue(":altaVendedor", QtCore.QVariant())
+            else:
+                query.bindValue(":altaVendedor", str(modifvend[1]))
+            if str(modifvend[2]) == "":
+                query.bindValue(":bajaVendedor", QtCore.QVariant())
+            else:
+                query.bindValue(":bajaVendedor", str(modifvend[2]))
+            query.bindValue(":movilVendedor", str(modifvend[3]))
+            if (str(modifvend[4]) == ""):
+                query.bindValue(":mailVendedor", QtCore.QVariant())
+            else:
+                query.bindValue(":mailVendedor", str(modifvend[4]))
+            query.bindValue(":delegacionVendedor", str(modifvend[5]))
+            query.bindValue(":idVendedor", int(modifvend[6]))
+
+            if query.exec():
+                return True
+            else:
+                print(query.lastError().text())
+                return False
+
+        except Exception as e:
+            print("Error alta vendedor", e)
+
+    @staticmethod
+    def bajaVendedor(id, fecha):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("Select bajaVendedor from vendedores where  idVendedor= :idVendedor")
+            query.bindValue(":idVendedor", int(id))
+            query.exec()
+            if query.next() and query.value(0) == "":
+                query.prepare("UPDATE vendedores SET bajaVendedor = :bajaVendedor where idVendedor = :idVendedor")
+                query.bindValue(":idVendedor", int(id))
+                query.bindValue(":bajaVendedor", str(fecha))
+                if query.exec() and query.numRowsAffected() == 1:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        except Exception as exec:
+            print("Error al registrar la baja del cliente")
