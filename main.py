@@ -4,6 +4,7 @@ import clientes
 import conexion
 import conexionserver
 import eventos
+import informes
 import propiedades
 import styles
 import vendedores
@@ -64,6 +65,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportarJsonVend)
         var.ui.actionTipoPropiedades.triggered.connect(eventos.Eventos.abrirTipoprop)
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.abrirAbout)
+        var.ui.actionListado_Clientes.triggered.connect(informes.Informes.reportClientes)
 
 
         """

@@ -17,6 +17,7 @@ global lastid
 global muniprop
 global municli
 global provincias
+global report
 
 #tabla clientes
 global currentindextablacli
