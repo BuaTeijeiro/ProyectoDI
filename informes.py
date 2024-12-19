@@ -55,7 +55,7 @@ class Informes:
 
     def topInforme(titulo):
         try:
-            ruta_logo = '.\\img\\logo.ico'
+            ruta_logo = '.\\img\\logo.png'
             logo = Image.open(ruta_logo)
 
             # Asegúrate de que el objeto 'logo' sea de tipo 'PngImageFile'
