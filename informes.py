@@ -79,3 +79,6 @@ class Informes:
                 print(f'Error: No se pudo cargar la imagen en {ruta_logo}')
         except Exception as error:
             print('Error en cabecera informe:', error)
+
+if __name__ == '__main__':
+    Informes.reportClientes()
