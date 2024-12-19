@@ -8,28 +8,32 @@ class Informes:
     @staticmethod
     def reportClientes():
         try:
-            fecha = datetime.today().strftime("%Y_%m_%d%H_%M_%S")
-            nomepdfcli = fecha + ".pdf"
+            rootPath = ".\\informes"
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            fecha = datetime.today().strftime("%Y_%m_%d_%H_%M_%S")
+            nomepdfcli = fecha + "_listadoclientes.pdf"
+            pdf_path = os.path.join(rootPath, nomepdfcli)
+            print(pdf_path)
+            var.report = canvas.Canvas(pdf_path)
             titulo = "Listado clientes"
-            var.report = canvas.Canvas('informes/', nomepdfcli)
-            items = ["DNI", "APELLIDOS", "NOMBRE", "MOVIL", "PROVINCIA", "MUNICIPIO"]
             Informes.topInforme(titulo)
             Informes.footInforme(titulo)
+            items = ["DNI", "APELLIDOS", "NOMBRE", "MOVIL", "PROVINCIA", "MUNICIPIO"]
             var.report.setFont("Helvetica-Bold", size=10)
-            var.report.drawString(50, 650, str(items[0]))
-            var.report.drawString(120, 650, str(items[1]))
-            var.report.drawString(170, 650, str(items[2]))
+            var.report.drawString(55, 650, str(items[0]))
+            var.report.drawString(100, 650, str(items[1]))
+            var.report.drawString(190, 650, str(items[2]))
             var.report.drawString(285, 650, str(items[3]))
-            var.report.drawString(390, 650, str(items[4]))
-            var.report.drawString(460, 650, str(items[5]))
+            var.report.drawString(360, 650, str(items[4]))
+            var.report.drawString(450, 650, str(items[5]))
             var.report.line(50, 645, 525, 645)
 
             var.report.save()
-            rootPath = ".\\informes\\"
+
             for file in os.listdir(rootPath):
-                print(file.format())
                 if file.endswith(nomepdfcli):
-                    os.startfile('%s\\%s' % (rootPath, file))
+                    os.startfile(pdf_path)
 
         except Exception as error:
             print(error)
@@ -51,7 +55,7 @@ class Informes:
 
     def topInforme(titulo):
         try:
-            ruta_logo = '.\\img\\lupa.ico'
+            ruta_logo = '.\\img\\logo.ico'
             logo = Image.open(ruta_logo)
 
             # Asegúrate de que el objeto 'logo' sea de tipo 'PngImageFile'
