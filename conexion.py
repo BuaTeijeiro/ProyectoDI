@@ -4,7 +4,6 @@ from idlelib.query import Query
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import QVariant
 
-import eventos
 import var
 
 class Conexion:
