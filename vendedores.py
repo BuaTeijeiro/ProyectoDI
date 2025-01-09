@@ -9,6 +9,16 @@ from PyQt6 import QtWidgets, QtCore
 class Vendedores:
     @staticmethod
     def checkDNI(dni):
+        """
+
+        :param dni: dni a verificar
+        :type dni: str
+
+        Método que llama a eventos.Eventos.validarDNI para validar el dni pasado por parámetros
+        Modifica la caja de texto del dni de vendedor para mostrar el resultado
+        la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es
+
+        """
         try:
             dni = str(dni).upper()
             var.ui.txtDnivend.setText(str(dni))
@@ -25,6 +35,14 @@ class Vendedores:
 
     @staticmethod
     def checkEmail():
+        """
+
+        Método que lee el email de la caja de texto correspondiente
+        y llama a eventos.Eventos.validarMail para comprobar si es válido
+        Modifica la caja de texto del email de vendedor para mostrar el resultado
+        la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es
+
+        """
         try:
             mail = str(var.ui.txtEmailvend.text())
             if eventos.Eventos.validarMail(mail):
@@ -43,6 +61,14 @@ class Vendedores:
 
     @staticmethod
     def checkMovil():
+        """
+
+        Método que lee el móvil de la caja de texto correspondiente
+        y llama a eventos.Eventos.validarMovil para comprobar si es válido
+        Modifica la caja de texto del movil de vendedor para mostrar el resultado
+        la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es
+
+        """
         try:
             movil = str(var.ui.txtMovilvend.text())
             if eventos.Eventos.validarMovil(movil):
@@ -59,6 +85,13 @@ class Vendedores:
 
     @staticmethod
     def altaVendedor():
+        """
+
+        Método que lee los datos del vendedor de la interfaz
+        comprueba si se verifican las restricciones necesarias
+        y llama a Conexion.altavendedor para guardar la información en la base de datos
+
+        """
         nuevovend = [var.ui.txtDnivend.text(), var.ui.txtNombrevend.text().title(),
                     var.ui.txtAltavend.text(), var.ui.txtMovilvend.text(),
                     var.ui.txtEmailvend.text(), var.ui.cmbProvvend.currentText()]
@@ -83,6 +116,12 @@ class Vendedores:
 
     @staticmethod
     def cargaTablaVendedores():
+        """
+
+        Método que recupera la lista de vendedores de Conexion.listadoVendedores
+        y muestra dicha información en la tabla de vendedores
+
+        """
         try:
             listado = conexion.Conexion.listadoVendedores()
             var.ui.tablaVendedores.setRowCount(len(listado))
@@ -104,6 +143,15 @@ class Vendedores:
 
     @staticmethod
     def cargaOneVendedor(registro):
+        """
+
+        :param registro: datos de un vendedor
+        :type registro: list
+
+        Método que muestra los datos del vendedor pasados por parámetros
+        en los elementos de la interfaz correspondientes
+
+        """
         try:
             registro = [x if x != 'None' else '' for x in registro]
             listado = [var.ui.lblidvend, var.ui.txtDnivend, var.ui.txtNombrevend,
@@ -121,6 +169,12 @@ class Vendedores:
 
     @staticmethod
     def buscarVendedor():
+        """
+
+        Método que lee la caja de texto del móvil, utiliza el contenido para buscar el vendedor correspondiente
+        y lo carga en la interfaz llamando a Vendedores.cargaOneVendedor
+
+        """
         movil = var.ui.txtMovilvend.text()
         id = conexion.Conexion.getIdVendedor(movil)
         if id:
@@ -131,6 +185,12 @@ class Vendedores:
 
     @staticmethod
     def cargaCurrentVendedor():
+        """
+
+        Método que consulta el vendedor seleccionado en la tabla y carga su información en la interfaz
+        llamando a Vendedores.cargaOneVendedor
+
+        """
         try:
             file = var.ui.tablaVendedores.selectedItems()
             datos = [dato.text() for dato in file]
@@ -141,6 +201,13 @@ class Vendedores:
 
     @staticmethod
     def modifVendedor():
+        """
+
+        Método que lee los datos del vendedor de la interfaz
+        comprueba si se verifican las restricciones necesarias
+        y llama a Conexion.modifVendedor para modificar la información en la base de datos
+
+        """
         try:
             modifvend = [var.ui.txtNombrevend.text().title(),
                     var.ui.txtAltavend.text(), var.ui.txtBajavend.text(), var.ui.txtMovilvend.text(),
@@ -166,6 +233,13 @@ class Vendedores:
 
     @staticmethod
     def bajaVendedor():
+        """
+
+        Método que lee el id y fecha de baja de la interfaz vendedor
+        comprueba si se verifican las restricciones necesarias
+        y llama a Conexion.bajaVendedor para dar al vendedor de baja
+
+        """
         try:
             id = var.ui.lblidvend.text()
             fecha = datetime.now().strftime("%d/%m/%Y")
