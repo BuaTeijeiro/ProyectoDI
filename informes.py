@@ -36,9 +36,7 @@ class Informes:
             queryCount.prepare("Select count(*) from clientes")
             if query.exec() and queryCount.exec() and queryCount.next():
                 total_clientes = queryCount.value(0)
-                print(total_clientes)
                 total_pages = Informes.getNumberPages(total_clientes, ymax, ymin, ystep)
-                print(total_pages)
                 Informes.topInforme(titulo)
                 Informes.footInforme(titulo, total_pages)
                 items = ["DNI", "APELLIDOS", "NOMBRE", "MOVIL", "PROVINCIA", "MUNICIPIO"]
@@ -91,9 +89,72 @@ class Informes:
             print(error)
 
     @staticmethod
+    def reportPropiedades(municipio):
+        xdni = 55
+        ymax = 630
+        ymin = 90
+        ystep = 30
+        try:
+            rootPath = ".\\informes"
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            fecha = datetime.today().strftime("%Y_%m_%d_%H_%M_%S")
+            nomepdfcli = fecha + "_listadopropiedades.pdf"
+            pdf_path = os.path.join(rootPath, nomepdfcli)
+            print(pdf_path)
+            var.report = canvas.Canvas(pdf_path)
+            titulo = "Listado propiedades"
+            queryCount = QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
+            if municipio:
+                titulo += " de " + municipio
+                queryCount.prepare("SELECT count(*) FROM propiedades where municipio =:municipio")
+                queryCount.bindValue(":municipio", municipio)
+                query.prepare("SELECT * FROM propiedades where municipio =:municipio")
+                query.bindValue(":municipio", municipio)
+            else:
+                queryCount.prepare("SELECT count(*) FROM propiedades")
+                query.prepare("SELECT * FROM propiedades")
+            if query.exec() and queryCount.exec() and queryCount.next():
+                total_muni = queryCount.value(0)
+                total_pages = Informes.getNumberPages(total_muni, ymax, ymin, ystep)
+                Informes.topInforme(titulo)
+                Informes.footInforme(titulo, total_pages)
+                items = ["MUNICIPIO"]
+                var.report.setFont("Helvetica-Bold", size=10)
+
+                var.report.drawString(xdni, 650, str(items[0]))
+                var.report.line(50, 645, 525, 645)
+
+                y = ymax
+                while query.next():
+                    if y <= ymin:
+                        var.report.drawString(450, 80, "Página siguiente...")
+                        var.report.showPage()
+                        Informes.footInforme(titulo, total_pages)
+                        Informes.topInforme(titulo)
+                        var.report.setFont("Helvetica-Bold", size=10)
+                        var.report.drawString(xdni, 650, str(items[0]))
+                        var.report.line(50, 645, 525, 645)
+                        y = ymax
+
+                    var.report.setFont("Helvetica", size=8)
+                    var.report.drawCentredString(xdni + 6, y, str(query.value(0)))
+                    y -= ystep
+
+            var.report.save()
+
+            for file in os.listdir(rootPath):
+                if file.endswith(nomepdfcli):
+                    os.startfile(pdf_path)
+
+        except Exception as error1:
+            print(error1.__str__())
+
+
+    @staticmethod
     def getNumberPages(amount, ymax, ymin, ystep):
         number_per_page = math.ceil((ymax - ymin)/ystep)
-        print(number_per_page)
         return math.ceil(amount / number_per_page)
 
     @staticmethod

@@ -183,6 +183,13 @@ class Eventos():
             print("error en abrir tipos de propiedades ", error)
 
     @staticmethod
+    def abrirSelectMuni():
+        try:
+            var.dlgselectmuni.show()
+        except Exception as error:
+            print("error en abrir selección de municipios", error)
+
+    @staticmethod
     def abrirAbout():
         try:
             var.dlgabout.show()

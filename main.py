@@ -30,6 +30,7 @@ class Main(QtWidgets.QMainWindow):
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlg_Tipoprop()
+        var.dlgselectmuni = dlg_SelectMuni()
         var.dlgabout = dlg_About()
         var.currentindextablacli = 0
         var.currentindextablaprop = 0
@@ -66,6 +67,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionTipoPropiedades.triggered.connect(eventos.Eventos.abrirTipoprop)
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.abrirAbout)
         var.ui.actionListado_Clientes.triggered.connect(informes.Informes.reportClientes)
+        var.ui.actionListado_Propiedades.triggered.connect(eventos.Eventos.abrirSelectMuni)
 
 
         """

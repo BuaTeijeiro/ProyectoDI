@@ -10,6 +10,7 @@ global uicalendar
 global dlgabrir
 global dlggestion
 global dlgabout
+global dlgselectmuni
 global panel
 global btn
 global cuadro
