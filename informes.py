@@ -15,8 +15,8 @@ class Informes:
         xapelcli = 100
         xnomecli = 220
         xmovilcli = 325
-        xprovcli = 385
-        xmunicli = 450
+        xprovcli = 405
+        xmunicli = 460
         ymax = 630
         ymin = 90
         ystep = 30
@@ -90,7 +90,12 @@ class Informes:
 
     @staticmethod
     def reportPropiedades(municipio):
-        xdni = 55
+        xcod = 55
+        xmunicipio = 100
+        xtipo= 250
+        xoperacion = 325
+        xprecioalquiler = 405
+        xprecioventa = 475
         ymax = 630
         ymin = 90
         ystep = 30
@@ -103,27 +108,28 @@ class Informes:
             pdf_path = os.path.join(rootPath, nomepdfcli)
             print(pdf_path)
             var.report = canvas.Canvas(pdf_path)
-            titulo = "Listado propiedades"
+            titulo = "Listado propiedades de " + municipio
             queryCount = QtSql.QSqlQuery()
             query = QtSql.QSqlQuery()
-            if municipio:
-                titulo += " de " + municipio
-                queryCount.prepare("SELECT count(*) FROM propiedades where municipio =:municipio")
-                queryCount.bindValue(":municipio", municipio)
-                query.prepare("SELECT * FROM propiedades where municipio =:municipio")
-                query.bindValue(":municipio", municipio)
-            else:
-                queryCount.prepare("SELECT count(*) FROM propiedades")
-                query.prepare("SELECT * FROM propiedades")
+            queryCount.prepare("SELECT count(*) FROM propiedades where municipio =:municipio")
+            queryCount.bindValue(":municipio", municipio)
+            query.prepare("SELECT * FROM propiedades where municipio =:municipio")
+            query.bindValue(":municipio", municipio)
+
             if query.exec() and queryCount.exec() and queryCount.next():
                 total_muni = queryCount.value(0)
                 total_pages = Informes.getNumberPages(total_muni, ymax, ymin, ystep)
                 Informes.topInforme(titulo)
                 Informes.footInforme(titulo, total_pages)
-                items = ["MUNICIPIO"]
+                items = ["COD.","Direccion","TIPO","ALQUILER", "VENTA","OPERACIÓN"]
                 var.report.setFont("Helvetica-Bold", size=10)
 
-                var.report.drawString(xdni, 650, str(items[0]))
+                var.report.drawString(xcod, 650, str(items[0]))
+                var.report.drawString(xmunicipio, 650, str(items[1]))
+                var.report.drawString(xtipo, 650, str(items[2]))
+                var.report.drawString(xprecioalquiler, 650, str(items[3]))
+                var.report.drawString(xprecioventa, 650, str(items[4]))
+                var.report.drawString(xoperacion, 650, str(items[5]))
                 var.report.line(50, 645, 525, 645)
 
                 y = ymax
@@ -134,12 +140,24 @@ class Informes:
                         Informes.footInforme(titulo, total_pages)
                         Informes.topInforme(titulo)
                         var.report.setFont("Helvetica-Bold", size=10)
-                        var.report.drawString(xdni, 650, str(items[0]))
+                        var.report.drawString(xcod, 650, str(items[0]))
+                        var.report.drawString(xmunicipio, 650, str(items[1]))
+                        var.report.drawString(xtipo, 650, str(items[2]))
+                        var.report.drawString(xprecioalquiler, 650, str(items[3]))
+                        var.report.drawString(xprecioventa, 650, str(items[4]))
+                        var.report.drawString(xoperacion, 650, str(items[5]))
                         var.report.line(50, 645, 525, 645)
                         y = ymax
 
                     var.report.setFont("Helvetica", size=8)
-                    var.report.drawCentredString(xdni + 6, y, str(query.value(0)))
+                    var.report.drawString(xcod + 6, y, str(query.value(0)))
+                    var.report.drawString(xmunicipio, y, str(query.value(4)))
+                    var.report.drawString(xtipo, y, str(query.value(7)))
+                    precio_alquiler = "-" if not query.value(11) else str(query.value(11))
+                    precio_venta = "-" if not query.value(12) else str(query.value(12))
+                    var.report.drawRightString(xprecioalquiler + 50, y, precio_alquiler + " €")
+                    var.report.drawRightString(xprecioventa + 33, y, precio_venta + " €")
+                    var.report.drawString(xoperacion, y, str(query.value(14)))
                     y -= ystep
 
             var.report.save()
@@ -183,7 +201,7 @@ class Informes:
                 var.report.line(50, 800, 525, 800)
                 var.report.setFont('Helvetica-Bold', size=14)
                 var.report.drawString(55, 785, 'InmoTeis')
-                var.report.drawString(230, 682, titulo)
+                var.report.drawCentredString(300, 682, titulo)
                 var.report.line(50, 665, 525, 665)
 
                 # Dibuja la imagen en el informe

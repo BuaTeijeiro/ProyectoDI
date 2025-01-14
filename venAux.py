@@ -77,6 +77,9 @@ class dlg_SelectMuni(QtWidgets.QDialog):
 
     def salir(self):
         municipio = self.ui.cmbMunicipio.currentText()
-        informes.Informes.reportPropiedades(municipio)
-        self.close()
+        if municipio:
+            informes.Informes.reportPropiedades(municipio)
+            self.close()
+        else:
+            eventos.Eventos.mostrarMensajeError("Es necesario seleccionar un municipio")
 
