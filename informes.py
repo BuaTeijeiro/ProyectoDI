@@ -91,7 +91,7 @@ class Informes:
     @staticmethod
     def reportPropiedades(municipio):
         xcod = 55
-        xmunicipio = 100
+        xdireccion = 100
         xtipo= 250
         xoperacion = 325
         xprecioalquiler = 405
@@ -125,7 +125,7 @@ class Informes:
                 var.report.setFont("Helvetica-Bold", size=10)
 
                 var.report.drawString(xcod, 650, str(items[0]))
-                var.report.drawString(xmunicipio, 650, str(items[1]))
+                var.report.drawString(xdireccion, 650, str(items[1]))
                 var.report.drawString(xtipo, 650, str(items[2]))
                 var.report.drawString(xprecioalquiler, 650, str(items[3]))
                 var.report.drawString(xprecioventa, 650, str(items[4]))
@@ -141,7 +141,7 @@ class Informes:
                         Informes.topInforme(titulo)
                         var.report.setFont("Helvetica-Bold", size=10)
                         var.report.drawString(xcod, 650, str(items[0]))
-                        var.report.drawString(xmunicipio, 650, str(items[1]))
+                        var.report.drawString(xdireccion, 650, str(items[1]))
                         var.report.drawString(xtipo, 650, str(items[2]))
                         var.report.drawString(xprecioalquiler, 650, str(items[3]))
                         var.report.drawString(xprecioventa, 650, str(items[4]))
@@ -151,7 +151,7 @@ class Informes:
 
                     var.report.setFont("Helvetica", size=8)
                     var.report.drawString(xcod + 6, y, str(query.value(0)))
-                    var.report.drawString(xmunicipio, y, str(query.value(4)))
+                    var.report.drawString(xdireccion, y, str(query.value(4)))
                     var.report.drawString(xtipo, y, str(query.value(7)))
                     precio_alquiler = "-" if not query.value(11) else str(query.value(11))
                     precio_venta = "-" if not query.value(12) else str(query.value(12))
