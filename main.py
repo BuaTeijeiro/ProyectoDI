@@ -4,6 +4,7 @@ import clientes
 import conexion
 import conexionserver
 import eventos
+import facturas
 import informes
 import propiedades
 import styles
@@ -49,10 +50,12 @@ class Main(QtWidgets.QMainWindow):
         clientes.Clientes.cargaTablaClientes()
         propiedades.Propiedades.cargaTablaPropiedades()
         vendedores.Vendedores.cargaTablaVendedores()
+        facturas.Facturas.cargarListaFacturas()
 
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(lambda: propiedades.Propiedades.cargaOnePropiedad())
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargaCurrentVendedor)
+        var.ui.tablaFacturas.clicked.connect(facturas.Facturas.cargaOneFactura)
 
         """
         zona de eventos del menubar
@@ -90,6 +93,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1))
         var.ui.btnFechaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
         var.ui.btnFechabajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1))
+        var.ui.btnFechaFactura.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
 
 
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
@@ -109,6 +113,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnModifvend.clicked.connect(vendedores.Vendedores.modifVendedor)
         var.ui.btnDelvend.clicked.connect(vendedores.Vendedores.bajaVendedor)
         var.ui.btnBuscarVendedor.clicked.connect(vendedores.Vendedores.buscarVendedor)
+
+        #Zona FActuras
+        var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
 
 
         """

@@ -132,6 +132,7 @@ class Clientes:
             #registro = conexionserver.ConexionServer.datosOneCliente(datos[0])
             registro = [x if x != 'None' else '' for x in registro]
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli, var.ui.txtBajacli]
+            var.ui.lblDniclifactura.setText(registro[0])
             for i in range(len(listado)):
                 if i in (7,8):
                     listado[i].setCurrentText(registro[i])

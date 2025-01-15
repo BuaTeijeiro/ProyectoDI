@@ -65,3 +65,8 @@ QPushButton:disabled{
     background-color: #ddd;
 }
 
+
+#frame, #frame_3, #frame_4{
+    background-color: #eee;
+}
+

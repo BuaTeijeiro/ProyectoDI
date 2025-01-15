@@ -775,3 +775,66 @@ class Conexion:
                 return False
         except Exception as exec:
             print("Error al registrar la baja del cliente")
+
+    @staticmethod
+    def guardarFActura(factura):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("insert into facturas(fechaven,dnicli) values (:fecha, :dnicli)")
+            query.bindValue(":fecha", factura[0])
+            query.bindValue(":dnicli", factura[1])
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as exec:
+            print("Error al guardar la factura", exec)
+
+    @staticmethod
+    def getLastIdFactura():
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("select id from facturas order by id desc")
+            if query.exec() and query.next():
+                return query.value(0)
+            else:
+                print(query.lastError().text())
+        except Exception as exec:
+            print("Error al guardar la factura", exec)
+
+
+    @staticmethod
+    def listadoFacturas():
+        """
+
+        :return: lista de vendedores
+        :rtype: list
+
+        Método que devuelve una lista con los datos de los vendedores de la base de datos
+
+        """
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM facturas")
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as e:
+            print("Error al recuperar la lista de facturas")
+
+    @staticmethod
+    def datosOneFactura(id):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM facturas where id = :id")
+            query.bindValue(":id", str(id))
+            if query.exec() and query.next():
+                registro = [query.value(i) for i in range(query.record().count())]
+            return registro
+        except Exception as error:
+            print("Error al abrir el archivo")
+

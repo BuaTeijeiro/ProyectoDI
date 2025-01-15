@@ -212,6 +212,8 @@ class Eventos():
                 var.ui.txtAltavend.setText(str(data))
             if var.ui.panPrincipal.currentIndex() == 2 and var.btn == 1:
                 var.ui.txtBajavend.setText(str(data))
+            if var.ui.panPrincipal.currentIndex() == 3 and var.btn == 0:
+                var.ui.txtFechaFactura.setText(str(data))
             time.sleep(0.2)
             var.uicalendar.hide()
             return data
@@ -263,6 +265,23 @@ class Eventos():
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
                 header_item = var.ui.tablaClientes.horizontalHeaderItem(i)
+                font = header_item.font()
+                font.setBold(True)
+                header_item.setFont(font)
+        except Exception as e:
+            print("error en resize tabla clientes: ", e)
+
+    @staticmethod
+    def resizeTablaFacturas():
+        try:
+            header = var.ui.tablaFacturas.horizontalHeader()
+            for i in range(header.count()):
+                if i != 0:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_item = var.ui.tablaFacturas.horizontalHeaderItem(i)
                 font = header_item.font()
                 font.setBold(True)
                 header_item.setFont(font)
