@@ -4,6 +4,7 @@ from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexionserver
 import eventos
+import facturas
 import var
 import conexion
 
@@ -12,6 +13,11 @@ class Clientes:
 
     @staticmethod
     def checkDNI(dni):
+        """
+
+        :param dni:
+        :type dni:
+        """
         try:
             dni = str(dni).upper()
             var.ui.txtDnicli.setText(str(dni))
@@ -27,6 +33,9 @@ class Clientes:
 
     @staticmethod
     def checkEmail():
+        """
+
+        """
         try:
             mail = str(var.ui.txtEmailcli.text())
             if eventos.Eventos.validarMail(mail):
@@ -45,6 +54,9 @@ class Clientes:
 
     @staticmethod
     def checkMovil():
+        """
+
+        """
         try:
             movil = str(var.ui.txtMovilcli.text())
             if eventos.Eventos.validarMovil(movil):
@@ -61,6 +73,9 @@ class Clientes:
 
     @staticmethod
     def altaCliente():
+        """
+
+        """
         nuevocli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text().title(), var.ui.txtNomcli.text().title(),var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text().title(), var.ui.cmbProvcli.currentText(), var.ui.cmbMunicli.currentText()]
 
         camposObligatorios = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text()]
@@ -82,6 +97,9 @@ class Clientes:
 
     @staticmethod
     def cargaTablaClientes():
+        """
+
+        """
         try:
             listado = conexion.Conexion.listadoClientes()
             var.totalpaginascli = len(listado) // var.rowstablacli
@@ -125,6 +143,9 @@ class Clientes:
 
     @staticmethod
     def cargaOneCliente():
+        """
+
+        """
         try:
             file = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in file]
@@ -133,6 +154,7 @@ class Clientes:
             registro = [x if x != 'None' else '' for x in registro]
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli, var.ui.txtBajacli]
             var.ui.lblDniclifactura.setText(registro[0])
+            facturas.Facturas.cargaClienteVenta()
             for i in range(len(listado)):
                 if i in (7,8):
                     listado[i].setCurrentText(registro[i])
@@ -144,6 +166,9 @@ class Clientes:
 
     @staticmethod
     def cargaClienteBuscado():
+        """
+
+        """
         try:
             dni = var.ui.txtDnicli.text()
             registro = conexion.Conexion.datosOneCliente(dni)
@@ -165,6 +190,9 @@ class Clientes:
 
     @staticmethod
     def modifCliente():
+        """
+
+        """
         try:
             modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text().title(), var.ui.txtNomcli.text().title(),var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text().title(), var.ui.cmbProvcli.currentText(), var.ui.cmbMunicli.currentText(), var.ui.txtBajacli.text()]
 
@@ -191,6 +219,9 @@ class Clientes:
 
     @staticmethod
     def bajaCliente():
+        """
+
+        """
         try:
             fecha = datetime.now().strftime("%d/%m/%Y")
             dni = var.ui.txtDnicli.text()
@@ -209,6 +240,9 @@ class Clientes:
 
     @staticmethod
     def historicoCli():
+        """
+
+        """
         try:
             var.currentindextablacli = 0
             Clientes.cargaTablaClientes()
@@ -217,6 +251,9 @@ class Clientes:
 
     @staticmethod
     def resetFilas():
+        """
+
+        """
         try:
             if (int(var.ui.filastablacli.text()) < 1):
                 var.ui.filastablacli.setValue(1)

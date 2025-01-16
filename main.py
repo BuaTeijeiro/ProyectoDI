@@ -135,6 +135,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtEmailvend.editingFinished.connect(vendedores.Vendedores.checkEmail)
         var.ui.txtMovilvend.editingFinished.connect(vendedores.Vendedores.checkMovil)
 
+        """
+        Zona de eventos de labels
+        """
 
         """
         combo box

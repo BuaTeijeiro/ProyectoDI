@@ -778,6 +778,13 @@ class Conexion:
 
     @staticmethod
     def guardarFActura(factura):
+        """
+
+        :param factura:
+        :type factura:
+        :return:
+        :rtype:
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("insert into facturas(fechaven,dnicli) values (:fecha, :dnicli)")
@@ -792,6 +799,11 @@ class Conexion:
 
     @staticmethod
     def getLastIdFactura():
+        """
+
+        :return:
+        :rtype:
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("select id from facturas order by id desc")
@@ -810,7 +822,7 @@ class Conexion:
         :return: lista de vendedores
         :rtype: list
 
-        Método que devuelve una lista con los datos de los vendedores de la base de datos
+        Método que devuelve una lista con los datos de las facturas de la base de datos
 
         """
         try:
@@ -827,6 +839,13 @@ class Conexion:
 
     @staticmethod
     def datosOneFactura(id):
+        """
+
+        :param id:
+        :type id:
+        :return:
+        :rtype:
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()

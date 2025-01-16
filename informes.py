@@ -11,6 +11,9 @@ import var
 class Informes:
     @staticmethod
     def reportClientes():
+        """
+
+        """
         xdni = 55
         xapelcli = 100
         xnomecli = 220
@@ -90,6 +93,11 @@ class Informes:
 
     @staticmethod
     def reportPropiedades(municipio):
+        """
+
+        :param municipio:
+        :type municipio:
+        """
         xcod = 55
         xdireccion = 100
         xtipo= 250
@@ -172,11 +180,31 @@ class Informes:
 
     @staticmethod
     def getNumberPages(amount, ymax, ymin, ystep):
+        """
+
+        :param amount:
+        :type amount:
+        :param ymax:
+        :type ymax:
+        :param ymin:
+        :type ymin:
+        :param ystep:
+        :type ystep:
+        :return:
+        :rtype:
+        """
         number_per_page = math.ceil((ymax - ymin)/ystep)
         return math.ceil(amount / number_per_page)
 
     @staticmethod
     def footInforme(titulo, pages):
+        """
+
+        :param titulo:
+        :type titulo:
+        :param pages:
+        :type pages:
+        """
         try:
             total_pages = 0
             var.report.line(50, 50, 525, 50)
@@ -192,6 +220,11 @@ class Informes:
 
     @staticmethod
     def topInforme(titulo):
+        """
+
+        :param titulo:
+        :type titulo:
+        """
         try:
             ruta_logo = '.\\img\\logo.png'
             logo = Image.open(ruta_logo)

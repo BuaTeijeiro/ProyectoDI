@@ -2,6 +2,7 @@ from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexion
 import conexionserver
+import facturas
 import var
 import eventos
 
@@ -9,6 +10,9 @@ import eventos
 class Propiedades():
     @staticmethod
     def checkMovil():
+        """
+
+        """
         try:
             movil = str(var.ui.txtMovilprop.text())
             if eventos.Eventos.validarMovil(movil):
@@ -24,6 +28,9 @@ class Propiedades():
 
     @staticmethod
     def reloadDisponibility():
+        """
+
+        """
         if var.ui.txtFechabajaprop.text() == "":
             var.ui.rbtDisponprop.setEnabled(True)
             var.ui.rbtAlquilprop.setEnabled(False)
@@ -37,11 +44,17 @@ class Propiedades():
 
     @staticmethod
     def reloadTipoOperacion():
+        """
+
+        """
         var.ui.chkAlquilprop.setChecked(var.ui.txtPrecioalquilerprop.text()!="")
         var.ui.chkVentaprop.setChecked(var.ui.txtPrecioventaprop.text() != "")
 
     @staticmethod
     def reloadPrecio():
+        """
+
+        """
         if not var.ui.chkAlquilprop.isChecked():
             var.ui.txtPrecioalquilerprop.setText("")
         if not var.ui.chkVentaprop.isChecked():
@@ -49,6 +62,9 @@ class Propiedades():
 
     @staticmethod
     def altaTipoPropiedad():
+        """
+
+        """
         try:
             tipo = var.dlggestion.interface.txtGestipoprop.text().title()
             var.dlggestion.interface.txtGestipoprop.setText("")
@@ -62,6 +78,9 @@ class Propiedades():
 
     @staticmethod
     def deleteTipoPropiedad():
+        """
+
+        """
         try:
             tipo = var.dlggestion.interface.txtGestipoprop.text().title()
             var.dlggestion.interface.txtGestipoprop.setText("")
@@ -75,6 +94,9 @@ class Propiedades():
 
     @staticmethod
     def altaPropiedad():
+        """
+
+        """
         try:
             camposObligatorios = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(), var.ui.txtSuperprop.text(),  var.ui.txtNomeprop.text(),var.ui.txtMovilprop.text()]
 
@@ -130,6 +152,9 @@ class Propiedades():
 
     @staticmethod
     def cargaTablaPropiedades():
+        """
+
+        """
         try:
             listado = conexion.Conexion.listadoPropiedades()
             #listado = conexionserver.ConexionServer.listadoPropiedades()
@@ -141,6 +166,9 @@ class Propiedades():
 
     @staticmethod
     def filtrarTablaPropiedades():
+        """
+
+        """
         try:
             var.currentindextablaprop = 0
             tipo_propiedad = var.ui.cmbTipoprop.currentText()
@@ -155,6 +183,9 @@ class Propiedades():
 
     @staticmethod
     def setTablaPropiedades():
+        """
+
+        """
         listado = var.currentlistapropiedades
         eventos.Eventos.setCurrentPageProp()
 
@@ -207,6 +238,11 @@ class Propiedades():
 
     @staticmethod
     def cargaOnePropiedad(code = ""):
+        """
+
+        :param code:
+        :type code:
+        """
         try:
             if code == "":
                 propiedad = var.ui.tablaPropiedades.selectedItems()
@@ -214,6 +250,7 @@ class Propiedades():
             else:
                 codigo = code
             datos = conexion.Conexion.datosOnePropiedad(codigo)
+            facturas.Facturas.cargaPropiedadVenta(datos)
             #datos = conexionserver.ConexionServer.datosOnePropiedad(codigo)
 
             datos = [x if x != 'None' else '' for x in datos]
@@ -252,6 +289,9 @@ class Propiedades():
 
     @staticmethod
     def modifProp():
+        """
+
+        """
         camposObligatorios = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),
                               var.ui.txtSuperprop.text(), var.ui.txtNomeprop.text(), var.ui.txtMovilprop.text()]
 
@@ -306,6 +346,9 @@ class Propiedades():
 
     @staticmethod
     def bajaProp():
+        """
+
+        """
         codigo = var.ui.lblProp.text()
         fechabaja = var.ui.txtFechabajaprop.text()
         if var.ui.rbtDisponprop.isChecked():
@@ -338,6 +381,9 @@ class Propiedades():
 
     @staticmethod
     def deleteProp():
+        """
+
+        """
         codigo = var.ui.lblProp.text()
         if conexion.Conexion.deletePropiedad(codigo):
             eventos.Eventos.mostrarMensajeOk("Propiedad eliminada correctamente")
@@ -348,6 +394,9 @@ class Propiedades():
 
     @staticmethod
     def resetFilas():
+        """
+
+        """
         try:
             if (int(var.ui.filastablaprop.text()) < 1):
                 var.ui.filastablaprop.setValue(1)
@@ -362,6 +411,9 @@ class Propiedades():
 
     @staticmethod
     def historicoProp():
+        """
+
+        """
         try:
             var.currentindextablaprop = 0
             Propiedades.cargaTablaPropiedades()

@@ -28,6 +28,11 @@ locale.setlocale(locale.LC_MONETARY, "es_ES.UTF-8")
 class Eventos():
     @staticmethod
     def mensajeSalir():
+        """
+
+        Método que muestra un mensaje de confirmación para salir de la aplicación
+        Si se marca si se cierra la aplicación, si no se oculta el mensaje
+        """
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
         mbox.setWindowTitle('Salir')
@@ -45,12 +50,16 @@ class Eventos():
 
     @staticmethod
     def cargarProv():
-        var.ui.cmbProvcli.clear()
+        """
 
+        Método que carga la lista de provincias de la base de datos
+        en los combobox de provincias de clientes, propiedades y vendedores
+        """
         listado = conexion.Conexion.listaProv()
         #listado = conexionserver.ConexionServer.listaProv()
         var.provincias = listado
 
+        var.ui.cmbProvcli.clear()
         var.ui.cmbProvcli.addItems(listado)
 
         var.ui.cmbProvprop.clear()
@@ -61,6 +70,12 @@ class Eventos():
 
     @staticmethod
     def cargarMunicipioscli():
+        """
+
+        Carga los municipios en el combobox de municipios clientes
+        solamente de la provincia seleccionada en el combobox de provincias clientes
+        setea también el completer con los municipios cargados
+        """
         var.ui.cmbMunicli.clear()
         provinciaCli = var.ui.cmbProvcli.currentText()
         listadoCli = conexion.Conexion.listaMunicipios(provinciaCli)
@@ -75,6 +90,9 @@ class Eventos():
 
     @staticmethod
     def cargarMunicipiosprop():
+        """
+
+        """
         var.ui.cmbMuniprop.clear()
         provinciaProp = var.ui.cmbProvprop.currentText()
         listadoProp = conexion.Conexion.listaMunicipios(provinciaProp)
@@ -90,27 +108,46 @@ class Eventos():
 
     @staticmethod
     def checkMunicipioCli():
+        """
+
+        """
         if var.ui.cmbMunicli.currentText() not in var.municli:
             var.ui.cmbMunicli.setCurrentIndex(0)
 
     @staticmethod
     def checkProvinciaCli():
+        """
+
+        """
         if var.ui.cmbProvcli.currentText() not in var.provincias:
             var.ui.cmbProvcli.setCurrentIndex(0)
 
     @staticmethod
     def checkMunicipioProp():
+        """
+
+        """
         if var.ui.cmbMuniprop.currentText() not in var.muniprop:
             var.ui.cmbMuniprop.setCurrentIndex(0)
 
     @staticmethod
     def checkProvinciaProp():
+        """
+
+        """
         if var.ui.cmbProvprop.currentText() not in var.provincias:
             var.ui.cmbProvprop.setCurrentIndex(0)
 
 
     @staticmethod
     def validarDNI(dni):
+        """
+
+        :param dni:
+        :type dni:
+        :return:
+        :rtype:
+        """
         try:
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
             dig_ext = "XYZ"
@@ -132,6 +169,13 @@ class Eventos():
 
     @staticmethod
     def validarMail(mail):
+        """
+
+        :param mail:
+        :type mail:
+        :return:
+        :rtype:
+        """
         mail = mail.lower()
         regex = r'[a-zA-Z0-9]+([\._][a-zA-Z0-9]+)*[@]\w+[.]\w+'
         if re.fullmatch(regex, mail) or mail == "":
@@ -141,11 +185,25 @@ class Eventos():
 
     @staticmethod
     def validarMovil(movil):
+        """
+
+        :param movil:
+        :type movil:
+        :return:
+        :rtype:
+        """
         regex = r"[67]\d{8}"
         return re.fullmatch(regex, movil)
 
     @staticmethod
     def convertStringToDate(date):
+        """
+
+        :param date:
+        :type date:
+        :return:
+        :rtype:
+        """
         try:
             date = date.split('/')
             day = date[0]
@@ -158,6 +216,15 @@ class Eventos():
 
     @staticmethod
     def checkFechas(date1, date2):
+        """
+
+        :param date1:
+        :type date1:
+        :param date2:
+        :type date2:
+        :return:
+        :rtype:
+        """
         date1 = Eventos.convertStringToDate(date1)
         if date1 and date2 == "":
             return True
@@ -169,6 +236,11 @@ class Eventos():
 
     @staticmethod
     def abrirCalendar(btn):
+        """
+
+        :param btn:
+        :type btn:
+        """
         try:
             var.btn = btn
             var.uicalendar.show()
@@ -177,6 +249,9 @@ class Eventos():
 
     @staticmethod
     def abrirTipoprop():
+        """
+
+        """
         try:
             var.dlggestion.show()
         except Exception as error:
@@ -184,6 +259,9 @@ class Eventos():
 
     @staticmethod
     def abrirSelectMuni():
+        """
+
+        """
         try:
             var.dlgselectmuni.show()
         except Exception as error:
@@ -191,6 +269,9 @@ class Eventos():
 
     @staticmethod
     def abrirAbout():
+        """
+
+        """
         try:
             var.dlgabout.show()
         except Exception as error:
@@ -198,6 +279,13 @@ class Eventos():
 
     @staticmethod
     def cargaFecha(qDate):
+        """
+
+        :param qDate:
+        :type qDate:
+        :return:
+        :rtype:
+        """
         try:
             data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
             if var.ui.panPrincipal.currentIndex() == 0 and var.btn == 0:
@@ -222,32 +310,50 @@ class Eventos():
 
     @staticmethod
     def avanzarTablacli():
+        """
+
+        """
         var.currentindextablacli += var.rowstablacli
         clientes.Clientes.cargaTablaClientes()
 
     @staticmethod
     def retrocederTablacli():
+        """
+
+        """
         var.currentindextablacli -= var.rowstablacli
         clientes.Clientes.cargaTablaClientes()
 
     @staticmethod
     def setCurrentPageCli():
+        """
+
+        """
         currentPage = var.currentindextablacli / var.rowstablacli + 1
         totalpaginascli = var.totalpaginascli
         var.ui.lbl_pagcli.setText(f"Página %i/%i" %(currentPage, totalpaginascli))
 
     @staticmethod
     def avanzarTablaprop():
+        """
+
+        """
         var.currentindextablaprop += var.rowstablaprop
         propiedades.Propiedades.setTablaPropiedades()
 
     @staticmethod
     def retrocederTablaprop():
+        """
+
+        """
         var.currentindextablaprop -= var.rowstablaprop
         propiedades.Propiedades.setTablaPropiedades()
 
     @staticmethod
     def setCurrentPageProp():
+        """
+
+        """
         currentPage = var.currentindextablaprop / var.rowstablaprop + 1
         totalpaginasprop = len (var.currentlistapropiedades) // var.rowstablaprop
         if len(var.currentlistapropiedades) % var.rowstablaprop != 0:
@@ -256,6 +362,9 @@ class Eventos():
 
     @staticmethod
     def resizeTablaClientes():
+        """
+
+        """
         try:
             header = var.ui.tablaClientes.horizontalHeader()
             for i in range(header.count()):
@@ -273,6 +382,9 @@ class Eventos():
 
     @staticmethod
     def resizeTablaFacturas():
+        """
+
+        """
         try:
             header = var.ui.tablaFacturas.horizontalHeader()
             for i in range(header.count()):
@@ -290,6 +402,9 @@ class Eventos():
 
     @staticmethod
     def resizeTablaVendedores():
+        """
+
+        """
         try:
             header = var.ui.tablaVendedores.horizontalHeader()
             for i in range(header.count()):
@@ -307,6 +422,9 @@ class Eventos():
 
     @staticmethod
     def resizeTablaPropiedades():
+        """
+
+        """
         try:
             header = var.ui.tablaPropiedades.horizontalHeader()
             for i in range(header.count()):
@@ -324,6 +442,9 @@ class Eventos():
 
     @staticmethod
     def crearBackup():
+        """
+
+        """
         try:
             fecha = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
             copia = str(fecha) + "_backup.zip"
@@ -347,6 +468,9 @@ class Eventos():
 
     @staticmethod
     def restaurarBackup():
+        """
+
+        """
         try:
             filename = var.dlgabrir.getOpenFileName(None, "Restaurar Copia de Seguridad ", "", "*.zip;;All Files(*)")
             file = filename[0]
@@ -372,6 +496,9 @@ class Eventos():
 
     @staticmethod
     def limpiarPanel():
+        """
+
+        """
         objetosPanel = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli,
                     var.ui.txtNomcli, var.ui.txtEmailcli, var.ui.txtMovilcli,
                     var.ui.txtDircli, var.ui.txtBajacli, var.ui.lblProp, var.ui.txtFechaprop,
@@ -409,6 +536,9 @@ class Eventos():
 
     @staticmethod
     def exportarCSVProp():
+        """
+
+        """
         try:
             fecha = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
             file = str(fecha) + "_datosPropiedades.csv"
@@ -428,6 +558,9 @@ class Eventos():
 
     @staticmethod
     def exportarJsonProp():
+        """
+
+        """
         try:
             fecha = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
             file = str(fecha) + "_datosPropiedades.json"
@@ -446,6 +579,9 @@ class Eventos():
 
     @staticmethod
     def exportarJsonVend():
+        """
+
+        """
         try:
             fecha = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
             file = str(fecha) + "_datosVendedores.json"
@@ -465,6 +601,9 @@ class Eventos():
 
     @staticmethod
     def cargarTiposprop():
+        """
+
+        """
         tipos = conexion.Conexion.listadoTipoprop()
         #tipos = conexionserver.ConexionServer.listadoTipoprop()
         var.ui.cmbTipoprop.clear()
@@ -472,6 +611,11 @@ class Eventos():
 
     @staticmethod
     def mostrarMensajeOk(mensaje):
+        """
+
+        :param mensaje:
+        :type mensaje:
+        """
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
         mbox.setWindowTitle('Aviso')
@@ -484,6 +628,11 @@ class Eventos():
 
     @staticmethod
     def mostrarMensajeError(mensaje):
+        """
+
+        :param mensaje:
+        :type mensaje:
+        """
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
         mbox.setWindowTitle('Error')

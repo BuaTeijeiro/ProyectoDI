@@ -7,6 +7,9 @@ from PyQt6 import QtWidgets, QtCore
 class Facturas:
     @staticmethod
     def altaFactura():
+        """
+
+        """
         try:
             if (var.ui.txtFechaFactura.text() == "" or var.ui.lblDniclifactura.text() == ""):
                 eventos.Eventos.mostrarMensajeError("Es necesario cubrir los datos de fecha y dniCliente")
@@ -23,6 +26,9 @@ class Facturas:
 
     @staticmethod
     def cargarListaFacturas():
+        """
+
+        """
         try:
             listado = conexion.Conexion.listadoFacturas()
             var.ui.tablaFacturas.setRowCount(len(listado))
@@ -42,10 +48,42 @@ class Facturas:
 
     @staticmethod
     def cargaOneFactura():
+        """
+
+        """
         try:
             factura = var.ui.tablaFacturas.selectedItems()
             var.ui.lblFactura.setText(str(factura[0].text()))
             var.ui.txtFechaFactura.setText(str(factura[1].text()))
             var.ui.lblDniclifactura.setText(str(factura[2].text()))
+            Facturas.cargaClienteVenta()
         except Exception as e:
-            eventos.Eventos.mostrarMensajeError("Error al cargar la factura: ", e)
+            eventos.Eventos.mostrarMensajeError("Error al cargar la factura: " + e)
+
+    @staticmethod
+    def cargaClienteVenta():
+        try:
+            dni = var.ui.lblDniclifactura.text()
+            cliente = conexion.Conexion.datosOneCliente(dni)
+            var.ui.lblApelCli.setText(str(cliente[2]))
+            var.ui.lblNombrecli.setText(str(cliente[3]))
+        except Exception as e:
+            eventos.Eventos.mostrarMensajeError("Error al cargar el cliente: " + e)
+
+    @staticmethod
+    def cargaPropiedadVenta(propiedad):
+        try:
+            var.ui.lblcodigoprop.setText(str(propiedad[0]))
+            var.ui.lblTipoProp.setText(str(propiedad[7]))
+            var.ui.lblPrecioProp.setText(str(propiedad[12]))
+            var.ui.lblDireccionprop.setText(str(propiedad[4]).title())
+            var.ui.lblMunipropVenta.setText(str(propiedad[6]))
+        except Exception as e:
+            eventos.Eventos.mostrarMensajeError("Error al cargar el cliente: " + e)
+
+    @staticmethod
+    def cargaVendedorVenta(id):
+        try:
+            var.ui.lblVendedorVenta.setText(str(id))
+        except Exception as e:
+            eventos.Eventos.mostrarMensajeError("Error al cargar el cliente: " + e)
