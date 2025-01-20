@@ -44,6 +44,8 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarMunicipiosprop()
         eventos.Eventos.cargarTiposprop()
 
+
+
         """
         zona de eventos de tablas
         """
@@ -51,6 +53,7 @@ class Main(QtWidgets.QMainWindow):
         propiedades.Propiedades.cargaTablaPropiedades()
         vendedores.Vendedores.cargaTablaVendedores()
         facturas.Facturas.cargarListaFacturas()
+        facturas.Facturas.checkDatosFacturas()
 
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(lambda: propiedades.Propiedades.cargaOnePropiedad())
@@ -116,7 +119,10 @@ class Main(QtWidgets.QMainWindow):
 
         #Zona FActuras
         var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
+        var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.grabarVenta)
 
+        #Zona labels
+        var.ui.lblMensaje.setStyleSheet("color: rgb(255, 0, 0);")
 
         """
         zona de eventos de cajas de texto

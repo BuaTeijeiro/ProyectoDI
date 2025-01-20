@@ -4543,6 +4543,13 @@
                   </widget>
                  </item>
                  <item>
+                  <widget class="QLabel" name="lblMensaje">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <spacer name="horizontalSpacer_46">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -4825,7 +4832,7 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton">
+                  <widget class="QPushButton" name="btnGrabarVenta">
                    <property name="minimumSize">
                     <size>
                      <width>80</width>
@@ -4934,6 +4941,11 @@
             <column>
              <property name="text">
               <string>DNI cliente</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Gestion</string>
              </property>
             </column>
            </widget>

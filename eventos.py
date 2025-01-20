@@ -388,7 +388,7 @@ class Eventos():
         try:
             header = var.ui.tablaFacturas.horizontalHeader()
             for i in range(header.count()):
-                if i != 0:
+                if i not in (0,3):
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)

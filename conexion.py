@@ -857,3 +857,15 @@ class Conexion:
         except Exception as error:
             print("Error al abrir el archivo")
 
+    @staticmethod
+    def deleteFactura(id):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("Delete from facturas where id = :id")
+            query.bindValue(":id", str(id))
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al eliminar la factura")

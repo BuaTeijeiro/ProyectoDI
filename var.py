@@ -20,6 +20,9 @@ global municli
 global provincias
 global report
 
+#tabla facturas
+global botondel
+
 #tabla clientes
 global currentindextablacli
 global rowstablacli
@@ -28,6 +31,7 @@ global totalpaginascli
 rowstablacli = 10
 maxrowstablacli = 10
 
+#tabla propiedades
 global currentindextablaprop
 global rowstablaprop
 global maxrowstablaprop
