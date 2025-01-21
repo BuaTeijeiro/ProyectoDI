@@ -7,11 +7,11 @@ from PyQt6 import QtWidgets, QtCore
 
 
 
-
 class Facturas:
     current_cliente = None
     current_propiedad = None
     current_vendedor = None
+    botones_del = []
     @staticmethod
     def altaFactura():
         """
@@ -40,15 +40,16 @@ class Facturas:
             listado = conexion.Conexion.listadoFacturas()
             var.ui.tablaFacturas.setRowCount(len(listado))
             index = 0
+            Facturas.botonesdel = []
             for registro in listado:
                 container = QtWidgets.QWidget()
                 layout = QtWidgets.QVBoxLayout()
-                var.botondel = QtWidgets.QPushButton()
-                var.botondel.setFixedSize(30, 20)
-                var.botondel.setIcon(QtGui.QIcon("./img/basura_bien.ico"))
-                var.botondel.setStyleSheet("background-color: #efefef;")
-                var.botondel.clicked.connect(Facturas.deleteFactura)
-                layout.addWidget(var.botondel)
+                Facturas.botonesdel.append(QtWidgets.QPushButton())
+                Facturas.botonesdel[-1].setFixedSize(30, 20)
+                Facturas.botonesdel[-1].setIcon(QtGui.QIcon("./img/basura_bien.ico"))
+                Facturas.botonesdel[-1].setStyleSheet("background-color: #efefef;")
+                Facturas.botonesdel[-1].clicked.connect(lambda checked, idFactura=str(registro[0]): Facturas.deleteFactura(idFactura))
+                layout.addWidget(Facturas.botonesdel[-1])
                 layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 layout.setContentsMargins(0, 0, 0, 0)
                 layout.setSpacing(0)
@@ -64,6 +65,8 @@ class Facturas:
 
                 index += 1
             eventos.Eventos.resizeTablaFacturas()
+            for boton in Facturas.botonesdel:
+                print(boton.text())
         except Exception as e:
             print("Error al cargar la tabla de facturas", e)
 
@@ -142,14 +145,17 @@ class Facturas:
             var.ui.btnGrabarVenta.setDisabled(True)
 
     @staticmethod
-    def deleteFactura():
+    def deleteFactura(idFactura):
         try:
-            factura = var.ui.tablaFacturas.selectedItems()
-            if conexion.Conexion.deleteFactura(factura[0].text()):
-                eventos.Eventos.mostrarMensajeOk("Se ha eliminado la factura correctamente")
-                Facturas.cargarListaFacturas()
+            mbox = QtWidgets.QMessageBox()
+            if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar", "Esta seguro de que quiere borrar la factura de id " + idFactura) == QtWidgets.QMessageBox.StandardButton.Yes:
+                if conexion.Conexion.deleteFactura(idFactura):
+                    eventos.Eventos.mostrarMensajeOk("Se ha eliminado la factura correctamente")
+                    Facturas.cargarListaFacturas()
+                else:
+                    eventos.Eventos.mostrarMensajeError("No se ha podido eliminar la factura correctamente")
             else:
-                eventos.Eventos.mostrarMensajeError("No se ha podido eliminar la factura correctamente")
+                mbox.hide()
         except Exception as e:
             print("Error al eliminar la factura: ", e)
 

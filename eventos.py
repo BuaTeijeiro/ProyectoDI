@@ -34,16 +34,7 @@ class Eventos():
         Si se marca si se cierra la aplicación, si no se oculta el mensaje
         """
         mbox = QtWidgets.QMessageBox()
-        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
-        mbox.setWindowTitle('Salir')
-        mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
-        mbox.setText("Desea usted salir")
-        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
-        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
-        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
-        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
-
-        if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
+        if Eventos.mostrarMensajeConfimarcion(mbox, 'Salir', "Desea usted salir") == QtWidgets.QMessageBox.StandardButton.Yes:
             sys.exit()
         else:
             mbox.hide()
@@ -642,6 +633,20 @@ class Eventos():
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
         mbox.exec()
+
+    @staticmethod
+    def mostrarMensajeConfimarcion(mbox, titulo, mensaje):
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
+        mbox.setModal(True)
+        mbox.setWindowTitle(titulo)
+        mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
+        mbox.setText(mensaje)
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
+        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
+        return mbox.exec()
+
 
 
 
