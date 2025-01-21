@@ -869,3 +869,50 @@ class Conexion:
                 return False
         except Exception as error:
             print("Error al eliminar la factura")
+
+    @staticmethod
+    def grabarVenta(venta):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("insert into ventas(factura, vendedor, propiedad) values (:idfactura, :idvendedor, :idpropiedad)")
+            query.bindValue(":idfactura", venta[0])
+            query.bindValue(":idvendedor", venta[1])
+            query.bindValue(":idpropiedad", venta[2])
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al grabar el venta")
+
+    @staticmethod
+    def listadoVentas(idFactura):
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "select v.id, v.propiedad, p.direccion, p.municipio, p.tipo_propiedad, p.precio_venta from ventas as v inner join propiedades as p on v.propiedad = p.codigo where v.factura = :idFactura")
+            query.bindValue(":idFactura", idFactura)
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as error:
+            print("Error al recuperar el listado de ventas")
+
+    @staticmethod
+    def totalFactura(idFactura):
+        try:
+            suma = 0
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "select sum(p.precio_venta) from ventas as v inner join propiedades as p on v.propiedad = p.codigo where v.factura = :idFactura")
+            query.bindValue(":idFactura", idFactura)
+            if query.exec() and query.next():
+                    return query.value(0)
+            else:
+                return null
+        except Exception as error:
+            print("Error al recuperar el costo de la factura: ", error)
+

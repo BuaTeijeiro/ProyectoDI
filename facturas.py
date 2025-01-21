@@ -81,6 +81,7 @@ class Facturas:
             var.ui.txtFechaFactura.setText(str(factura[1].text()))
             var.ui.lblDniclifactura.setText(str(factura[2].text()))
             Facturas.cargaClienteVenta()
+            Facturas.cargarTablaVentasFactura()
         except Exception as e:
             eventos.Eventos.mostrarMensajeError("Error al cargar la factura: " + e)
 
@@ -161,4 +162,54 @@ class Facturas:
 
     @staticmethod
     def grabarVenta():
-        print("Se va a guardar la venta")
+        try:
+            venta = [var.ui.lblFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
+            if conexion.Conexion.grabarVenta(venta):
+                eventos.Eventos.mostrarMensajeOk("Se ha registrado la venta correctamente")
+                Facturas.cargarTablaVentasFactura()
+            else:
+                eventos.Eventos.mostrarMensajeError("No se ha podido registrar la venta correctamente")
+        except Exception as e:
+            print("Error al grabar venta: ", e)
+
+    @staticmethod
+    def cargarTablaVentasFactura():
+        try:
+            idFactura = var.ui.lblFactura.text()
+            listado = conexion.Conexion.listadoVentas(idFactura)
+            var.ui.tablaVentas.setRowCount(len(listado))
+            index = 0
+            for registro in listado:
+                for i, dato in enumerate(registro):
+                    if i != 5:
+                        var.ui.tablaVentas.setItem(index, i, QtWidgets.QTableWidgetItem(str(dato)))
+                    else:
+                        var.ui.tablaVentas.setItem(index, i, QtWidgets.QTableWidgetItem(str(dato) + " €"))
+                    var.ui.tablaVentas.item(index, i).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                index += 1
+            eventos.Eventos.resizeTablaVentas()
+            Facturas.cargarBottomFactura(idFactura)
+
+        except Exception as e:
+            print("Error al cargar la tabla de ventas", e)
+
+    @staticmethod
+    def cargarBottomFactura(idFactura):
+        try:
+            subtotal = conexion.Conexion.totalFactura(idFactura)
+            if subtotal:
+                iva = 21
+                total = subtotal * (1 + iva/100)
+                var.ui.lblSubtotalFactura.setText(str(subtotal) + " €")
+                var.ui.lblImpuestasFacturas.setText(str(iva)+"%")
+                var.ui.lblTotalFactura.setText(str(total) + " €")
+            else:
+                var.ui.lblSubtotalFactura.setText("- €")
+                var.ui.lblImpuestasFacturas.setText("-%")
+                var.ui.lblTotalFactura.setText("- €")
+        except Exception as e:
+            print("Error al cargar los totales")
+
+
+

@@ -4988,13 +4988,106 @@
               <property name="frameShadow">
                <enum>QFrame::Plain</enum>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_57">
+              <layout class="QVBoxLayout" name="verticalLayout_8">
                <item>
-                <widget class="QLabel" name="label_36">
-                 <property name="text">
-                  <string>En Construccion                                                                                                                                                                                                     </string>
-                 </property>
+                <widget class="QTableWidget" name="tablaVentas">
+                 <attribute name="verticalHeaderVisible">
+                  <bool>false</bool>
+                 </attribute>
+                 <column>
+                  <property name="text">
+                   <string>idventa</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>idpropiedad</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>direccion</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>localidad</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>tipo</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>precio</string>
+                  </property>
+                 </column>
                 </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_57">
+                 <item>
+                  <spacer name="horizontalSpacer_61">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_5">
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="lblSubtotalFactura">
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_36">
+                     <property name="text">
+                      <string>Subtotal</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="lblTotalFactura">
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_40">
+                     <property name="text">
+                      <string>Total</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="lblImpuestasFacturas">
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_38">
+                     <property name="text">
+                      <string>Impuestos</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
