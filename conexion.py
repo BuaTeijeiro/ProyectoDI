@@ -1,5 +1,6 @@
 import os
 from idlelib.query import Query
+from time import localtime
 
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import QVariant
@@ -860,15 +861,34 @@ class Conexion:
     @staticmethod
     def deleteFactura(id):
         try:
+            if Conexion.deleteVentasFactura(id):
+                query = QtSql.QSqlQuery()
+                query.prepare("Delete from facturas where id = :id")
+                query.bindValue(":id", id)
+                if query.exec():
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        except Exception as error:
+            return False
+            print("Error al eliminar la factura")
+
+    @staticmethod
+    def deleteVentasFactura(idFactura):
+        try:
             query = QtSql.QSqlQuery()
-            query.prepare("Delete from facturas where id = :id")
-            query.bindValue(":id", str(id))
+            query.prepare("Delete from ventas where factura = :idFactura")
+            query.bindValue(":idFactura", idFactura)
             if query.exec():
                 return True
             else:
                 return False
         except Exception as error:
-            print("Error al eliminar la factura")
+            print("Error al eliminar las ventas de la factura")
+            return False
+
 
     @staticmethod
     def grabarVenta(venta):
@@ -878,6 +898,20 @@ class Conexion:
             query.bindValue(":idfactura", venta[0])
             query.bindValue(":idvendedor", venta[1])
             query.bindValue(":idpropiedad", venta[2])
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al grabar el venta")
+
+    @staticmethod
+    def eliminarVenta(idventa):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "delete from ventas where id = :idventa")
+            query.bindValue(":idventa", idventa)
             if query.exec():
                 return True
             else:
@@ -912,7 +946,40 @@ class Conexion:
             if query.exec() and query.next():
                     return query.value(0)
             else:
-                return null
+                return None
         except Exception as error:
             print("Error al recuperar el costo de la factura: ", error)
+
+    @staticmethod
+    def venderPropiedad(codigo, fecha):
+        try:
+            query = QtSql.QSqlQuery()
+
+            query.prepare("update propiedades set estado = 'Vendido', fechabaja=:fecha where codigo = :codigo")
+            query.bindValue(":codigo", codigo)
+            query.bindValue(":fecha", fecha)
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al vender la propiedad:" , error)
+            return False
+
+    @staticmethod
+    def liberarPropiedad(codigo):
+        try:
+            query = QtSql.QSqlQuery()
+
+            query.prepare("update propiedades set estado = 'Disponible', fechabaja=:fecha where codigo = :codigo")
+            query.bindValue(":codigo", codigo)
+            query.bindValue(":fecha", QtCore.QVariant())
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al vender la propiedad:", error)
+            return False
+
 

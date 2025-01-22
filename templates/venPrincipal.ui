@@ -4279,6 +4279,25 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_46">
                  <item>
+                  <widget class="QPushButton" name="btnLimpiarFactura">
+                   <property name="minimumSize">
+                    <size>
+                     <width>80</width>
+                     <height>25</height>
+                    </size>
+                   </property>
+                   <property name="sizeIncrement">
+                    <size>
+                     <width>80</width>
+                     <height>25</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Limpiar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <spacer name="horizontalSpacer_41">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -4991,6 +5010,12 @@
               <layout class="QVBoxLayout" name="verticalLayout_8">
                <item>
                 <widget class="QTableWidget" name="tablaVentas">
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::SingleSelection</enum>
+                 </property>
+                 <property name="selectionBehavior">
+                  <enum>QAbstractItemView::SelectRows</enum>
+                 </property>
                  <attribute name="verticalHeaderVisible">
                   <bool>false</bool>
                  </attribute>
@@ -5022,6 +5047,11 @@
                  <column>
                   <property name="text">
                    <string>precio</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>quitar</string>
                   </property>
                  </column>
                 </widget>

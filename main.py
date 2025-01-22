@@ -120,6 +120,7 @@ class Main(QtWidgets.QMainWindow):
         #Zona FActuras
         var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
         var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.grabarVenta)
+        var.ui.btnLimpiarFactura.clicked.connect(facturas.Facturas.limpiarFactura)
 
         #Zona labels
         var.ui.lblMensaje.setStyleSheet("color: rgb(255, 0, 0);")

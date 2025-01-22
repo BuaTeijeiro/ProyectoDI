@@ -399,7 +399,7 @@ class Eventos():
         try:
             header = var.ui.tablaVentas.horizontalHeader()
             for i in range(header.count()):
-                if i not in (0, 1):
+                if i == 2:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)

@@ -2,6 +2,7 @@ from PyQt6 import QtGui
 
 import conexion
 import eventos
+import propiedades
 import var
 from PyQt6 import QtWidgets, QtCore
 
@@ -11,6 +12,7 @@ class Facturas:
     current_cliente = None
     current_propiedad = None
     current_vendedor = None
+    current_factura = None
     botones_del = []
     @staticmethod
     def altaFactura():
@@ -24,8 +26,10 @@ class Facturas:
                 nuevaFactura = [var.ui.txtFechaFactura.text(), var.ui.lblDniclifactura.text()]
                 if (conexion.Conexion.guardarFActura(nuevaFactura)):
                     eventos.Eventos.mostrarMensajeOk("Se ha guardado la factura correctamente")
-                    var.ui.lblFactura.setText(str(conexion.Conexion.getLastIdFactura()))
+                    Facturas.current_factura = str(conexion.Conexion.getLastIdFactura())
+                    var.ui.lblFactura.setText(Facturas.current_factura)
                     Facturas.cargarListaFacturas()
+                    Facturas.checkDatosFacturas()
                 else:
                     eventos.Eventos.mostrarMensajeError("No se ha podido guardar la factura correctamente")
         except Exception as e:
@@ -82,6 +86,8 @@ class Facturas:
             var.ui.lblDniclifactura.setText(str(factura[2].text()))
             Facturas.cargaClienteVenta()
             Facturas.cargarTablaVentasFactura()
+            Facturas.current_factura = factura[0].text()
+            Facturas.checkDatosFacturas()
         except Exception as e:
             eventos.Eventos.mostrarMensajeError("Error al cargar la factura: " + e)
 
@@ -140,10 +146,22 @@ class Facturas:
 
     @staticmethod
     def checkDatosFacturas():
-        if Facturas.current_vendedor is not None and Facturas.current_propiedad is not None and Facturas.current_cliente is not None:
+        if Facturas.current_vendedor is not None and Facturas.current_propiedad is not None and Facturas.current_cliente is not None and Facturas.current_factura is not None:
             var.ui.btnGrabarVenta.setDisabled(False)
         else:
             var.ui.btnGrabarVenta.setDisabled(True)
+        if Facturas.current_factura is not None:
+            var.ui.btnGrabarFactura.setDisabled(False)
+        else:
+            var.ui.btnGrabarFactura.setDisabled(True)
+
+    @staticmethod
+    def limpiarFactura():
+        var.ui.lblFactura.setText("")
+        var.ui.txtFechaFactura.setText("")
+        var.ui.lblDniclifactura.setText("")
+        Facturas.current_factura = None
+        Facturas.checkDatosFacturas()
 
     @staticmethod
     def deleteFactura(idFactura):
@@ -153,6 +171,13 @@ class Facturas:
                 if conexion.Conexion.deleteFactura(idFactura):
                     eventos.Eventos.mostrarMensajeOk("Se ha eliminado la factura correctamente")
                     Facturas.cargarListaFacturas()
+                    var.ui.tablaVentas.setRowCount(0)
+                    Facturas.current_factura = None
+                    Facturas.checkDatosFacturas()
+                    Facturas.cargarBottomFactura(idFactura)
+                    var.ui.lblFactura.setText("")
+                    var.ui.txtFechaFactura.setText("")
+                    var.ui.lblDniclifactura.setText("")
                 else:
                     eventos.Eventos.mostrarMensajeError("No se ha podido eliminar la factura correctamente")
             else:
@@ -163,14 +188,36 @@ class Facturas:
     @staticmethod
     def grabarVenta():
         try:
-            venta = [var.ui.lblFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
+            venta = [Facturas.current_factura, Facturas.current_vendedor, Facturas.current_propiedad]
             if conexion.Conexion.grabarVenta(venta):
                 eventos.Eventos.mostrarMensajeOk("Se ha registrado la venta correctamente")
                 Facturas.cargarTablaVentasFactura()
+                fecha = var.ui.txtFechaFactura.text()
+                conexion.Conexion.venderPropiedad(Facturas.current_propiedad, fecha)
+                propiedades.Propiedades.cargaTablaPropiedades()
             else:
                 eventos.Eventos.mostrarMensajeError("No se ha podido registrar la venta correctamente")
         except Exception as e:
             print("Error al grabar venta: ", e)
+
+    @staticmethod
+    def eliminarVenta(idVenta, codProp):
+        try:
+            mbox = QtWidgets.QMessageBox()
+            if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar",
+                                                          "Esta seguro de que quiere borrar la venta de id " + idVenta + " de la propiedad de codigo " + codProp) == QtWidgets.QMessageBox.StandardButton.Yes:
+                if conexion.Conexion.liberarPropiedad(codProp) and conexion.Conexion.eliminarVenta(idVenta):
+                    eventos.Eventos.mostrarMensajeOk("Venta eliminada correctamente")
+                    Facturas.cargarTablaVentasFactura()
+                    Facturas.cargarBottomFactura(Facturas.current_factura)
+                    propiedades.Propiedades.cargaTablaPropiedades()
+                else:
+                    eventos.Eventos.mostrarMensajeError("No se pudo eliminar la venta")
+            else:
+                mbox.hide()
+
+        except Exception as error:
+            print("Error al eliminar venta: ", error)
 
     @staticmethod
     def cargarTablaVentasFactura():
@@ -185,7 +232,22 @@ class Facturas:
                         var.ui.tablaVentas.setItem(index, i, QtWidgets.QTableWidgetItem(str(dato)))
                     else:
                         var.ui.tablaVentas.setItem(index, i, QtWidgets.QTableWidgetItem(str(dato) + " €"))
+
                     var.ui.tablaVentas.item(index, i).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                container = QtWidgets.QWidget()
+                layout = QtWidgets.QVBoxLayout()
+                botondel = QtWidgets.QPushButton()
+                botondel.setFixedSize(30, 20)
+                botondel.setIcon(QtGui.QIcon("./img/menos.ico"))
+                botondel.setStyleSheet("background-color: #fff;")
+                botondel.clicked.connect(lambda checked, venta=str(registro[0]), prop=str(registro[1]) : Facturas.eliminarVenta(venta, prop))
+                layout.addWidget(botondel)
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+                container.setLayout(layout)
+                var.ui.tablaVentas.setCellWidget(index, 6, container)
 
                 index += 1
             eventos.Eventos.resizeTablaVentas()
@@ -210,6 +272,8 @@ class Facturas:
                 var.ui.lblTotalFactura.setText("- €")
         except Exception as e:
             print("Error al cargar los totales")
+
+
 
 
 
