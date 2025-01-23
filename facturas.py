@@ -18,6 +18,11 @@ class Facturas:
     def altaFactura():
         """
 
+        Método que lee los datos de la factura de la interfaz
+        comprueba si se verifican las restricciones necesarias
+        y llama a Conexion.guardarFactura para guardar la información en la base de datos
+        mostrando un mensaje con el resultado
+
         """
         try:
             if (var.ui.txtFechaFactura.text() == "" or var.ui.lblDniclifactura.text() == ""):
@@ -38,6 +43,9 @@ class Facturas:
     @staticmethod
     def cargarListaFacturas():
         """
+
+        Método que recupera la lista de facturas mediante Conexion.listadoFacturas
+        y muestra dicha información en la tabla de facturas
 
         """
         try:
@@ -78,6 +86,11 @@ class Facturas:
     def cargaOneFactura():
         """
 
+        Método que lee los datos de la factura seleccionada en la tabla clientes
+        y la muestra en los elementos de la interfaz correspondientes
+        guarda la información de que hay una factura cargada
+        y llama a los métodos que actualizan el resto de la interfaz a partir de ella
+
         """
         try:
             factura = var.ui.tablaFacturas.selectedItems()
@@ -93,6 +106,13 @@ class Facturas:
 
     @staticmethod
     def cargaClienteVenta():
+        """
+
+        Método que carga la información del cliente de una factura en los campos de la interfaz correspondientes
+        seteando el cliente actual y llamando a los métodos que actualizan información de acuerdo a ello
+        en caso de excepción setea el cliente actual a none y llama a los mismo métodos
+
+        """
         try:
             dni = var.ui.lblDniclifactura.text()
             cliente = conexion.Conexion.datosOneCliente(dni)
@@ -107,6 +127,15 @@ class Facturas:
 
     @staticmethod
     def cargaPropiedadVenta(propiedad):
+        """
+
+        :param propiedad: propiedad asociada a una venta
+        :type propiedad: list
+
+        Método que carga en la interfaz de ventas los datos de la propiedad pasada por parámetros
+        setea la propiedad actual y llama a los métodos que la usan para actualizar la interfaz
+
+        """
         try:
             if  "venta" in str(propiedad[14]).lower() and str(propiedad[15]).lower() == "disponible":
                 var.ui.lblcodigoprop.setText(str(propiedad[0]))
@@ -135,6 +164,15 @@ class Facturas:
 
     @staticmethod
     def cargaVendedorVenta(id):
+        """
+
+        :param id: id del vendedor
+        :type id: int
+
+        Método que carga en la interfaz de ventas el id del vendedor de la Venta
+        setea el vendedor actual y llama a los métodos que la usan para actualizar la interfaz
+
+        """
         try:
             var.ui.lblVendedorVenta.setText(str(id))
             Facturas.current_vendedor = str(id)
@@ -146,6 +184,12 @@ class Facturas:
 
     @staticmethod
     def checkDatosFacturas():
+        """
+
+        Método que comprueba que todos los campos necesarios para realizar una venta están cargados
+        habilitando el botón de grabar venta en caso afirmativo y desahilitándolo en caso negativo
+
+        """
         if Facturas.current_vendedor is not None and Facturas.current_propiedad is not None and Facturas.current_cliente is not None and Facturas.current_factura is not None:
             var.ui.btnGrabarVenta.setDisabled(False)
         else:
@@ -157,6 +201,12 @@ class Facturas:
 
     @staticmethod
     def limpiarFactura():
+        """
+
+        Método que limpia los campos de la interfaz relacionada con una factura
+        setea la factura actual a None y llama a los métodos que la usan para actualizar la interfaz
+
+        """
         var.ui.lblFactura.setText("")
         var.ui.txtFechaFactura.setText("")
         var.ui.lblDniclifactura.setText("")
@@ -165,6 +215,16 @@ class Facturas:
 
     @staticmethod
     def deleteFactura(idFactura):
+        """
+
+        :param idFactura: id de la Factura
+        :type idFactura: int
+
+        Método que tras preguntar confimración para borrar la factura cuyo id es el pasado por parámetros
+        llama al método de conexión para borrarla de la base de datos seteando la actual a None
+        y llama a los métodos que la usan para actualizar la interfaz
+
+        """
         try:
             mbox = QtWidgets.QMessageBox()
             if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar", "Esta seguro de que quiere borrar la factura de id " + idFactura) == QtWidgets.QMessageBox.StandardButton.Yes:
@@ -187,6 +247,14 @@ class Facturas:
 
     @staticmethod
     def grabarVenta():
+        """
+
+        Método que lee los datos de la venta de la interfaz
+        llama a Conexion.grabarVenta para guardar la información en la base de datos
+        y emplea el método correspondiente para setear la propiedad como vendida
+        mostrando un mensaje con el resultado de la operación
+
+        """
         try:
             venta = [Facturas.current_factura, Facturas.current_vendedor, Facturas.current_propiedad]
             if conexion.Conexion.grabarVenta(venta):
@@ -202,6 +270,17 @@ class Facturas:
 
     @staticmethod
     def eliminarVenta(idVenta, codProp):
+        """
+
+        :param idVenta: id de la venta
+        :type idVenta: int
+        :param codProp: código de la propiedad
+        :type codProp: int
+
+        Método que elimina de la base de datos la venta cuyo id se pasa por parámetros
+        y actualiza la propiedad con el código pasado por parámetro como disponible
+
+        """
         try:
             mbox = QtWidgets.QMessageBox()
             if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar",
@@ -221,6 +300,12 @@ class Facturas:
 
     @staticmethod
     def cargarTablaVentasFactura():
+        """
+
+        Método que recupera la lista de ventas cuya factura es la indicada en la interfaz
+        y las muestra en la tabla de ventas
+
+        """
         try:
             idFactura = var.ui.lblFactura.text()
             listado = conexion.Conexion.listadoVentas(idFactura)
@@ -258,10 +343,18 @@ class Facturas:
 
     @staticmethod
     def cargarBottomFactura(idFactura):
+        """
+
+        :param idFactura: id Factura
+        :type idFactura: int
+
+        Método que calcula la parte inferior de la factura, con el subtotal, iva y total
+
+        """
         try:
             subtotal = conexion.Conexion.totalFactura(idFactura)
             if subtotal:
-                iva = 21
+                iva = 10
                 total = subtotal * (1 + iva/100)
                 var.ui.lblSubtotalFactura.setText(str(subtotal) + " €")
                 var.ui.lblImpuestasFacturas.setText(str(iva)+"%")
@@ -272,8 +365,3 @@ class Facturas:
                 var.ui.lblTotalFactura.setText("- €")
         except Exception as e:
             print("Error al cargar los totales")
-
-
-
-
-

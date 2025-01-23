@@ -63,9 +63,10 @@ class Eventos():
     def cargarMunicipioscli():
         """
 
-        Carga los municipios en el combobox de municipios clientes
+        Método que carga los municipios en el combobox de municipios clientes
         solamente de la provincia seleccionada en el combobox de provincias clientes
         setea también el completer con los municipios cargados
+
         """
         var.ui.cmbMunicli.clear()
         provinciaCli = var.ui.cmbProvcli.currentText()
@@ -82,6 +83,10 @@ class Eventos():
     @staticmethod
     def cargarMunicipiosprop():
         """
+
+        Método que carga los municipios en el combobox de municipios propiedades
+        solamente de la provincia seleccionada en el combobox de provincias propiedades
+        setea también el completer con los municipios cargados
 
         """
         var.ui.cmbMuniprop.clear()
@@ -101,6 +106,8 @@ class Eventos():
     def checkMunicipioCli():
         """
 
+        Método que comprueba si el municipio inidcado en clientes existe, borrándolo en caso de que no
+
         """
         if var.ui.cmbMunicli.currentText() not in var.municli:
             var.ui.cmbMunicli.setCurrentIndex(0)
@@ -108,6 +115,8 @@ class Eventos():
     @staticmethod
     def checkProvinciaCli():
         """
+
+        Método que comprueba si la provincia inidcada en clientes existe, borrándola en caso de que no
 
         """
         if var.ui.cmbProvcli.currentText() not in var.provincias:
@@ -117,6 +126,8 @@ class Eventos():
     def checkMunicipioProp():
         """
 
+        Método que comprueba si el municipio inidcado en propiedades existe, borrándolo en caso de que no
+
         """
         if var.ui.cmbMuniprop.currentText() not in var.muniprop:
             var.ui.cmbMuniprop.setCurrentIndex(0)
@@ -124,6 +135,8 @@ class Eventos():
     @staticmethod
     def checkProvinciaProp():
         """
+
+        Método que comprueba si la provincia inidcada en clientes existe, borrándola en caso de que no
 
         """
         if var.ui.cmbProvprop.currentText() not in var.provincias:
@@ -134,10 +147,13 @@ class Eventos():
     def validarDNI(dni):
         """
 
-        :param dni:
-        :type dni:
-        :return:
-        :rtype:
+        :param dni: dni a validar
+        :type dni: str
+        :return: resultado validación
+        :rtype: bool
+
+        Método que comprueba si el formato del dni es el adecuado
+
         """
         try:
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
@@ -162,10 +178,13 @@ class Eventos():
     def validarMail(mail):
         """
 
-        :param mail:
-        :type mail:
-        :return:
-        :rtype:
+        :param mail: email a validar
+        :type mail: str
+        :return: resultado validación
+        :rtype: bool
+
+        Método que comprueba si el email sigue un formato válido
+
         """
         mail = mail.lower()
         regex = r'[a-zA-Z0-9]+([\._][a-zA-Z0-9]+)*[@]\w+[.]\w+'
@@ -178,10 +197,13 @@ class Eventos():
     def validarMovil(movil):
         """
 
-        :param movil:
-        :type movil:
-        :return:
-        :rtype:
+        :param movil: móvil a validar
+        :type movil: str
+        :return: resultado validacion
+        :rtype: bool
+
+        Método que comprueba si el móvil sigue un formato válido para España
+
         """
         regex = r"[67]\d{8}"
         return re.fullmatch(regex, movil)
@@ -190,10 +212,13 @@ class Eventos():
     def convertStringToDate(date):
         """
 
-        :param date:
-        :type date:
-        :return:
-        :rtype:
+        :param date: fecha
+        :type date: str
+        :return: fecha convertida/false
+        :rtype: datetime/bool
+
+        Método que transforma una fecha de str a tipo datetime, devolviendo falso si el formato no es válido
+
         """
         try:
             date = date.split('/')
@@ -666,8 +691,3 @@ class Eventos():
         mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
         mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
         return mbox.exec()
-
-
-
-
-
