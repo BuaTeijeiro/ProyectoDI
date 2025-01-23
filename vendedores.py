@@ -91,6 +91,7 @@ class Vendedores:
         Método que lee los datos del vendedor de la interfaz
         comprueba si se verifican las restricciones necesarias
         y llama a Conexion.altavendedor para guardar la información en la base de datos
+        mostrando un mensaje con el resultado
 
         """
         nuevovend = [var.ui.txtDnivend.text(), var.ui.txtNombrevend.text().title(),

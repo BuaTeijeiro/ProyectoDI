@@ -781,10 +781,15 @@ class Conexion:
     def guardarFActura(factura):
         """
 
-        :param factura:
-        :type factura:
-        :return:
-        :rtype:
+        :param factura: datos de la nueva factura a guardar
+        :type factura: list
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que registra una nueva factura en la base de datos,
+        con el dni del cliente y la fecha que se pasan por parámetros.
+        Devuelve true si se realiza correctamente, false en caso contrario
+
         """
         try:
             query = QtSql.QSqlQuery()
@@ -802,8 +807,11 @@ class Conexion:
     def getLastIdFactura():
         """
 
-        :return:
-        :rtype:
+        :return: id de la última factura
+        :rtype: int
+
+        Método que devuelve el id de la última factura añadida a la base de datos
+
         """
         try:
             query = QtSql.QSqlQuery()
@@ -820,7 +828,7 @@ class Conexion:
     def listadoFacturas():
         """
 
-        :return: lista de vendedores
+        :return: lista de facturas
         :rtype: list
 
         Método que devuelve una lista con los datos de las facturas de la base de datos
@@ -842,10 +850,13 @@ class Conexion:
     def datosOneFactura(id):
         """
 
-        :param id:
-        :type id:
-        :return:
-        :rtype:
+        :param id: id de la factura
+        :type id: int
+        :return: datos de la factura
+        :rtype: list
+
+        Método que recupera una lista con los datos de la factura cuyo id es el pasado por parámetros
+
         """
         try:
             registro = []
@@ -860,6 +871,19 @@ class Conexion:
 
     @staticmethod
     def deleteFactura(id):
+        """
+
+        :param id: id de la factura
+        :type id: int
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que elimina una factura de la base de datos
+        primero llama al método de borrar las ventas asociadas a la factura
+        y solo continúa con la operación si esta última es exitoso
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             if Conexion.deleteVentasFactura(id):
                 query = QtSql.QSqlQuery()
@@ -877,6 +901,17 @@ class Conexion:
 
     @staticmethod
     def deleteVentasFactura(idFactura):
+        """
+
+        :param idFactura: id de la factura
+        :type idFactura: int
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que elimina las ventas cuya factura es la correspondiente al id pasado por parámetros
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("Delete from ventas where factura = :idFactura")
@@ -892,6 +927,17 @@ class Conexion:
 
     @staticmethod
     def grabarVenta(venta):
+        """
+
+        :param venta: datos de la venta a registrar
+        :type venta: list
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que registra una venta en la base de datos con los datos pasados por parámetro
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("insert into ventas(factura, vendedor, propiedad) values (:idfactura, :idvendedor, :idpropiedad)")
@@ -907,6 +953,17 @@ class Conexion:
 
     @staticmethod
     def eliminarVenta(idventa):
+        """
+
+        :param idventa: id de la venta a eliminar
+        :type idventa: int
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que elimina la venta de la base de datos cuyo id es el pasado por parámetro
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -921,6 +978,17 @@ class Conexion:
 
     @staticmethod
     def listadoVentas(idFactura):
+        """
+
+        :param idFactura: id de la factura
+        :type idFactura: int
+        :return: lista de ventas de la factura
+        :rtype: list
+
+        Método que recupera la información de todas las ventas cuya factura es
+        la identificada por el id pasado por parámetro
+
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -937,6 +1005,17 @@ class Conexion:
 
     @staticmethod
     def totalFactura(idFactura):
+        """
+
+        :param idFactura: id de la Factura
+        :type idFactura: int
+        :return: precio total de la factura
+        :rtype: float
+
+        Método que calcula la suma del precio de todas las ventas asociadas a la factura
+        identificada por el id que se pasa por parámetro
+
+        """
         try:
             suma = 0
             query = QtSql.QSqlQuery()
@@ -952,6 +1031,20 @@ class Conexion:
 
     @staticmethod
     def venderPropiedad(codigo, fecha):
+        """
+
+        :param codigo: codigo de la propiedad a vender
+        :type codigo: int
+        :param fecha: fecha en la que se realiza la venta
+        :type fecha: str
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que actualiza la información de la propiedad identificada por el código pasado por parámetros
+        seteando el estado a vendido y la fecha de baja según lo establecido en el parámetro
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
 
@@ -968,6 +1061,18 @@ class Conexion:
 
     @staticmethod
     def liberarPropiedad(codigo):
+        """
+
+        :param codigo: codigo de la propiedad a liberar
+        :type codigo: int
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que actualiza la información de la propiedad identificada por el código pasado por parámetros
+        seteando el estado a Disponible y la fecha de baja a null.
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
 
@@ -981,5 +1086,3 @@ class Conexion:
         except Exception as error:
             print("Error al vender la propiedad:", error)
             return False
-
-

@@ -15,8 +15,13 @@ class Clientes:
     def checkDNI(dni):
         """
 
-        :param dni:
-        :type dni:
+        :param dni: dni a verificar
+        :type dni: str
+
+        Método que llama a eventos.Eventos.validarDNI para validar el dni pasado por parámetros
+        Modifica la caja de texto del dni de cliente para mostrar el resultado
+        la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es
+
         """
         try:
             dni = str(dni).upper()
@@ -34,6 +39,11 @@ class Clientes:
     @staticmethod
     def checkEmail():
         """
+
+        Método que lee el email de la caja de texto correspondiente de clientes
+        y llama a eventos.Eventos.validarMail para comprobar si es válido
+        Modifica la caja de texto del email de cliente para mostrar el resultado
+        la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es
 
         """
         try:
@@ -56,6 +66,11 @@ class Clientes:
     def checkMovil():
         """
 
+        Método que lee el móvil de la caja de texto correspondiente de clientes
+        y llama a eventos.Eventos.validarMovil para comprobar si es válido
+        Modifica la caja de texto del movil de cliente para mostrar el resultado
+        la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es
+
         """
         try:
             movil = str(var.ui.txtMovilcli.text())
@@ -74,6 +89,11 @@ class Clientes:
     @staticmethod
     def altaCliente():
         """
+
+        Método que lee los datos del cliente de la interfaz
+        comprueba si se verifican las restricciones necesarias
+        y llama a Conexion.altaCliente para guardar la información en la base de datos
+        mostrando un mensaje con el resultado
 
         """
         nuevocli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text().title(), var.ui.txtNomcli.text().title(),var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text().title(), var.ui.cmbProvcli.currentText(), var.ui.cmbMunicli.currentText()]
@@ -98,6 +118,9 @@ class Clientes:
     @staticmethod
     def cargaTablaClientes():
         """
+
+        Método que recupera la lista de clientes mediante Conexion.listadoClientes
+        y muestra dicha información en la tabla de clientes
 
         """
         try:
@@ -145,6 +168,10 @@ class Clientes:
     def cargaOneCliente():
         """
 
+        Método que lee los datos del cliente seleccionado en la tabla clientes
+        busca en la base de datos el resto de la información del cliente
+        y la muestra en los elementos de la interfaz correspondientes
+
         """
         try:
             file = var.ui.tablaClientes.selectedItems()
@@ -167,6 +194,9 @@ class Clientes:
     @staticmethod
     def cargaClienteBuscado():
         """
+
+        Método que lee el dni escrito en la caja de texto correspondiente de cliente
+        busca la información del cliente asociado y la carga en los elementos de la interfaz correspondientes
 
         """
         try:
@@ -191,6 +221,10 @@ class Clientes:
     @staticmethod
     def modifCliente():
         """
+
+        Método que lee los datos del cliente de la interfaz
+        comprueba si se verifican las restricciones necesarias
+        y llama a Conexion.modifCliente para modificar la información en la base de datos
 
         """
         try:
@@ -221,6 +255,9 @@ class Clientes:
     def bajaCliente():
         """
 
+        Método que lee el dni de la interfaz del cliente
+        y llama a Conexion.bajaCliente para dar al vendedor de baja con la fecha actual
+
         """
         try:
             fecha = datetime.now().strftime("%d/%m/%Y")
@@ -242,6 +279,9 @@ class Clientes:
     def historicoCli():
         """
 
+        Método que recarga la tabla de clientes tras clickar el checkbox de histórico
+        reseteando la página de la tabla clientes a cero para evitar problemas al mostrar datos
+
         """
         try:
             var.currentindextablacli = 0
@@ -252,6 +292,11 @@ class Clientes:
     @staticmethod
     def resetFilas():
         """
+
+        Método que reajusta el número de filas que se muestra en cada página de la tabla clientes
+        asegurándose siempre que esté entre un mínimo y un máximo predeterminado
+        y seteando de nuevo la página de la tabla clientes a la primera
+        para garantizar el mostrado correcto de los datos
 
         """
         try:

@@ -12,6 +12,11 @@ class Propiedades():
     def checkMovil():
         """
 
+        Método que lee el móvil de la caja de texto correspondiente de propietario de propiedad
+        y llama a eventos.Eventos.validarMovil para comprobar si es válido
+        Modifica la caja de texto del movil del propietario de propiedad para mostrar el resultado
+        la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es
+
         """
         try:
             movil = str(var.ui.txtMovilprop.text())
@@ -30,6 +35,10 @@ class Propiedades():
     def reloadDisponibility():
         """
 
+        Método que habilita o desabilita los botones de radio de disponibilidad
+        según haya fecha de baja en la caja de texto (no puede estar disponible)
+        o no (debe estar disponible)
+
         """
         if var.ui.txtFechabajaprop.text() == "":
             var.ui.rbtDisponprop.setEnabled(True)
@@ -46,6 +55,8 @@ class Propiedades():
     def reloadTipoOperacion():
         """
 
+        Método que checkea automáticamente los tipos de operación si hay un precio para dicho tipo
+
         """
         var.ui.chkAlquilprop.setChecked(var.ui.txtPrecioalquilerprop.text()!="")
         var.ui.chkVentaprop.setChecked(var.ui.txtPrecioventaprop.text() != "")
@@ -53,6 +64,8 @@ class Propiedades():
     @staticmethod
     def reloadPrecio():
         """
+
+        Método que borra los precios para un tipo de operación si se desmarca la opción de dicho tipo de operación
 
         """
         if not var.ui.chkAlquilprop.isChecked():
@@ -63,6 +76,10 @@ class Propiedades():
     @staticmethod
     def altaTipoPropiedad():
         """
+
+        Método que lee el nombre del tipo de propiedad de la interfaz
+        y llama a Conexion.anadirTipoprop para guardar la información en la base de datos
+        mostrando un mensaje con el resultado de la operación
 
         """
         try:
@@ -80,6 +97,10 @@ class Propiedades():
     def deleteTipoPropiedad():
         """
 
+        Método que lee el nombre del tipo de propiedad de la interfaz
+        y llama a Conexion.eliminarTipoprop para eliminar la información de la base de datos
+        mostrando un mensaje con el resultado de la operación
+
         """
         try:
             tipo = var.dlggestion.interface.txtGestipoprop.text().title()
@@ -95,6 +116,11 @@ class Propiedades():
     @staticmethod
     def altaPropiedad():
         """
+
+        Método que lee los datos de la propiedad de la interfaz
+        comprueba si se verifican las restricciones necesarias
+        y llama a Conexion.altaPropiedad para guardar la información en la base de datos
+        mostrando un mensaje con el resultado de la operación
 
         """
         try:
@@ -154,6 +180,9 @@ class Propiedades():
     def cargaTablaPropiedades():
         """
 
+        Método que recupera la lista de propiedades mediante Conexion.listadoPropiedades
+        y llama a Propiedades.setTablaPropiedades() para cargarlos en la tabla de propiedades
+
         """
         try:
             listado = conexion.Conexion.listadoPropiedades()
@@ -167,6 +196,10 @@ class Propiedades():
     @staticmethod
     def filtrarTablaPropiedades():
         """
+
+        Método que lee los campos de filtrado de la interfaz
+        recupera la lista de propiedades flitrada por ellos mediante Conexion.listadoPropiedadesFiltrado
+        y llama a Propiedades.setTablaPropiedades() para cargarlos en la tabla de propiedades
 
         """
         try:
@@ -184,6 +217,9 @@ class Propiedades():
     @staticmethod
     def setTablaPropiedades():
         """
+
+        Lee la lista de propiedades guardada en el módulo var
+        y muestra su información en la tabla de propiedades
 
         """
         listado = var.currentlistapropiedades
@@ -240,8 +276,13 @@ class Propiedades():
     def cargaOnePropiedad(code = ""):
         """
 
-        :param code:
-        :type code:
+        :param code: codigo de una propiedad
+        :type code: int
+
+        Método que busca la información de la propiedad identificada por el código
+        y la carga en los elementos correspondientes de la interfaz
+        si se especifica se utiliza ese, si no se lee el elemento seleccionado en la tabla de propiedades
+
         """
         try:
             if code == "":
@@ -290,6 +331,11 @@ class Propiedades():
     @staticmethod
     def modifProp():
         """
+
+        Método que lee los datos de la propiedad de la interfaz
+        comprueba si se verifican las restricciones necesarias
+        y llama a Conexion.modifPropiedad para modificar la información en la base de datos
+        mostrando un mensaje con el resultado de la operación
 
         """
         camposObligatorios = [var.ui.txtFechaprop.text(), var.ui.txtCPprop.text(), var.ui.txtDirprop.text(),
@@ -348,6 +394,10 @@ class Propiedades():
     def bajaProp():
         """
 
+        Método que lee el codigo y la fechabaja de la interfaz de propiedad
+        y llama a Conexion.bajaPropiedad para dar a la propiedad correspondiente de baja con la fecha leída
+        mostrando un mensaje con el resultado de la operación
+
         """
         codigo = var.ui.lblProp.text()
         fechabaja = var.ui.txtFechabajaprop.text()
@@ -383,6 +433,11 @@ class Propiedades():
     def deleteProp():
         """
 
+        Método que lee el codigo de la interfaz de propiedad
+        y llama a Conexion.deletePropiedad para eliminar la propiedad de la base de datos
+        mostrando un mensaje con el resultado de la operación
+        ESTE MÉTODO NO ES UTILIZADO NUNCA
+
         """
         codigo = var.ui.lblProp.text()
         if conexion.Conexion.deletePropiedad(codigo):
@@ -395,6 +450,11 @@ class Propiedades():
     @staticmethod
     def resetFilas():
         """
+
+        Método que reajusta el número de filas que se muestra en cada página de la tabla propiedades
+        asegurándose siempre que esté entre un mínimo y un máximo predeterminado
+        y seteando de nuevo la página de la tabla propiedades a la primera
+        para garantizar el mostrado correcto de los datos
 
         """
         try:
@@ -412,6 +472,9 @@ class Propiedades():
     @staticmethod
     def historicoProp():
         """
+
+        Método que recarga la tabla de propiedades tras clickar el checkbox de histórico
+        reseteando la página de la tabla propiedades a cero para evitar problemas al mostrar datos
 
         """
         try:
