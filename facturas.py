@@ -100,6 +100,7 @@ class Facturas:
             Facturas.cargaClienteVenta()
             Facturas.cargarTablaVentasFactura()
             Facturas.current_factura = factura[0].text()
+            Facturas.limpiarCamposPropiedad()
             Facturas.checkDatosFacturas()
         except Exception as e:
             eventos.Eventos.mostrarMensajeError("Error al cargar la factura: " + e)
@@ -194,10 +195,25 @@ class Facturas:
             var.ui.btnGrabarVenta.setDisabled(False)
         else:
             var.ui.btnGrabarVenta.setDisabled(True)
-        if Facturas.current_factura is not None:
+        if Facturas.current_factura is None:
             var.ui.btnGrabarFactura.setDisabled(False)
         else:
             var.ui.btnGrabarFactura.setDisabled(True)
+
+    @staticmethod
+    def cargarOneVenta():
+        try:
+            factura = var.ui.tablaVentas.selectedItems()
+            var.ui.lblcodigoprop.setText(factura[1].text())
+            var.ui.lblTipoProp.setText(factura[4].text())
+            var.ui.lblPrecioProp.setText(factura[5].text())
+            var.ui.lblDireccionprop.setText(factura[2].text())
+            var.ui.lblMunipropVenta.setText(factura[3].text())
+            Facturas.current_propiedad = None
+            Facturas.checkDatosFacturas()
+        except Exception as e:
+            eventos.Eventos.mostrarMensajeError("Error al cargar la factura: " + e)
+
 
     @staticmethod
     def limpiarFactura():
@@ -263,6 +279,7 @@ class Facturas:
                 fecha = var.ui.txtFechaFactura.text()
                 conexion.Conexion.venderPropiedad(Facturas.current_propiedad, fecha)
                 propiedades.Propiedades.cargaTablaPropiedades()
+                Facturas.limpiarCamposPropiedad()
             else:
                 eventos.Eventos.mostrarMensajeError("No se ha podido registrar la venta correctamente")
         except Exception as e:
@@ -290,6 +307,7 @@ class Facturas:
                     Facturas.cargarTablaVentasFactura()
                     Facturas.cargarBottomFactura(Facturas.current_factura)
                     propiedades.Propiedades.cargaTablaPropiedades()
+                    Facturas.limpiarCamposPropiedad()
                 else:
                     eventos.Eventos.mostrarMensajeError("No se pudo eliminar la venta")
             else:
@@ -354,14 +372,23 @@ class Facturas:
         try:
             subtotal = conexion.Conexion.totalFactura(idFactura)
             if subtotal:
-                iva = 10
-                total = subtotal * (1 + iva/100)
-                var.ui.lblSubtotalFactura.setText(str(subtotal) + " €")
-                var.ui.lblImpuestasFacturas.setText(str(iva)+"%")
-                var.ui.lblTotalFactura.setText(str(total) + " €")
+                iva = 10 * subtotal / 100
+                total = subtotal + iva
+                var.ui.lblSubtotalFactura.setText(f"{subtotal:,.2f}" + " €")
+                var.ui.lblImpuestasFacturas.setText(f"{iva:,.2f}" + " €")
+                var.ui.lblTotalFactura.setText(f"{total:,.2f}" + " €")
             else:
                 var.ui.lblSubtotalFactura.setText("- €")
                 var.ui.lblImpuestasFacturas.setText("-%")
                 var.ui.lblTotalFactura.setText("- €")
         except Exception as e:
             print("Error al cargar los totales")
+
+    @staticmethod
+    def limpiarCamposPropiedad():
+        var.ui.lblcodigoprop.setText("")
+        var.ui.lblTipoProp.setText("")
+        var.ui.lblPrecioProp.setText("")
+        var.ui.lblDireccionprop.setText("")
+        var.ui.lblMunipropVenta.setText("")
+        Facturas.current_propiedad = None
