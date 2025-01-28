@@ -1,5 +1,6 @@
 from calendar import Calendar
 
+import alquileres
 import clientes
 import conexion
 import conexionserver
@@ -54,6 +55,7 @@ class Main(QtWidgets.QMainWindow):
         vendedores.Vendedores.cargaTablaVendedores()
         facturas.Facturas.cargarListaFacturas()
         facturas.Facturas.checkDatosFacturas()
+        alquileres.Alquileres.checkDatosAlquiler()
 
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(lambda: propiedades.Propiedades.cargaOnePropiedad())
@@ -98,6 +100,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnFechaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
         var.ui.btnFechabajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1))
         var.ui.btnFechaFactura.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
+        var.ui.btnFechaInicioAlquiler.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
+        var.ui.btnFechaFinAlquiler.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1))
 
 
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
@@ -125,6 +129,7 @@ class Main(QtWidgets.QMainWindow):
 
         #Zona labels
         var.ui.lblMensaje.setStyleSheet("color: rgb(255, 0, 0);")
+        var.ui.lblMensajeAlquiler.setStyleSheet("color: rgb(255, 0, 0);")
 
         """
         zona de eventos de cajas de texto

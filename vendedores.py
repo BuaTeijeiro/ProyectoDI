@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import alquileres
 import conexion
 import eventos
 import facturas
@@ -198,6 +199,7 @@ class Vendedores:
             datos = [dato.text() for dato in file]
             registro = conexion.Conexion.datosOneVendedor(datos[0])
             facturas.Facturas.cargaVendedorVenta(datos[0])
+            alquileres.Alquileres.cargaVendedorAlquiler(datos[0])
             Vendedores.cargaOneVendedor(registro)
         except Exception as error:
             print("Error", error)

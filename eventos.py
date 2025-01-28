@@ -318,6 +318,10 @@ class Eventos():
                 var.ui.txtBajavend.setText(str(data))
             if var.ui.panPrincipal.currentIndex() == 3 and var.btn == 0:
                 var.ui.txtFechaFactura.setText(str(data))
+            if var.ui.panPrincipal.currentIndex() == 4 and var.btn == 0:
+                var.ui.txtFechaInicioAlquiler.setText(str(data))
+            if var.ui.panPrincipal.currentIndex() == 4 and var.btn == 1:
+                var.ui.txtFechaFinAlquiler.setText(str(data))
             time.sleep(0.2)
             var.uicalendar.hide()
             return data
@@ -680,6 +684,19 @@ class Eventos():
         mbox.exec()
 
     @staticmethod
+    def mostrarMensajeWarning(mensaje):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+        mbox.setModal(True)
+        mbox.setWindowTitle('Precaución')
+        mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
+        mbox.setText(mensaje)
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+        return mbox.exec()
+
+    @staticmethod
     def mostrarMensajeConfimarcion(mbox, titulo, mensaje):
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
         mbox.setModal(True)
@@ -691,3 +708,4 @@ class Eventos():
         mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
         mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
         return mbox.exec()
+

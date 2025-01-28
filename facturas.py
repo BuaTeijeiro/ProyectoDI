@@ -255,7 +255,8 @@ class Facturas:
                     var.ui.txtFechaFactura.setText("")
                     var.ui.lblDniclifactura.setText("")
                 else:
-                    eventos.Eventos.mostrarMensajeError("No se ha podido eliminar la factura correctamente")
+                    #eventos.Eventos.mostrarMensajeError("No se ha podido eliminar la factura correctamente")
+                    eventos.Eventos.mostrarMensajeWarning("La factura no se puede eliminar porque tiene asociadas ventas. Bórrelas primero si quiere borrar la factura")
             else:
                 mbox.hide()
         except Exception as e:

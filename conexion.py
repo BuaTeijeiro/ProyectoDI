@@ -885,7 +885,7 @@ class Conexion:
 
         """
         try:
-            if Conexion.deleteVentasFactura(id):
+            if len(Conexion.listadoVentas(id)) == 0:
                 query = QtSql.QSqlQuery()
                 query.prepare("Delete from facturas where id = :id")
                 query.bindValue(":id", id)
@@ -898,31 +898,6 @@ class Conexion:
         except Exception as error:
             return False
             print("Error al eliminar la factura")
-
-    @staticmethod
-    def deleteVentasFactura(idFactura):
-        """
-
-        :param idFactura: id de la factura
-        :type idFactura: int
-        :return: operacion exitosa
-        :rtype: bool
-
-        Método que elimina las ventas cuya factura es la correspondiente al id pasado por parámetros
-        Devuelve true si se realiza correctamente, false en caso contrario
-
-        """
-        try:
-            query = QtSql.QSqlQuery()
-            query.prepare("Delete from ventas where factura = :idFactura")
-            query.bindValue(":idFactura", idFactura)
-            if query.exec():
-                return True
-            else:
-                return False
-        except Exception as error:
-            print("Error al eliminar las ventas de la factura")
-            return False
 
 
     @staticmethod

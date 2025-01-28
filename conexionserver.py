@@ -6,7 +6,7 @@ import os
 from PyQt6 import QtSql, QtWidgets
 
 import var
-from eventos import Eventos
+import eventos
 
 
 class ConexionServer():

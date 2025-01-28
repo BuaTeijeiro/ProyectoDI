@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets, QtGui, QtCore
 
+import alquileres
 import conexion
 import conexionserver
 import facturas
@@ -325,6 +326,7 @@ class Propiedades():
 
             var.ui.txtNomeprop.setText(datos[16])
             var.ui.txtMovilprop.setText(datos[17])
+            alquileres.Alquileres.cargaPropiedadAlquiler(datos)
         except Exception as e:
             print("Error al cargar a una propiedad", e)
 
