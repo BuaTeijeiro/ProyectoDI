@@ -1,0 +1,220 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>clientes module &mdash; documentación de buateijeiro - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            buateijeiro
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">clientes module</a><ul>
+<li><a class="reference internal" href="#clientes.Clientes"><code class="docutils literal notranslate"><span class="pre">Clientes</span></code></a><ul>
+<li><a class="reference internal" href="#clientes.Clientes.altaCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.altaCliente()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.bajaCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.bajaCliente()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.cargaClienteBuscado"><code class="docutils literal notranslate"><span class="pre">Clientes.cargaClienteBuscado()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.cargaOneCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.cargaOneCliente()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.cargaTablaClientes"><code class="docutils literal notranslate"><span class="pre">Clientes.cargaTablaClientes()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.checkDNI"><code class="docutils literal notranslate"><span class="pre">Clientes.checkDNI()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.checkEmail"><code class="docutils literal notranslate"><span class="pre">Clientes.checkEmail()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.checkMovil"><code class="docutils literal notranslate"><span class="pre">Clientes.checkMovil()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.historicoCli"><code class="docutils literal notranslate"><span class="pre">Clientes.historicoCli()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.modifCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.modifCliente()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.resetFilas"><code class="docutils literal notranslate"><span class="pre">Clientes.resetFilas()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">buateijeiro</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">clientes module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/clientes.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-clientes">
+<span id="clientes-module"></span><h1>clientes module<a class="headerlink" href="#module-clientes" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="clientes.Clientes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clientes.</span></span><span class="sig-name descname"><span class="pre">Clientes</span></span><a class="reference internal" href="../_modules/clientes.html#Clientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.altaCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.altaCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.altaCliente" title="Link to this definition"></a></dt>
+<dd><p>Método que lee los datos del cliente de la interfaz
+comprueba si se verifican las restricciones necesarias
+y llama a Conexion.altaCliente para guardar la información en la base de datos
+mostrando un mensaje con el resultado</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.bajaCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bajaCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.bajaCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.bajaCliente" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el dni de la interfaz del cliente
+y llama a Conexion.bajaCliente para dar al vendedor de baja con la fecha actual</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.cargaClienteBuscado">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaClienteBuscado</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.cargaClienteBuscado"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.cargaClienteBuscado" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el dni escrito en la caja de texto correspondiente de cliente
+busca la información del cliente asociado y la carga en los elementos de la interfaz correspondientes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.cargaOneCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaOneCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.cargaOneCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.cargaOneCliente" title="Link to this definition"></a></dt>
+<dd><p>Método que lee los datos del cliente seleccionado en la tabla clientes
+busca en la base de datos el resto de la información del cliente
+y la muestra en los elementos de la interfaz correspondientes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.cargaTablaClientes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaTablaClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.cargaTablaClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.cargaTablaClientes" title="Link to this definition"></a></dt>
+<dd><p>Método que recupera la lista de clientes mediante Conexion.listadoClientes
+y muestra dicha información en la tabla de clientes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.checkDNI">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkDNI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.checkDNI"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.checkDNI" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> (<em>str</em>) – dni a verificar</p>
+</dd>
+</dl>
+<p>Método que llama a eventos.Eventos.validarDNI para validar el dni pasado por parámetros
+Modifica la caja de texto del dni de cliente para mostrar el resultado
+la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.checkEmail">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkEmail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.checkEmail"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.checkEmail" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el email de la caja de texto correspondiente de clientes
+y llama a eventos.Eventos.validarMail para comprobar si es válido
+Modifica la caja de texto del email de cliente para mostrar el resultado
+la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.checkMovil">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkMovil</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.checkMovil"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.checkMovil" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el móvil de la caja de texto correspondiente de clientes
+y llama a eventos.Eventos.validarMovil para comprobar si es válido
+Modifica la caja de texto del movil de cliente para mostrar el resultado
+la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.historicoCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">historicoCli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.historicoCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.historicoCli" title="Link to this definition"></a></dt>
+<dd><p>Método que recarga la tabla de clientes tras clickar el checkbox de histórico
+reseteando la página de la tabla clientes a cero para evitar problemas al mostrar datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.modifCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modifCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.modifCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.modifCliente" title="Link to this definition"></a></dt>
+<dd><p>Método que lee los datos del cliente de la interfaz
+comprueba si se verifican las restricciones necesarias
+y llama a Conexion.modifCliente para modificar la información en la base de datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.resetFilas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resetFilas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.resetFilas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.resetFilas" title="Link to this definition"></a></dt>
+<dd><p>Método que reajusta el número de filas que se muestra en cada página de la tabla clientes
+asegurándose siempre que esté entre un mínimo y un máximo predeterminado
+y seteando de nuevo la página de la tabla clientes a la primera
+para garantizar el mostrado correcto de los datos</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, David Búa Teijeiro.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

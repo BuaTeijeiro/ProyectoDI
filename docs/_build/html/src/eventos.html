@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eventos module &mdash; documentación de buateijeiro - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            buateijeiro
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">eventos module</a><ul>
+<li><a class="reference internal" href="#eventos.Eventos"><code class="docutils literal notranslate"><span class="pre">Eventos</span></code></a><ul>
+<li><a class="reference internal" href="#eventos.Eventos.abrirAbout"><code class="docutils literal notranslate"><span class="pre">Eventos.abrirAbout()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.abrirCalendar"><code class="docutils literal notranslate"><span class="pre">Eventos.abrirCalendar()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.abrirSelectMuni"><code class="docutils literal notranslate"><span class="pre">Eventos.abrirSelectMuni()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.abrirTipoprop"><code class="docutils literal notranslate"><span class="pre">Eventos.abrirTipoprop()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.avanzarTablacli"><code class="docutils literal notranslate"><span class="pre">Eventos.avanzarTablacli()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.avanzarTablaprop"><code class="docutils literal notranslate"><span class="pre">Eventos.avanzarTablaprop()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.cargaFecha"><code class="docutils literal notranslate"><span class="pre">Eventos.cargaFecha()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.cargarMunicipioscli"><code class="docutils literal notranslate"><span class="pre">Eventos.cargarMunicipioscli()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.cargarMunicipiosprop"><code class="docutils literal notranslate"><span class="pre">Eventos.cargarMunicipiosprop()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.cargarProv"><code class="docutils literal notranslate"><span class="pre">Eventos.cargarProv()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.cargarTiposprop"><code class="docutils literal notranslate"><span class="pre">Eventos.cargarTiposprop()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.checkFechas"><code class="docutils literal notranslate"><span class="pre">Eventos.checkFechas()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.checkMunicipioCli"><code class="docutils literal notranslate"><span class="pre">Eventos.checkMunicipioCli()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.checkMunicipioProp"><code class="docutils literal notranslate"><span class="pre">Eventos.checkMunicipioProp()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.checkProvinciaCli"><code class="docutils literal notranslate"><span class="pre">Eventos.checkProvinciaCli()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.checkProvinciaProp"><code class="docutils literal notranslate"><span class="pre">Eventos.checkProvinciaProp()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.convertStringToDate"><code class="docutils literal notranslate"><span class="pre">Eventos.convertStringToDate()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.crearBackup"><code class="docutils literal notranslate"><span class="pre">Eventos.crearBackup()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.exportarCSVProp"><code class="docutils literal notranslate"><span class="pre">Eventos.exportarCSVProp()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.exportarJsonProp"><code class="docutils literal notranslate"><span class="pre">Eventos.exportarJsonProp()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.exportarJsonVend"><code class="docutils literal notranslate"><span class="pre">Eventos.exportarJsonVend()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.limpiarPanel"><code class="docutils literal notranslate"><span class="pre">Eventos.limpiarPanel()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.mensajeSalir"><code class="docutils literal notranslate"><span class="pre">Eventos.mensajeSalir()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.mostrarMensajeConfimarcion"><code class="docutils literal notranslate"><span class="pre">Eventos.mostrarMensajeConfimarcion()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.mostrarMensajeError"><code class="docutils literal notranslate"><span class="pre">Eventos.mostrarMensajeError()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.mostrarMensajeOk"><code class="docutils literal notranslate"><span class="pre">Eventos.mostrarMensajeOk()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.mostrarMensajeWarning"><code class="docutils literal notranslate"><span class="pre">Eventos.mostrarMensajeWarning()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.resizeTablaClientes"><code class="docutils literal notranslate"><span class="pre">Eventos.resizeTablaClientes()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.resizeTablaFacturas"><code class="docutils literal notranslate"><span class="pre">Eventos.resizeTablaFacturas()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.resizeTablaPropiedades"><code class="docutils literal notranslate"><span class="pre">Eventos.resizeTablaPropiedades()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.resizeTablaVendedores"><code class="docutils literal notranslate"><span class="pre">Eventos.resizeTablaVendedores()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.resizeTablaVentas"><code class="docutils literal notranslate"><span class="pre">Eventos.resizeTablaVentas()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.restaurarBackup"><code class="docutils literal notranslate"><span class="pre">Eventos.restaurarBackup()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.retrocederTablacli"><code class="docutils literal notranslate"><span class="pre">Eventos.retrocederTablacli()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.retrocederTablaprop"><code class="docutils literal notranslate"><span class="pre">Eventos.retrocederTablaprop()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.setCurrentPageCli"><code class="docutils literal notranslate"><span class="pre">Eventos.setCurrentPageCli()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.setCurrentPageProp"><code class="docutils literal notranslate"><span class="pre">Eventos.setCurrentPageProp()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.validarDNI"><code class="docutils literal notranslate"><span class="pre">Eventos.validarDNI()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.validarMail"><code class="docutils literal notranslate"><span class="pre">Eventos.validarMail()</span></code></a></li>
+<li><a class="reference internal" href="#eventos.Eventos.validarMovil"><code class="docutils literal notranslate"><span class="pre">Eventos.validarMovil()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">buateijeiro</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">eventos module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/eventos.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-eventos">
+<span id="eventos-module"></span><h1>eventos module<a class="headerlink" href="#module-eventos" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="eventos.Eventos">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">eventos.</span></span><span class="sig-name descname"><span class="pre">Eventos</span></span><a class="reference internal" href="../_modules/eventos.html#Eventos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.abrirAbout">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">abrirAbout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.abrirAbout"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.abrirAbout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.abrirCalendar">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">abrirCalendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">btn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.abrirCalendar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.abrirCalendar" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>btn</strong></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.abrirSelectMuni">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">abrirSelectMuni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.abrirSelectMuni"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.abrirSelectMuni" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.abrirTipoprop">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">abrirTipoprop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.abrirTipoprop"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.abrirTipoprop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.avanzarTablacli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">avanzarTablacli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.avanzarTablacli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.avanzarTablacli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.avanzarTablaprop">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">avanzarTablaprop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.avanzarTablaprop"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.avanzarTablaprop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.cargaFecha">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaFecha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qDate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.cargaFecha"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.cargaFecha" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>qDate</strong></p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.cargarMunicipioscli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarMunicipioscli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.cargarMunicipioscli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.cargarMunicipioscli" title="Link to this definition"></a></dt>
+<dd><p>Método que carga los municipios en el combobox de municipios clientes
+solamente de la provincia seleccionada en el combobox de provincias clientes
+setea también el completer con los municipios cargados</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.cargarMunicipiosprop">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarMunicipiosprop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.cargarMunicipiosprop"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.cargarMunicipiosprop" title="Link to this definition"></a></dt>
+<dd><p>Método que carga los municipios en el combobox de municipios propiedades
+solamente de la provincia seleccionada en el combobox de provincias propiedades
+setea también el completer con los municipios cargados</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.cargarProv">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarProv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.cargarProv"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.cargarProv" title="Link to this definition"></a></dt>
+<dd><p>Método que carga la lista de provincias de la base de datos
+en los combobox de provincias de clientes, propiedades y vendedores</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.cargarTiposprop">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarTiposprop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.cargarTiposprop"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.cargarTiposprop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.checkFechas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkFechas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.checkFechas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.checkFechas" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date1</strong></p></li>
+<li><p><strong>date2</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.checkMunicipioCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkMunicipioCli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.checkMunicipioCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.checkMunicipioCli" title="Link to this definition"></a></dt>
+<dd><p>Método que comprueba si el municipio inidcado en clientes existe, borrándolo en caso de que no</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.checkMunicipioProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkMunicipioProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.checkMunicipioProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.checkMunicipioProp" title="Link to this definition"></a></dt>
+<dd><p>Método que comprueba si el municipio inidcado en propiedades existe, borrándolo en caso de que no</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.checkProvinciaCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkProvinciaCli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.checkProvinciaCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.checkProvinciaCli" title="Link to this definition"></a></dt>
+<dd><p>Método que comprueba si la provincia inidcada en clientes existe, borrándola en caso de que no</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.checkProvinciaProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkProvinciaProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.checkProvinciaProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.checkProvinciaProp" title="Link to this definition"></a></dt>
+<dd><p>Método que comprueba si la provincia inidcada en clientes existe, borrándola en caso de que no</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.convertStringToDate">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convertStringToDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.convertStringToDate"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.convertStringToDate" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>date</strong> (<em>str</em>) – fecha</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>fecha convertida/false</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime/bool</p>
+</dd>
+</dl>
+<p>Método que transforma una fecha de str a tipo datetime, devolviendo falso si el formato no es válido</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.crearBackup">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">crearBackup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.crearBackup"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.crearBackup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.exportarCSVProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exportarCSVProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.exportarCSVProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.exportarCSVProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.exportarJsonProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exportarJsonProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.exportarJsonProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.exportarJsonProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.exportarJsonVend">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exportarJsonVend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.exportarJsonVend"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.exportarJsonVend" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.limpiarPanel">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limpiarPanel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.limpiarPanel"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.limpiarPanel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.mensajeSalir">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mensajeSalir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.mensajeSalir"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.mensajeSalir" title="Link to this definition"></a></dt>
+<dd><p>Método que muestra un mensaje de confirmación para salir de la aplicación
+Si se marca si se cierra la aplicación, si no se oculta el mensaje</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.mostrarMensajeConfimarcion">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mostrarMensajeConfimarcion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titulo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mensaje</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.mostrarMensajeConfimarcion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.mostrarMensajeConfimarcion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.mostrarMensajeError">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mostrarMensajeError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mensaje</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.mostrarMensajeError"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.mostrarMensajeError" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mensaje</strong></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.mostrarMensajeOk">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mostrarMensajeOk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mensaje</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.mostrarMensajeOk"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.mostrarMensajeOk" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mensaje</strong></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.mostrarMensajeWarning">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mostrarMensajeWarning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mensaje</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.mostrarMensajeWarning"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.mostrarMensajeWarning" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.resizeTablaClientes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resizeTablaClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.resizeTablaClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.resizeTablaClientes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.resizeTablaFacturas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resizeTablaFacturas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.resizeTablaFacturas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.resizeTablaFacturas" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.resizeTablaPropiedades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resizeTablaPropiedades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.resizeTablaPropiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.resizeTablaPropiedades" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.resizeTablaVendedores">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resizeTablaVendedores</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.resizeTablaVendedores"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.resizeTablaVendedores" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.resizeTablaVentas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resizeTablaVentas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.resizeTablaVentas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.resizeTablaVentas" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.restaurarBackup">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restaurarBackup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.restaurarBackup"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.restaurarBackup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.retrocederTablacli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">retrocederTablacli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.retrocederTablacli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.retrocederTablacli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.retrocederTablaprop">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">retrocederTablaprop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.retrocederTablaprop"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.retrocederTablaprop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.setCurrentPageCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setCurrentPageCli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.setCurrentPageCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.setCurrentPageCli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.setCurrentPageProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setCurrentPageProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.setCurrentPageProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.setCurrentPageProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.validarDNI">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validarDNI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.validarDNI"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.validarDNI" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dni</strong> (<em>str</em>) – dni a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>resultado validación</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método que comprueba si el formato del dni es el adecuado</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.validarMail">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validarMail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mail</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.validarMail"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.validarMail" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mail</strong> (<em>str</em>) – email a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>resultado validación</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método que comprueba si el email sigue un formato válido</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="eventos.Eventos.validarMovil">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validarMovil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">movil</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eventos.html#Eventos.validarMovil"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#eventos.Eventos.validarMovil" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>movil</strong> (<em>str</em>) – móvil a validar</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>resultado validacion</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método que comprueba si el móvil sigue un formato válido para España</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, David Búa Teijeiro.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

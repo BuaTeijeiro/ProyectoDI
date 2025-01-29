@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>conexionserver &#8212; documentación de buateijeiro - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=4936afed"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Código fuente para conexionserver</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">curdir</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">mysql.connector</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mysql.connector</span><span class="w"> </span><span class="kn">import</span> <span class="n">Error</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtSql</span><span class="p">,</span> <span class="n">QtWidgets</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">var</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">eventos</span>
+
+
+<div class="viewcode-block" id="ConexionServer">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConexionServer</span><span class="p">():</span>
+<div class="viewcode-block" id="ConexionServer.crear_conexion">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.crear_conexion">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">crear_conexion</span><span class="p">():</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="s1">&#39;192.168.10.66&#39;</span><span class="p">,</span> <span class="c1"># Cambia esto a la IP de tu servidor user=&#39;dam&#39;, # Usuario creado</span>
+            <span class="n">user</span><span class="o">=</span><span class="s1">&#39;dam&#39;</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="s1">&#39;dam2425&#39;</span><span class="p">,</span>
+            <span class="n">database</span><span class="o">=</span><span class="s1">&#39;bbdd&#39;</span><span class="p">,</span>
+            <span class="n">charset</span><span class="o">=</span><span class="s2">&quot;utf8mb4&quot;</span><span class="p">,</span>
+            <span class="n">collation</span><span class="o">=</span><span class="s2">&quot;utf8mb4_general_ci&quot;</span>  <span class="c1"># Asegúrate de que aquí esté configurado</span>
+            <span class="c1"># Contraseña del usuario database=&#39;bbdd&#39; # Nombre de la base de datos</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                <span class="k">pass</span>
+                <span class="c1">#print(&quot;Conexión exitosa a la base de datos&quot;)</span>
+            <span class="k">return</span> <span class="n">conexion</span>
+        <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al conectar a la base de datos: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.listaProv">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.listaProv">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listaProv</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">listaprov</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">conexion</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM provincias&quot;</span><span class="p">)</span>
+                <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+                    <span class="n">listaprov</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Asumiendo que el nombre de la provincia está en la segunda columna</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al ejecutar la consulta: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">listaprov</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.listaMuniProv">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.listaMuniProv">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listaMuniProv</span><span class="p">(</span><span class="n">provincia</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="n">listamunicipios</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT * FROM municipios WHERE idprov = (SELECT idprov FROM provincias WHERE provincia = </span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">provincia</span><span class="p">,)</span>
+            <span class="p">)</span>
+            <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+                <span class="n">listamunicipios</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Asumiendo que el nombre de la provincia está en la segunda columna</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">listamunicipios</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error lista muni&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.listadoClientes">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.listadoClientes">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listadoClientes</span><span class="p">():</span>
+        <span class="n">historico</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkHistoriacli</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="n">listadoclientes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli FROM clientes ORDER BY apelcli, nomecli ASC&quot;</span><span class="p">)</span>
+            <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="c1"># Procesar cada fila de los resultados</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+                <span class="c1"># Crear una lista con los valores de la fila</span>
+                <span class="n">listadoclientes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">fila</span><span class="p">))</span>  <span class="c1"># Convierte la tupla en una lista y la añade a listadoclientes</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">historico</span><span class="p">:</span>
+                <span class="n">listadoclientes</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">listadoclientes</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">x</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
+            <span class="c1"># Cerrar el cursor y la conexión si no los necesitas más</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">listadoclientes</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error listado de clientes en conexión&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.listadoTipoprop">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.listadoTipoprop">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listadoTipoprop</span><span class="p">():</span>
+        <span class="n">tipos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT tipo FROM tipopropiedad order by tipo asc&quot;</span><span class="p">)</span>
+            <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+                <span class="n">tipos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar los tipos de propiedades&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tipos</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.listadoPropiedades">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.listadoPropiedades">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listadoPropiedades</span><span class="p">():</span>
+        <span class="n">historico</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkHistoriprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="n">listadoPropiedades</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT codigo, muniprop, tipoprop, habprop, banprop, prealquiprop, prevenprop, tipooper, bajaprop FROM propiedades ORDER BY muniprop ASC&quot;</span><span class="p">)</span>
+            <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+                <span class="n">listadoPropiedades</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">fila</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">historico</span><span class="p">:</span>
+                <span class="n">listadoPropiedades</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">listadoPropiedades</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">x</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">listadoPropiedades</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error listado de propiedades en conexión&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.listadoPropiedadesFiltrado">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.listadoPropiedadesFiltrado">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listadoPropiedadesFiltrado</span><span class="p">(</span><span class="n">tipo_propiedad</span><span class="p">,</span> <span class="n">municipio</span><span class="p">,</span> <span class="n">provincia</span><span class="p">):</span>
+        <span class="n">listado</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkHistoriprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT codigo, muniprop, tipoprop, habprop, banprop, prealquiprop, prevenprop, tipooper, bajaprop FROM propiedades where tipoprop = </span><span class="si">%s</span><span class="s2"> and muniprop = </span><span class="si">%s</span><span class="s2"> and provprop = </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span><span class="s2">&quot; SELECT codigo, muniprop, tipoprop, habprop, banprop, prealquiprop, prevenprop, tipooper, bajaprop FROM propiedades where tipoprop = </span><span class="si">%s</span><span class="s2"> and muniprop = </span><span class="si">%s</span><span class="s2"> and provprop = </span><span class="si">%s</span><span class="s2"> and estadoprop = &#39;Disponible&#39;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">tipo_propiedad</span><span class="p">,</span> <span class="n">municipio</span><span class="p">,</span> <span class="n">provincia</span><span class="p">))</span>
+            <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+                <span class="n">listado</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">fila</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">listado</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error listado de propiedades filtrado &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.datosOnePropiedad">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.datosOnePropiedad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">datosOnePropiedad</span><span class="p">(</span><span class="n">codigo</span><span class="p">):</span>
+        <span class="n">registro</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT codigo, altaprop, bajaprop, cpprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, superprop, prealquiprop, prevenprop, obserprop, tipooper, estadoprop, nomeprop, movilprop FROM propiedades where codigo = </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">codigo</span><span class="p">,))</span>
+            <span class="c1"># Recuperar los datos de la consulta</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
+                <span class="n">registro</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">registro</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error listado de propiedades en conexión&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.altaCliente">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.altaCliente">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">altaCliente</span><span class="p">(</span><span class="n">cliente</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="c1"># Definir la consulta de inserción</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                INSERT INTO clientes (dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli)</span>
+<span class="s2">                VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+<span class="s2">                &quot;&quot;&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cliente</span><span class="p">)</span>          <span class="c1"># Ejecutar la consulta pasando la lista directamente</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>  <span class="c1"># Confirmar la transacción</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>   <span class="c1"># Cerrar el cursor y la conexión</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al insertar el cliente: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.altaPropiedad">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.altaPropiedad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">altaPropiedad</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="c1"># Definir la consulta de inserción</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;Insert into propiedades (altaprop, cpprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, superprop, prealquiprop, prevenprop, obserprop, nomeprop, movilprop, tipooper, estadoprop) values (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">propiedad</span><span class="p">)</span>  <span class="c1"># Ejecutar la consulta pasando la lista directamente</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>  <span class="c1"># Confirmar la transacción</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># Cerrar el cursor y la conexión</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al guardar la propiedad en la base de datos&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+
+<div class="viewcode-block" id="ConexionServer.datosOneCliente">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.datosOneCliente">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">datosOneCliente</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+        <span class="n">registro</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Inicializa la lista para almacenar los datos del cliente</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="c1"># Definir la consulta de selección</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli FROM clientes WHERE dnicli = </span><span class="si">%s</span><span class="s1">&#39;&#39;&#39;</span>  <span class="c1"># Usa %s para el placeholder</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">dni</span><span class="p">,))</span>  <span class="c1"># Pasar &#39;dni&#39; como una tupla</span>
+                <span class="c1"># Recuperar los datos de la consulta</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
+                    <span class="n">registro</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">registro</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al obtener datos de un cliente:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># Devolver None en caso de error</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.modifCliente">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.modifCliente">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">modifCliente</span><span class="p">(</span><span class="n">cliente</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="p">:</span>
+                <span class="n">clienteReordenado</span> <span class="o">=</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="p">[</span><span class="n">cliente</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="c1"># Definir la consulta de inserción</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                UPDATE clientes </span>
+<span class="s2">                set altacli = </span><span class="si">%s</span><span class="s2">, apelcli = </span><span class="si">%s</span><span class="s2">, nomecli = </span><span class="si">%s</span><span class="s2">, emailcli = </span><span class="si">%s</span><span class="s2">, movilcli = </span><span class="si">%s</span><span class="s2">, dircli = </span><span class="si">%s</span><span class="s2">, provcli = </span><span class="si">%s</span><span class="s2">, municli = </span><span class="si">%s</span><span class="s2">, bajacli = </span><span class="si">%s</span><span class="s2"> where dnicli = </span><span class="si">%s</span>
+<span class="s2">                &quot;&quot;&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">clienteReordenado</span><span class="p">)</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Eventos</span><span class="o">.</span><span class="n">mostrarMensajeError</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.bajaCliente">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.bajaCliente">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bajaCliente</span><span class="p">(</span><span class="n">dni</span><span class="p">,</span> <span class="n">fecha</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="p">:</span>
+                <span class="n">datos</span> <span class="o">=</span> <span class="p">(</span><span class="n">fecha</span><span class="p">,</span> <span class="n">dni</span><span class="p">)</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                UPDATE clientes set bajacli = </span><span class="si">%s</span><span class="s2"> where dnicli = </span><span class="si">%s</span>
+<span class="s2">                &quot;&quot;&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>  <span class="c1"># Confirmar la transacción</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># Cerrar el cursor y la conexión</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.modifPropiedad">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.modifPropiedad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">modifPropiedad</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="c1"># Definir la consulta de inserción</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;update propiedades set altaprop = </span><span class="si">%s</span><span class="s2">, cpprop = </span><span class="si">%s</span><span class="s2">, dirprop = </span><span class="si">%s</span><span class="s2">, provprop =</span><span class="si">%s</span><span class="s2">, muniprop = </span><span class="si">%s</span><span class="s2">, tipoprop =</span><span class="si">%s</span><span class="s2">, habprop =</span><span class="si">%s</span><span class="s2">, banprop =</span><span class="si">%s</span><span class="s2">, superprop =</span><span class="si">%s</span><span class="s2">, prealquiprop =</span><span class="si">%s</span><span class="s2">, prevenprop =</span><span class="si">%s</span><span class="s2">, obserprop = </span><span class="si">%s</span><span class="s2">, nomeprop = </span><span class="si">%s</span><span class="s2">, movilprop =</span><span class="si">%s</span><span class="s2">, tipooper =</span><span class="si">%s</span><span class="s2">, estadoprop =</span><span class="si">%s</span><span class="s2">, bajaprop = </span><span class="si">%s</span><span class="s2"> where codigo = </span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">propiedad</span><span class="p">)</span>  <span class="c1"># Ejecutar la consulta pasando la lista directamente</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>  <span class="c1"># Confirmar la transacción</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># Cerrar el cursor y la conexión</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al modificar la propiedad en la base de datos&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="ConexionServer.bajaPropiedad">
+<a class="viewcode-back" href="../src/conexionserver.html#conexionserver.ConexionServer.bajaPropiedad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bajaPropiedad</span><span class="p">(</span><span class="n">codigo</span><span class="p">,</span> <span class="n">fechabaja</span><span class="p">,</span> <span class="n">disponibilidad</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conexion</span> <span class="o">=</span> <span class="n">ConexionServer</span><span class="p">()</span><span class="o">.</span><span class="n">crear_conexion</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">conexion</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="c1"># Definir la consulta de inserción</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;update propiedades set bajaprop = </span><span class="si">%s</span><span class="s2">, estadoprop =</span><span class="si">%s</span><span class="s2">  where codigo = </span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">fechabaja</span><span class="p">,</span> <span class="n">disponibilidad</span><span class="p">,</span> <span class="n">codigo</span><span class="p">))</span>  <span class="c1">#</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al dar de baja la propiedad en la base de datos&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">buateijeiro</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, David Búa Teijeiro.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

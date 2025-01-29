@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>propiedades module &mdash; documentación de buateijeiro - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            buateijeiro
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">propiedades module</a><ul>
+<li><a class="reference internal" href="#propiedades.Propiedades"><code class="docutils literal notranslate"><span class="pre">Propiedades</span></code></a><ul>
+<li><a class="reference internal" href="#propiedades.Propiedades.altaPropiedad"><code class="docutils literal notranslate"><span class="pre">Propiedades.altaPropiedad()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.altaTipoPropiedad"><code class="docutils literal notranslate"><span class="pre">Propiedades.altaTipoPropiedad()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.bajaProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.bajaProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.cargaOnePropiedad"><code class="docutils literal notranslate"><span class="pre">Propiedades.cargaOnePropiedad()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.cargaTablaPropiedades"><code class="docutils literal notranslate"><span class="pre">Propiedades.cargaTablaPropiedades()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.checkMovil"><code class="docutils literal notranslate"><span class="pre">Propiedades.checkMovil()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.deleteProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.deleteProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.deleteTipoPropiedad"><code class="docutils literal notranslate"><span class="pre">Propiedades.deleteTipoPropiedad()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.filtrarTablaPropiedades"><code class="docutils literal notranslate"><span class="pre">Propiedades.filtrarTablaPropiedades()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.historicoProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.historicoProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.modifProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.modifProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.reloadDisponibility"><code class="docutils literal notranslate"><span class="pre">Propiedades.reloadDisponibility()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.reloadPrecio"><code class="docutils literal notranslate"><span class="pre">Propiedades.reloadPrecio()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.reloadTipoOperacion"><code class="docutils literal notranslate"><span class="pre">Propiedades.reloadTipoOperacion()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.resetFilas"><code class="docutils literal notranslate"><span class="pre">Propiedades.resetFilas()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.setTablaPropiedades"><code class="docutils literal notranslate"><span class="pre">Propiedades.setTablaPropiedades()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">buateijeiro</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">propiedades module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/propiedades.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-propiedades">
+<span id="propiedades-module"></span><h1>propiedades module<a class="headerlink" href="#module-propiedades" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="propiedades.Propiedades">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">propiedades.</span></span><span class="sig-name descname"><span class="pre">Propiedades</span></span><a class="reference internal" href="../_modules/propiedades.html#Propiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.altaPropiedad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaPropiedad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.altaPropiedad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.altaPropiedad" title="Link to this definition"></a></dt>
+<dd><p>Método que lee los datos de la propiedad de la interfaz
+comprueba si se verifican las restricciones necesarias
+y llama a Conexion.altaPropiedad para guardar la información en la base de datos
+mostrando un mensaje con el resultado de la operación</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.altaTipoPropiedad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaTipoPropiedad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.altaTipoPropiedad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.altaTipoPropiedad" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el nombre del tipo de propiedad de la interfaz
+y llama a Conexion.anadirTipoprop para guardar la información en la base de datos
+mostrando un mensaje con el resultado de la operación</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.bajaProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bajaProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.bajaProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.bajaProp" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el codigo y la fechabaja de la interfaz de propiedad
+y llama a Conexion.bajaPropiedad para dar a la propiedad correspondiente de baja con la fecha leída
+mostrando un mensaje con el resultado de la operación</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.cargaOnePropiedad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaOnePropiedad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.cargaOnePropiedad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.cargaOnePropiedad" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>code</strong> (<em>int</em>) – codigo de una propiedad</p>
+</dd>
+</dl>
+<p>Método que busca la información de la propiedad identificada por el código
+y la carga en los elementos correspondientes de la interfaz
+si se especifica se utiliza ese, si no se lee el elemento seleccionado en la tabla de propiedades</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.cargaTablaPropiedades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaTablaPropiedades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.cargaTablaPropiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.cargaTablaPropiedades" title="Link to this definition"></a></dt>
+<dd><p>Método que recupera la lista de propiedades mediante Conexion.listadoPropiedades
+y llama a Propiedades.setTablaPropiedades() para cargarlos en la tabla de propiedades</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.checkMovil">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkMovil</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.checkMovil"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.checkMovil" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el móvil de la caja de texto correspondiente de propietario de propiedad
+y llama a eventos.Eventos.validarMovil para comprobar si es válido
+Modifica la caja de texto del movil del propietario de propiedad para mostrar el resultado
+la colorea blanca si es válido, borra el contenido, la colorea rojiza y avisa si no lo es</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.deleteProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deleteProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.deleteProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.deleteProp" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el codigo de la interfaz de propiedad
+y llama a Conexion.deletePropiedad para eliminar la propiedad de la base de datos
+mostrando un mensaje con el resultado de la operación
+ESTE MÉTODO NO ES UTILIZADO NUNCA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.deleteTipoPropiedad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deleteTipoPropiedad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.deleteTipoPropiedad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.deleteTipoPropiedad" title="Link to this definition"></a></dt>
+<dd><p>Método que lee el nombre del tipo de propiedad de la interfaz
+y llama a Conexion.eliminarTipoprop para eliminar la información de la base de datos
+mostrando un mensaje con el resultado de la operación</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.filtrarTablaPropiedades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filtrarTablaPropiedades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.filtrarTablaPropiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.filtrarTablaPropiedades" title="Link to this definition"></a></dt>
+<dd><p>Método que lee los campos de filtrado de la interfaz
+recupera la lista de propiedades flitrada por ellos mediante Conexion.listadoPropiedadesFiltrado
+y llama a Propiedades.setTablaPropiedades() para cargarlos en la tabla de propiedades</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.historicoProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">historicoProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.historicoProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.historicoProp" title="Link to this definition"></a></dt>
+<dd><p>Método que recarga la tabla de propiedades tras clickar el checkbox de histórico
+reseteando la página de la tabla propiedades a cero para evitar problemas al mostrar datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.modifProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modifProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.modifProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.modifProp" title="Link to this definition"></a></dt>
+<dd><p>Método que lee los datos de la propiedad de la interfaz
+comprueba si se verifican las restricciones necesarias
+y llama a Conexion.modifPropiedad para modificar la información en la base de datos
+mostrando un mensaje con el resultado de la operación</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.reloadDisponibility">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reloadDisponibility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.reloadDisponibility"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.reloadDisponibility" title="Link to this definition"></a></dt>
+<dd><p>Método que habilita o desabilita los botones de radio de disponibilidad
+según haya fecha de baja en la caja de texto (no puede estar disponible)
+o no (debe estar disponible)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.reloadPrecio">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reloadPrecio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.reloadPrecio"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.reloadPrecio" title="Link to this definition"></a></dt>
+<dd><p>Método que borra los precios para un tipo de operación si se desmarca la opción de dicho tipo de operación</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.reloadTipoOperacion">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reloadTipoOperacion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.reloadTipoOperacion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.reloadTipoOperacion" title="Link to this definition"></a></dt>
+<dd><p>Método que checkea automáticamente los tipos de operación si hay un precio para dicho tipo</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.resetFilas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resetFilas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.resetFilas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.resetFilas" title="Link to this definition"></a></dt>
+<dd><p>Método que reajusta el número de filas que se muestra en cada página de la tabla propiedades
+asegurándose siempre que esté entre un mínimo y un máximo predeterminado
+y seteando de nuevo la página de la tabla propiedades a la primera
+para garantizar el mostrado correcto de los datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.setTablaPropiedades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setTablaPropiedades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.setTablaPropiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.setTablaPropiedades" title="Link to this definition"></a></dt>
+<dd><p>Lee la lista de propiedades guardada en el módulo var
+y muestra su información en la tabla de propiedades</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, David Búa Teijeiro.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

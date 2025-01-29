@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>informes &#8212; documentación de buateijeiro - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=4936afed"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Código fuente para informes</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">reportlab.pdfgen</span><span class="w"> </span><span class="kn">import</span> <span class="n">canvas</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtSql</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">var</span>
+
+
+<div class="viewcode-block" id="Informes">
+<a class="viewcode-back" href="../src/informes.html#informes.Informes">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Informes</span><span class="p">:</span>
+<div class="viewcode-block" id="Informes.reportClientes">
+<a class="viewcode-back" href="../src/informes.html#informes.Informes.reportClientes">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reportClientes</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">xdni</span> <span class="o">=</span> <span class="mi">55</span>
+        <span class="n">xapelcli</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">xnomecli</span> <span class="o">=</span> <span class="mi">220</span>
+        <span class="n">xmovilcli</span> <span class="o">=</span> <span class="mi">325</span>
+        <span class="n">xprovcli</span> <span class="o">=</span> <span class="mi">405</span>
+        <span class="n">xmunicli</span> <span class="o">=</span> <span class="mi">460</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="mi">630</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">ystep</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">rootPath</span> <span class="o">=</span> <span class="s2">&quot;.</span><span class="se">\\</span><span class="s2">informes&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">rootPath</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">rootPath</span><span class="p">)</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y_%m_</span><span class="si">%d</span><span class="s2">_%H_%M_%S&quot;</span><span class="p">)</span>
+            <span class="n">nomepdfcli</span> <span class="o">=</span> <span class="n">fecha</span> <span class="o">+</span> <span class="s2">&quot;_listadoclientes.pdf&quot;</span>
+            <span class="n">pdf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rootPath</span><span class="p">,</span> <span class="n">nomepdfcli</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+            <span class="n">titulo</span> <span class="o">=</span> <span class="s2">&quot;Listado clientes&quot;</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT dnicli, apelcli, nomecli, movilcli, provcli, municli FROM clientes order by apelcli&quot;</span><span class="p">)</span>
+            <span class="n">queryCount</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">queryCount</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;Select count(*) from clientes&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="ow">and</span> <span class="n">queryCount</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="ow">and</span> <span class="n">queryCount</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                <span class="n">total_clientes</span> <span class="o">=</span> <span class="n">queryCount</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">total_pages</span> <span class="o">=</span> <span class="n">Informes</span><span class="o">.</span><span class="n">getNumberPages</span><span class="p">(</span><span class="n">total_clientes</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ystep</span><span class="p">)</span>
+                <span class="n">Informes</span><span class="o">.</span><span class="n">topInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">)</span>
+                <span class="n">Informes</span><span class="o">.</span><span class="n">footInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">,</span> <span class="n">total_pages</span><span class="p">)</span>
+                <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DNI&quot;</span><span class="p">,</span> <span class="s2">&quot;APELLIDOS&quot;</span><span class="p">,</span> <span class="s2">&quot;NOMBRE&quot;</span><span class="p">,</span> <span class="s2">&quot;MOVIL&quot;</span><span class="p">,</span> <span class="s2">&quot;PROVINCIA&quot;</span><span class="p">,</span> <span class="s2">&quot;MUNICIPIO&quot;</span><span class="p">]</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica-Bold&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xdni</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xapelcli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xnomecli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xmovilcli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xprovcli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xmunicli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">645</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">645</span><span class="p">)</span>
+
+                <span class="n">y</span> <span class="o">=</span> <span class="n">ymax</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">y</span><span class="o">&lt;=</span> <span class="n">ymin</span><span class="p">:</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;Página siguiente...&quot;</span><span class="p">)</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">showPage</span><span class="p">()</span>
+                        <span class="n">Informes</span><span class="o">.</span><span class="n">footInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">,</span> <span class="n">total_pages</span><span class="p">)</span>
+                        <span class="n">Informes</span><span class="o">.</span><span class="n">topInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">)</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica-Bold&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xdni</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xapelcli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xnomecli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xmovilcli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xprovcli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xmunicli</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">645</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">645</span><span class="p">)</span>
+                        <span class="n">y</span> <span class="o">=</span> <span class="n">ymax</span>
+
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+                    <span class="n">dni</span> <span class="o">=</span> <span class="s2">&quot;***&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">))[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;***&quot;</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawCentredString</span><span class="p">(</span><span class="n">xdni</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xapelcli</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xnomecli</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xmovilcli</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xprovcli</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xmunicli</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+                    <span class="n">y</span> <span class="o">-=</span> <span class="n">ystep</span>
+
+
+
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">rootPath</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">nomepdfcli</span><span class="p">):</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">startfile</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Informes.reportPropiedades">
+<a class="viewcode-back" href="../src/informes.html#informes.Informes.reportPropiedades">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reportPropiedades</span><span class="p">(</span><span class="n">municipio</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param municipio:</span>
+<span class="sd">        :type municipio:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">xcod</span> <span class="o">=</span> <span class="mi">55</span>
+        <span class="n">xdireccion</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">xtipo</span><span class="o">=</span> <span class="mi">250</span>
+        <span class="n">xoperacion</span> <span class="o">=</span> <span class="mi">325</span>
+        <span class="n">xprecioalquiler</span> <span class="o">=</span> <span class="mi">405</span>
+        <span class="n">xprecioventa</span> <span class="o">=</span> <span class="mi">475</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="mi">630</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">ystep</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">rootPath</span> <span class="o">=</span> <span class="s2">&quot;.</span><span class="se">\\</span><span class="s2">informes&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">rootPath</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">rootPath</span><span class="p">)</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y_%m_</span><span class="si">%d</span><span class="s2">_%H_%M_%S&quot;</span><span class="p">)</span>
+            <span class="n">nomepdfcli</span> <span class="o">=</span> <span class="n">fecha</span> <span class="o">+</span> <span class="s2">&quot;_listadopropiedades.pdf&quot;</span>
+            <span class="n">pdf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rootPath</span><span class="p">,</span> <span class="n">nomepdfcli</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+            <span class="n">titulo</span> <span class="o">=</span> <span class="s2">&quot;Listado propiedades de &quot;</span> <span class="o">+</span> <span class="n">municipio</span>
+            <span class="n">queryCount</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
+            <span class="n">queryCount</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT count(*) FROM propiedades where municipio =:municipio&quot;</span><span class="p">)</span>
+            <span class="n">queryCount</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:municipio&quot;</span><span class="p">,</span> <span class="n">municipio</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM propiedades where municipio =:municipio&quot;</span><span class="p">)</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s2">&quot;:municipio&quot;</span><span class="p">,</span> <span class="n">municipio</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="ow">and</span> <span class="n">queryCount</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="ow">and</span> <span class="n">queryCount</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                <span class="n">total_muni</span> <span class="o">=</span> <span class="n">queryCount</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">total_pages</span> <span class="o">=</span> <span class="n">Informes</span><span class="o">.</span><span class="n">getNumberPages</span><span class="p">(</span><span class="n">total_muni</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ystep</span><span class="p">)</span>
+                <span class="n">Informes</span><span class="o">.</span><span class="n">topInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">)</span>
+                <span class="n">Informes</span><span class="o">.</span><span class="n">footInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">,</span> <span class="n">total_pages</span><span class="p">)</span>
+                <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;COD.&quot;</span><span class="p">,</span><span class="s2">&quot;Direccion&quot;</span><span class="p">,</span><span class="s2">&quot;TIPO&quot;</span><span class="p">,</span><span class="s2">&quot;ALQUILER&quot;</span><span class="p">,</span> <span class="s2">&quot;VENTA&quot;</span><span class="p">,</span><span class="s2">&quot;OPERACIÓN&quot;</span><span class="p">]</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica-Bold&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xcod</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xdireccion</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xtipo</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xprecioalquiler</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xprecioventa</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xoperacion</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">645</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">645</span><span class="p">)</span>
+
+                <span class="n">y</span> <span class="o">=</span> <span class="n">ymax</span>
+                <span class="k">while</span> <span class="n">query</span><span class="o">.</span><span class="n">next</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">ymin</span><span class="p">:</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;Página siguiente...&quot;</span><span class="p">)</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">showPage</span><span class="p">()</span>
+                        <span class="n">Informes</span><span class="o">.</span><span class="n">footInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">,</span> <span class="n">total_pages</span><span class="p">)</span>
+                        <span class="n">Informes</span><span class="o">.</span><span class="n">topInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">)</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica-Bold&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xcod</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xdireccion</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xtipo</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xprecioalquiler</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xprecioventa</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xoperacion</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">645</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">645</span><span class="p">)</span>
+                        <span class="n">y</span> <span class="o">=</span> <span class="n">ymax</span>
+
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xcod</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xdireccion</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">4</span><span class="p">)))</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xtipo</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">7</span><span class="p">)))</span>
+                    <span class="n">precio_alquiler</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+                    <span class="n">precio_venta</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawRightString</span><span class="p">(</span><span class="n">xprecioalquiler</span> <span class="o">+</span> <span class="mi">50</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">precio_alquiler</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawRightString</span><span class="p">(</span><span class="n">xprecioventa</span> <span class="o">+</span> <span class="mi">33</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">precio_venta</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">xoperacion</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">14</span><span class="p">)))</span>
+                    <span class="n">y</span> <span class="o">-=</span> <span class="n">ystep</span>
+
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">rootPath</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">nomepdfcli</span><span class="p">):</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">startfile</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error1</span><span class="o">.</span><span class="fm">__str__</span><span class="p">())</span></div>
+
+
+
+<div class="viewcode-block" id="Informes.getNumberPages">
+<a class="viewcode-back" href="../src/informes.html#informes.Informes.getNumberPages">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getNumberPages</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ystep</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param amount:</span>
+<span class="sd">        :type amount:</span>
+<span class="sd">        :param ymax:</span>
+<span class="sd">        :type ymax:</span>
+<span class="sd">        :param ymin:</span>
+<span class="sd">        :type ymin:</span>
+<span class="sd">        :param ystep:</span>
+<span class="sd">        :type ystep:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">number_per_page</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">)</span><span class="o">/</span><span class="n">ystep</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">amount</span> <span class="o">/</span> <span class="n">number_per_page</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Informes.footInforme">
+<a class="viewcode-back" href="../src/informes.html#informes.Informes.footInforme">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">footInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">,</span> <span class="n">pages</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param titulo:</span>
+<span class="sd">        :type titulo:</span>
+<span class="sd">        :param pages:</span>
+<span class="sd">        :type pages:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">total_pages</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%Y %H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s1">&#39;Helvetica-Oblique&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fecha</span><span class="p">))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">titulo</span><span class="p">))</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">490</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="s1">&#39;Página </span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">getPageNumber</span><span class="p">(),</span> <span class="n">pages</span><span class="p">)))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error en pie informe de cualquier tipo: &#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Informes.topInforme">
+<a class="viewcode-back" href="../src/informes.html#informes.Informes.topInforme">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">topInforme</span><span class="p">(</span><span class="n">titulo</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param titulo:</span>
+<span class="sd">        :type titulo:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ruta_logo</span> <span class="o">=</span> <span class="s1">&#39;.</span><span class="se">\\</span><span class="s1">img</span><span class="se">\\</span><span class="s1">logo.png&#39;</span>
+            <span class="n">logo</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ruta_logo</span><span class="p">)</span>
+
+            <span class="c1"># Asegúrate de que el objeto &#39;logo&#39; sea de tipo &#39;PngImageFile&#39;</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">logo</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s1">&#39;Helvetica-Bold&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">785</span><span class="p">,</span> <span class="s1">&#39;InmoTeis&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawCentredString</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">682</span><span class="p">,</span> <span class="n">titulo</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">665</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">665</span><span class="p">)</span>
+
+                <span class="c1"># Dibuja la imagen en el informe</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawImage</span><span class="p">(</span><span class="n">ruta_logo</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">725</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s1">&#39;Helvetica&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">770</span><span class="p">,</span> <span class="s1">&#39;CIF: A12345678&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">755</span><span class="p">,</span> <span class="s1">&#39;Avda. Galicia - 101&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">740</span><span class="p">,</span> <span class="s1">&#39;Vigo - 36216 - España&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">725</span><span class="p">,</span> <span class="s1">&#39;Teléfono: 986 132 456&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">710</span><span class="p">,</span> <span class="s1">&#39;e-mail: cartesteisr@mail.com&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error: No se pudo cargar la imagen en </span><span class="si">{</span><span class="n">ruta_logo</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error en cabecera informe:&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
+</div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">Informes</span><span class="o">.</span><span class="n">reportClientes</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">buateijeiro</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, David Búa Teijeiro.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
