@@ -2,10 +2,10 @@ from PyQt6 import QtGui
 
 import conexion
 import eventos
+import informes
 import propiedades
 import var
 from PyQt6 import QtWidgets, QtCore
-
 
 
 class Facturas:
@@ -197,8 +197,10 @@ class Facturas:
             var.ui.btnGrabarVenta.setDisabled(True)
         if Facturas.current_factura is None:
             var.ui.btnGrabarFactura.setDisabled(False)
+            var.ui.btnGenerarFactura.setDisabled(True)
         else:
             var.ui.btnGrabarFactura.setDisabled(True)
+            var.ui.btnGenerarFactura.setDisabled(False)
 
     @staticmethod
     def cargarOneVenta():
@@ -226,7 +228,14 @@ class Facturas:
         var.ui.lblFactura.setText("")
         var.ui.txtFechaFactura.setText("")
         var.ui.lblDniclifactura.setText("")
+        var.ui.lblApelCli.setText("")
+        var.ui.lblNombrecli.setText("")
+        var.ui.lblVendedorVenta.setText("")
+        Facturas.current_vendedor = None
+        Facturas.current_cliente = None
         Facturas.current_factura = None
+        Facturas.limpiarCamposPropiedad()
+        Facturas.cargarTablaVentasFactura()
         Facturas.checkDatosFacturas()
 
     @staticmethod
@@ -392,4 +401,9 @@ class Facturas:
         var.ui.lblPrecioProp.setText("")
         var.ui.lblDireccionprop.setText("")
         var.ui.lblMunipropVenta.setText("")
+        var.ui.lblMensaje.setText("")
         Facturas.current_propiedad = None
+
+    @staticmethod
+    def generarFactura():
+        informes.Informes.facturaVenta(Facturas.current_factura)
