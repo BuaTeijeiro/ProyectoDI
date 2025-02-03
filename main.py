@@ -6,8 +6,6 @@ import conexion
 import conexionserver
 import eventos
 import facturas
-import informes
-import propiedades
 import styles
 import vendedores
 from venPrincipal import *
@@ -54,14 +52,17 @@ class Main(QtWidgets.QMainWindow):
         propiedades.Propiedades.cargaTablaPropiedades()
         vendedores.Vendedores.cargaTablaVendedores()
         facturas.Facturas.cargarListaFacturas()
+        alquileres.Alquileres.cargarTablaAlquileres()
         facturas.Facturas.checkDatosFacturas()
         alquileres.Alquileres.checkDatosAlquiler()
+
 
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(lambda: propiedades.Propiedades.cargaOnePropiedad())
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargaCurrentVendedor)
         var.ui.tablaFacturas.clicked.connect(facturas.Facturas.cargaOneFactura)
         var.ui.tablaVentas.clicked.connect(facturas.Facturas.cargarOneVenta)
+        var.ui.tablaAlquileres.clicked.connect(alquileres.Alquileres.cargaOneAlquiler)
 
         """
         zona de eventos del menubar
@@ -127,6 +128,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.grabarVenta)
         var.ui.btnLimpiarFactura.clicked.connect(facturas.Facturas.limpiarFactura)
         var.ui.btnGenerarFactura.clicked.connect(facturas.Facturas.generarFactura)
+
+        #Zona Alquileres
+        var.ui.btnGrabarAlquiler.clicked.connect(alquileres.Alquileres.grabarAlquiler)
 
         #Zona labels
         var.ui.lblMensaje.setStyleSheet("color: rgb(255, 0, 0);")

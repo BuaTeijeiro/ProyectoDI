@@ -77,8 +77,6 @@ class Facturas:
 
                 index += 1
             eventos.Eventos.resizeTablaFacturas()
-            for boton in Facturas.botonesdel:
-                print(boton.text())
         except Exception as e:
             print("Error al cargar la tabla de facturas", e)
 

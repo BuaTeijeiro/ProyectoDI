@@ -49,7 +49,7 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pesClientes">
        <attribute name="title">
@@ -6044,7 +6044,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_60">
           <item>
-           <widget class="QTableWidget" name="tablaAlquiler_2">
+           <widget class="QTableWidget" name="tablaAlquileres">
             <property name="minimumSize">
              <size>
               <width>300</width>
@@ -6071,32 +6071,12 @@
             </attribute>
             <column>
              <property name="text">
-              <string>codigo</string>
+              <string>id</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>fecha inicio</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>fecha fin</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Gestion</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>precio</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>propiedad</string>
+              <string>dni</string>
              </property>
             </column>
            </widget>
@@ -6120,40 +6100,36 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_20">
             <item>
-             <widget class="QFrame" name="frame_9">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>310</height>
-               </size>
+             <widget class="QTableWidget" name="tablaMensualidades">
+              <property name="selectionMode">
+               <enum>QAbstractItemView::SingleSelection</enum>
               </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>360</height>
-               </size>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
               </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Plain</enum>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_21">
-               <item>
-                <widget class="QTableWidget" name="tablaAlquiler">
-                 <property name="selectionMode">
-                  <enum>QAbstractItemView::SingleSelection</enum>
-                 </property>
-                 <property name="selectionBehavior">
-                  <enum>QAbstractItemView::SelectRows</enum>
-                 </property>
-                 <attribute name="verticalHeaderVisible">
-                  <bool>false</bool>
-                 </attribute>
-                </widget>
-               </item>
-              </layout>
+              <attribute name="verticalHeaderVisible">
+               <bool>false</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>id</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>mes</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>precio</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>pagado</string>
+               </property>
+              </column>
              </widget>
             </item>
            </layout>

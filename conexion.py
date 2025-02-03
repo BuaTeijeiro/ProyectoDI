@@ -1,5 +1,6 @@
 import os
 from idlelib.query import Query
+from telnetlib import STATUS
 from time import localtime
 
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
@@ -1061,3 +1062,105 @@ class Conexion:
         except Exception as error:
             print("Error al vender la propiedad:", error)
             return False
+
+    """
+    ZONA DE ALQUILERES
+    """
+    @staticmethod
+    def grabarAlquiler(alquiler):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "insert into alquileres(propiedad_ID,cliente_DNI,agente_ID,fecha_inicio,fecha_fin) values (:propiedad_ID,:cliente_DNI,:agente_ID,:fecha_inicio,:fecha_fin)")
+            query.bindValue(":propiedad_ID", alquiler[0])
+            query.bindValue(":cliente_DNI", alquiler[1])
+            query.bindValue(":agente_ID", alquiler[2])
+            query.bindValue(":fecha_inicio", alquiler[3])
+            query.bindValue(":fecha_fin", alquiler[4])
+            if query.exec():
+                return True
+            else:
+                print(query.lastError().text())
+                return False
+        except Exception as error:
+            print("Error al grabar el venta", e)
+
+    @staticmethod
+    def listadoAlquileres():
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("select id, cliente_DNI from alquileres")
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as error:
+            print("Error al recuperar el listado de ventas")
+
+    @staticmethod
+    def datosOneAlquiler(id):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM alquileres where id = :id")
+            query.bindValue(":id", str(id))
+            if query.exec() and query.next():
+                registro = [query.value(i) for i in range(query.record().count())]
+            return registro
+        except Exception as error:
+            print("Error al abrir el archivo")
+
+    @staticmethod
+    def grabarMensualidad(id, mes):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "insert into mensualidades(idalquiler, mes, pagado) values (:idalquiler,:mes,:pagado)")
+            query.bindValue(":idalquiler", id)
+            query.bindValue(":mes", mes)
+            query.bindValue(":pagado", 0)
+            if query.exec():
+                return True
+            else:
+                print(query.lastError().text())
+                return False
+        except Exception as error:
+            print("Error al grabar la mensualidad", error)
+
+    @staticmethod
+    def getLastIdFactura():
+        """
+
+        :return: id del último alquiler
+        :rtype: int
+
+        Método que devuelve el id del último alquiler añadido a la base de datos
+
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("select id from alquileres order by id desc")
+            if query.exec() and query.next():
+                return query.value(0)
+            else:
+                print(query.lastError().text())
+        except Exception as exec:
+            print("Error al guardar la factura", exec)
+
+    @staticmethod
+    def listadoMensualidadesAlquiler(id):
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "select id, mes, pagado from mensualidades where id = :id")
+            query.bindValue(":id", id)
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as error:
+            print("Error al recuperar el listado de ventas")

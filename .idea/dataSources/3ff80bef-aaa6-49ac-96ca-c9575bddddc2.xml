@@ -499,7 +499,7 @@
     </routine>
     <schema id="191" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-01-28.07:39:19</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-02-03.13:04:36</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="192" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1593,49 +1593,46 @@
     <table id="555" parent="191" name="alquileres"/>
     <table id="556" parent="191" name="clientes"/>
     <table id="557" parent="191" name="facturas"/>
-    <table id="558" parent="191" name="municipios"/>
-    <table id="559" parent="191" name="propiedades"/>
-    <table id="560" parent="191" name="provincias"/>
-    <table id="561" parent="191" name="sqlite_master">
+    <table id="558" parent="191" name="mensualidades"/>
+    <table id="559" parent="191" name="municipios"/>
+    <table id="560" parent="191" name="propiedades"/>
+    <table id="561" parent="191" name="provincias"/>
+    <table id="562" parent="191" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="562" parent="191" name="sqlite_sequence">
+    <table id="563" parent="191" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <table id="563" parent="191" name="tipoprop"/>
-    <table id="564" parent="191" name="vendedores"/>
-    <table id="565" parent="191" name="ventas"/>
-    <column id="566" parent="555" name="id">
+    <table id="564" parent="191" name="tipoprop"/>
+    <table id="565" parent="191" name="vendedores"/>
+    <table id="566" parent="191" name="ventas"/>
+    <column id="567" parent="555" name="id">
       <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="567" parent="555" name="propiedad_ID">
+    <column id="568" parent="555" name="propiedad_ID">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="568" parent="555" name="cliente_DNI">
+    <column id="569" parent="555" name="cliente_DNI">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="569" parent="555" name="agente_ID">
+    <column id="570" parent="555" name="agente_ID">
       <Position>4</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="570" parent="555" name="fecha_inicio">
+    <column id="571" parent="555" name="fecha_inicio">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="571" parent="555" name="fecha_fin">
+    <column id="572" parent="555" name="fecha_fin">
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
-    </column>
-    <column id="572" parent="555" name="precio_alquiler">
-      <Position>7</Position>
-      <StoredType>REAL|0s</StoredType>
     </column>
     <key id="573" parent="555">
       <ColNames>id</ColNames>
@@ -1724,263 +1721,288 @@
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="591" parent="558" name="idprov">
+    <column id="591" parent="558" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>TEXT|0s</StoredType>
+      <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="592" parent="558" name="municipio">
+    <column id="592" parent="558" name="idalquiler">
+      <NotNull>1</NotNull>
       <Position>2</Position>
-      <StoredType>TEXT|0s</StoredType>
+      <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="593" parent="558" name="idmuni">
+    <column id="593" parent="558" name="mes">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <index id="594" parent="558" name="sqlite_autoindex_municipios_1">
+    <column id="594" parent="558" name="pagado">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StoredType>INTEGER|0s</StoredType>
+    </column>
+    <key id="595" parent="558">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="596" parent="559" name="idprov">
+      <Position>1</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="597" parent="559" name="municipio">
+      <Position>2</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <column id="598" parent="559" name="idmuni">
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StoredType>TEXT|0s</StoredType>
+    </column>
+    <index id="599" parent="559" name="sqlite_autoindex_municipios_1">
       <ColNames>idmuni</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="595" parent="558">
+    <key id="600" parent="559">
       <ColNames>idmuni</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_municipios_1</UnderlyingIndexName>
     </key>
-    <column id="596" parent="559" name="codigo">
+    <column id="601" parent="560" name="codigo">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="597" parent="559" name="fecha_publicacion">
+    <column id="602" parent="560" name="fecha_publicacion">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="598" parent="559" name="fechabaja">
+    <column id="603" parent="560" name="fechabaja">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="599" parent="559" name="codigo_postal">
+    <column id="604" parent="560" name="codigo_postal">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="600" parent="559" name="direccion">
+    <column id="605" parent="560" name="direccion">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="601" parent="559" name="provincia">
+    <column id="606" parent="560" name="provincia">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="602" parent="559" name="municipio">
+    <column id="607" parent="560" name="municipio">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="603" parent="559" name="tipo_propiedad">
+    <column id="608" parent="560" name="tipo_propiedad">
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="604" parent="559" name="num_habitaciones">
+    <column id="609" parent="560" name="num_habitaciones">
       <NotNull>1</NotNull>
       <Position>9</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="605" parent="559" name="num_banos">
+    <column id="610" parent="560" name="num_banos">
       <NotNull>1</NotNull>
       <Position>10</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="606" parent="559" name="superficie">
+    <column id="611" parent="560" name="superficie">
       <NotNull>1</NotNull>
       <Position>11</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="607" parent="559" name="precio_alquiler">
+    <column id="612" parent="560" name="precio_alquiler">
       <Position>12</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="608" parent="559" name="precio_venta">
+    <column id="613" parent="560" name="precio_venta">
       <Position>13</Position>
       <StoredType>REAL|0s</StoredType>
     </column>
-    <column id="609" parent="559" name="observaciones">
+    <column id="614" parent="560" name="observaciones">
       <Position>14</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="610" parent="559" name="tipo_operacion">
+    <column id="615" parent="560" name="tipo_operacion">
       <NotNull>1</NotNull>
       <Position>15</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="611" parent="559" name="estado">
+    <column id="616" parent="560" name="estado">
       <NotNull>1</NotNull>
       <Position>16</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="612" parent="559" name="nombre_propietario">
+    <column id="617" parent="560" name="nombre_propietario">
       <NotNull>1</NotNull>
       <Position>17</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="613" parent="559" name="movil">
+    <column id="618" parent="560" name="movil">
       <NotNull>1</NotNull>
       <Position>18</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <key id="614" parent="559">
+    <key id="619" parent="560">
       <ColNames>codigo</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="615" parent="560" name="idprov">
+    <column id="620" parent="561" name="idprov">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="616" parent="560" name="provincia">
+    <column id="621" parent="561" name="provincia">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <index id="617" parent="560" name="sqlite_autoindex_provincias_1">
+    <index id="622" parent="561" name="sqlite_autoindex_provincias_1">
       <ColNames>idprov</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="618" parent="560">
+    <key id="623" parent="561">
       <ColNames>idprov</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_provincias_1</UnderlyingIndexName>
     </key>
-    <column id="619" parent="561" name="type">
+    <column id="624" parent="562" name="type">
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="620" parent="561" name="name">
+    <column id="625" parent="562" name="name">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="621" parent="561" name="tbl_name">
+    <column id="626" parent="562" name="tbl_name">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="622" parent="561" name="rootpage">
+    <column id="627" parent="562" name="rootpage">
       <Position>4</Position>
       <StoredType>INT|0s</StoredType>
     </column>
-    <column id="623" parent="561" name="sql">
+    <column id="628" parent="562" name="sql">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="624" parent="562" name="name">
+    <column id="629" parent="563" name="name">
       <Position>1</Position>
     </column>
-    <column id="625" parent="562" name="seq">
+    <column id="630" parent="563" name="seq">
       <Position>2</Position>
     </column>
-    <column id="626" parent="563" name="tipo">
+    <column id="631" parent="564" name="tipo">
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <index id="627" parent="563" name="sqlite_autoindex_tipoprop_1">
+    <index id="632" parent="564" name="sqlite_autoindex_tipoprop_1">
       <ColNames>tipo</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="628" parent="563">
+    <key id="633" parent="564">
       <ColNames>tipo</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_tipoprop_1</UnderlyingIndexName>
     </key>
-    <column id="629" parent="564" name="idVendedor">
+    <column id="634" parent="565" name="idVendedor">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="630" parent="564" name="dniVendedor">
+    <column id="635" parent="565" name="dniVendedor">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="631" parent="564" name="nombreVendedor">
+    <column id="636" parent="565" name="nombreVendedor">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="632" parent="564" name="altaVendedor">
+    <column id="637" parent="565" name="altaVendedor">
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="633" parent="564" name="bajaVendedor">
+    <column id="638" parent="565" name="bajaVendedor">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="634" parent="564" name="movilVendedor">
+    <column id="639" parent="565" name="movilVendedor">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="635" parent="564" name="mailVendedor">
+    <column id="640" parent="565" name="mailVendedor">
       <Position>7</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="636" parent="564" name="delegacionVendedor">
+    <column id="641" parent="565" name="delegacionVendedor">
       <Position>8</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <index id="637" parent="564" name="sqlite_autoindex_vendedores_1">
+    <index id="642" parent="565" name="sqlite_autoindex_vendedores_1">
       <ColNames>dniVendedor</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="638" parent="564">
+    <key id="643" parent="565">
       <ColNames>idVendedor</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="639" parent="564">
+    <key id="644" parent="565">
       <ColNames>dniVendedor</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_vendedores_1</UnderlyingIndexName>
     </key>
-    <column id="640" parent="565" name="id">
+    <column id="645" parent="566" name="id">
       <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="641" parent="565" name="factura">
+    <column id="646" parent="566" name="factura">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="642" parent="565" name="vendedor">
+    <column id="647" parent="566" name="vendedor">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="643" parent="565" name="propiedad">
+    <column id="648" parent="566" name="propiedad">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <foreign-key id="644" parent="565">
+    <foreign-key id="649" parent="566">
       <ColNames>vendedor</ColNames>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>idVendedor</RefColNames>
       <RefTableName>vendedores</RefTableName>
     </foreign-key>
-    <foreign-key id="645" parent="565">
+    <foreign-key id="650" parent="566">
       <ColNames>propiedad</ColNames>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>codigo</RefColNames>
       <RefTableName>propiedades</RefTableName>
     </foreign-key>
-    <key id="646" parent="565">
+    <key id="651" parent="566">
       <ColNames>id</ColNames>
       <OnConflict>rollback</OnConflict>
       <Primary>1</Primary>

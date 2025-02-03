@@ -13,7 +13,6 @@ from sphinx.util.exceptions import format_exception_cut_frames
 
 import conexion
 import var
-from facturas import Facturas
 
 
 class Informes:
