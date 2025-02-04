@@ -166,7 +166,7 @@ class Alquileres:
 
     @staticmethod
     def limpiarPanelAlquileres():
-        elementos = [var.ui.lblDnicliAlquiler, var.ui.lblApelCliAlquiler, var.ui.lblNombrecliAlquiler, var.ui.lblcodigopropAlquiler, var.ui.lblTipoPropAlquiler, var.ui.lblPrecioPropAlquiler, var.ui.lblDireccionprop_alquiler, var.ui.lblMunipropAlquiler, var.ui.lblGestorAlquiler, var.ui.lblAlquiler, var.ui.txtFechaInicioAlquiler, var.ui.txtFechaFinAlquiler]
+        elementos = [var.ui.lblDnicliAlquiler, var.ui.lblApelCliAlquiler, var.ui.lblNombrecliAlquiler, var.ui.lblcodigopropAlquiler, var.ui.lblTipoPropAlquiler, var.ui.lblPrecioPropAlquiler, var.ui.lblDireccionprop_alquiler, var.ui.lblMunipropAlquiler, var.ui.lblGestorAlquiler, var.ui.lblAlquiler, var.ui.txtFechaInicioAlquiler, var.ui.txtFechaFinAlquiler, var.ui.lblMensajeAlquiler]
         for elemento in elementos:
             elemento.setText("")
         Alquileres.current_propiedad = None

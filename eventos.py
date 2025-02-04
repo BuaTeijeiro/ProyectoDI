@@ -5,6 +5,7 @@ import sys
 from datetime import datetime
 from PyQt6.QtWidgets import QSpinBox
 
+import alquileres
 import clientes
 import conexion
 
@@ -12,6 +13,7 @@ from PyQt6 import QtWidgets, QtGui, QtCore
 import re
 
 import conexionserver
+import facturas
 import propiedades
 import var
 import time
@@ -607,6 +609,9 @@ class Eventos():
 
         clientes.Clientes.cargaTablaClientes()
         propiedades.Propiedades.cargaTablaPropiedades()
+
+        alquileres.Alquileres.limpiarPanelAlquileres()
+        facturas.Facturas.limpiarFactura()
 
     @staticmethod
     def exportarCSVProp():
