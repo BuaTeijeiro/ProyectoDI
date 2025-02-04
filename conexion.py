@@ -778,6 +778,8 @@ class Conexion:
         except Exception as exec:
             print("Error al registrar la baja del cliente")
 
+    """Zona Facturas"""
+
     @staticmethod
     def guardarFActura(factura):
         """
@@ -1083,7 +1085,7 @@ class Conexion:
                 print(query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al grabar el venta", e)
+            print("Error al grabar el venta", error)
 
     @staticmethod
     def listadoAlquileres():
@@ -1130,7 +1132,7 @@ class Conexion:
             print("Error al grabar la mensualidad", error)
 
     @staticmethod
-    def getLastIdFactura():
+    def getLastIdAlquiler():
         """
 
         :return: id del último alquiler
@@ -1155,8 +1157,8 @@ class Conexion:
             listado = []
             query = QtSql.QSqlQuery()
             query.prepare(
-                "select id, mes, pagado from mensualidades where id = :id")
-            query.bindValue(":id", id)
+                "select id, mes, pagado from mensualidades where idalquiler = :idalquiler")
+            query.bindValue(":idalquiler", id)
             if query.exec():
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
@@ -1164,3 +1166,37 @@ class Conexion:
             return listado
         except Exception as error:
             print("Error al recuperar el listado de ventas")
+
+    @staticmethod
+    def alquilarPropiedad(codigo, fecha):
+        try:
+            query = QtSql.QSqlQuery()
+
+            query.prepare("update propiedades set estado = 'Alquilado', fechabaja=:fecha where codigo = :codigo")
+            query.bindValue(":codigo", codigo)
+            query.bindValue(":fecha", fecha)
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("Error al alquilar la propiedad:", error)
+            return False
+
+    @staticmethod
+    def setMensualidadPagada(codigo, pagado):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("update mensualidades set pagado = :pagado where id = :codigo")
+            query.bindValue(":codigo", codigo)
+            if pagado:
+                query.bindValue(":pagado", 1)
+            else:
+                query.bindValue(":pagado", 0)
+            if query.exec():
+                return True
+            else:
+                print(query.lastError().text())
+                return False
+        except Exception as error:
+            print("Error al setear el pago de la mensualidad", error)

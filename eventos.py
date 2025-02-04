@@ -428,10 +428,7 @@ class Eventos():
         try:
             header = var.ui.tablaAlquileres.horizontalHeader()
             for i in range(header.count()):
-                if i not in (0, 3):
-                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
-                else:
-                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
                 header_item = var.ui.tablaAlquileres.horizontalHeaderItem(i)
                 font = header_item.font()
@@ -439,6 +436,23 @@ class Eventos():
                 header_item.setFont(font)
         except Exception as e:
             print("error en resize tabla clientes: ", e)
+
+    @staticmethod
+    def resizeTablaMensualidades():
+        """
+
+        """
+        try:
+            header = var.ui.tablaMensualidades.horizontalHeader()
+            for i in range(header.count()):
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_item = var.ui.tablaMensualidades.horizontalHeaderItem(i)
+                font = header_item.font()
+                font.setBold(True)
+                header_item.setFont(font)
+        except Exception as e:
+            print("error en resize tabla mensualidades: ", e)
 
     @staticmethod
     def resizeTablaVentas():

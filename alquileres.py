@@ -4,7 +4,7 @@ import conexion
 import eventos
 import var
 from conexion import Conexion
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore, QtGui
 
 from model.month import Month
 
@@ -13,8 +13,7 @@ class Alquileres:
     current_cliente = None
     current_propiedad = None
     current_vendedor = None
-    current_fecha_inicio = None
-    current_fecha_fin = None
+    chkPagado = []
     @staticmethod
     def cargaClienteAlquiler(dni):
         var.ui.lblDnicliAlquiler.setText(dni)
@@ -77,44 +76,69 @@ class Alquileres:
             alquiler = [Alquileres.current_propiedad, Alquileres.current_cliente, Alquileres.current_vendedor, var.ui.txtFechaInicioAlquiler.text(), var.ui.txtFechaFinAlquiler.text()]
             if (conexion.Conexion.grabarAlquiler(alquiler)):
                 eventos.Eventos.mostrarMensajeOk("Alquiler grabado correctamente")
-
+                conexion.Conexion.alquilarPropiedad(Alquileres.current_propiedad, var.ui.txtFechaInicioAlquiler.text())
+                idAlquiler = conexion.Conexion.getLastIdAlquiler()
+                Alquileres.generarMensualidades(idAlquiler)
+                Alquileres.cargarTablaAlquileres()
+                Alquileres.limpiarPanelAlquileres()
             else:
                 eventos.Eventos.mostrarMensajeError("No se ha podido grabar el alquiler")
         else:
             eventos.Eventos.mostrarMensajeError("Las fechas de inicio y de fin son obligatorias")
 
     @staticmethod
-    def generarMensualidades(id):
-        alquiler = conexion.Conexion.datosOneAlquiler(id)
+    def generarMensualidades(idAlquiler):
+        alquiler = conexion.Conexion.datosOneAlquiler(idAlquiler)
         fecha_inicio = eventos.Eventos.convertStringToDate(alquiler[4])
         fecha_fin = eventos.Eventos.convertStringToDate(alquiler[5])
         mes_fin = Month(fecha_fin.year, fecha_fin.month)
         mes = Month(fecha_inicio.year, fecha_inicio.month)
-        while (mes <= mes_fin):
-            conexion.Conexion.grabarMensualidad(id, mes.get_nombre())
+        while mes <= mes_fin:
+            conexion.Conexion.grabarMensualidad(idAlquiler, mes.get_nombre())
             mes.addmonth()
 
     @staticmethod
     def cargaOneAlquiler():
         alquiler = var.ui.tablaAlquileres.selectedItems()
         mensualidades = conexion.Conexion.listadoMensualidadesAlquiler(alquiler[0].text())
+        Alquileres.cargaTablaMensualidades(mensualidades)
 
     @staticmethod
     def cargaTablaMensualidades(listado):
         try:
-            var.ui.tablaVentas.setRowCount(len(listado))
+            var.ui.tablaMensualidades.setRowCount(len(listado))
             index = 0
+            Alquileres.chkPagado = []
             for registro in listado:
-                var.ui.tablaFacturas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
-                var.ui.tablaFacturas.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[1]))
-                var.ui.tablaFacturas.setItem(index, 3, QtWidgets.QTableWidgetItem(registro[2]))
-
-
+                container = QtWidgets.QWidget()
+                layout = QtWidgets.QVBoxLayout()
+                chkbox = QtWidgets.QCheckBox()
+                chkbox.setChecked(registro[2] == 1)
+                chkbox.stateChanged.connect(
+                    lambda checked, idMensualidad=str(registro[0]): Alquileres.pagarMensualidad(idMensualidad, checked))
+                Alquileres.chkPagado.append(chkbox)
+                layout.addWidget(chkbox)
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+                container.setLayout(layout)
+                var.ui.tablaMensualidades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
+                var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[1]))
+                var.ui.tablaMensualidades.setCellWidget(index, 3, container)
 
                 index += 1
+            eventos.Eventos.resizeTablaMensualidades()
 
         except Exception as e:
             print("Error al cargar la tabla de ventas", e)
+
+    @staticmethod
+    def pagarMensualidad(idMensualidad, pagada):
+        if conexion.Conexion.setMensualidadPagada(idMensualidad, pagada):
+            eventos.Eventos.mostrarMensajeOk("Se ha registrado el nuevo estado de pago")
+        else:
+            eventos.Eventos.mostrarMensajeError("No se ha podido registrar el estado de pago")
+        Alquileres.cargaOneAlquiler()
 
     @staticmethod
     def cargarTablaAlquileres():
@@ -126,7 +150,6 @@ class Alquileres:
         """
         try:
             listado = conexion.Conexion.listadoAlquileres()
-            print(listado)
             var.ui.tablaAlquileres.setRowCount(len(listado))
             index = 0
             for registro in listado:
@@ -140,3 +163,14 @@ class Alquileres:
             eventos.Eventos.resizeTablaAlquileres()
         except Exception as e:
             print("Error al cargar la tabla de facturas", e)
+
+    @staticmethod
+    def limpiarPanelAlquileres():
+        elementos = [var.ui.lblDnicliAlquiler, var.ui.lblApelCliAlquiler, var.ui.lblNombrecliAlquiler, var.ui.lblcodigopropAlquiler, var.ui.lblTipoPropAlquiler, var.ui.lblPrecioPropAlquiler, var.ui.lblDireccionprop_alquiler, var.ui.lblMunipropAlquiler, var.ui.lblGestorAlquiler, var.ui.lblAlquiler, var.ui.txtFechaInicioAlquiler, var.ui.txtFechaFinAlquiler]
+        for elemento in elementos:
+            elemento.setText("")
+        Alquileres.current_propiedad = None
+        Alquileres.current_cliente = None
+        Alquileres.current_vendedor = None
+        Alquileres.cargaTablaMensualidades([])
+        Alquileres.checkDatosAlquiler()

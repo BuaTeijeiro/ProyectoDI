@@ -131,6 +131,7 @@ class Main(QtWidgets.QMainWindow):
 
         #Zona Alquileres
         var.ui.btnGrabarAlquiler.clicked.connect(alquileres.Alquileres.grabarAlquiler)
+        var.ui.btnLimpiarAlquiler.clicked.connect(alquileres.Alquileres.limpiarPanelAlquileres)
 
         #Zona labels
         var.ui.lblMensaje.setStyleSheet("color: rgb(255, 0, 0);")

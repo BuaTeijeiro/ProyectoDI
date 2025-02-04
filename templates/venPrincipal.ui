@@ -5952,7 +5952,7 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_141">
                <item>
-                <widget class="QPushButton" name="btnLimpiarFactura_3">
+                <widget class="QPushButton" name="btnLimpiarAlquiler">
                  <property name="minimumSize">
                   <size>
                    <width>80</width>
