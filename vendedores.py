@@ -199,7 +199,8 @@ class Vendedores:
             datos = [dato.text() for dato in file]
             registro = conexion.Conexion.datosOneVendedor(datos[0])
             facturas.Facturas.cargaVendedorVenta(datos[0])
-            alquileres.Alquileres.cargaVendedorAlquiler(datos[0])
+            if alquileres.Alquileres.current_alquiler is None:
+                alquileres.Alquileres.cargaVendedorAlquiler(datos[0])
             Vendedores.cargaOneVendedor(registro)
         except Exception as error:
             print("Error", error)

@@ -9,6 +9,7 @@ import facturas
 import var
 import conexion
 
+
 class Clientes:
 
 
@@ -183,7 +184,8 @@ class Clientes:
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli, var.ui.cmbMunicli, var.ui.txtBajacli]
             var.ui.lblDniclifactura.setText(registro[0])
             facturas.Facturas.cargaClienteVenta()
-            alquileres.Alquileres.cargaClienteAlquiler(registro[0])
+            if alquileres.Alquileres.current_alquiler is None:
+                alquileres.Alquileres.cargaClienteAlquiler(registro[0])
             for i in range(len(listado)):
                 if i in (7,8):
                     listado[i].setCurrentText(registro[i])

@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f63c1f4e-5169-43db-9da9-b31e82100483" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alquileres.py" beforeDir="false" afterPath="$PROJECT_DIR$/alquileres.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientes.py" beforeDir="false" afterPath="$PROJECT_DIR$/clientes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conexion.py" beforeDir="false" afterPath="$PROJECT_DIR$/conexion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eventos.py" beforeDir="false" afterPath="$PROJECT_DIR$/eventos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facturas.py" beforeDir="false" afterPath="$PROJECT_DIR$/facturas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/propiedades.py" beforeDir="false" afterPath="$PROJECT_DIR$/propiedades.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendedores.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendedores.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,10 +249,10 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.Informes" />
       <item itemvalue="Python.Main" />
       <item itemvalue="Python.sphinx-apidoc" />
       <item itemvalue="Python.sphinx" />
-      <item itemvalue="Python.Informes" />
       <item itemvalue="Python.month" />
     </list>
     <recent_temporary>
@@ -352,6 +359,9 @@
       <workItem from="1738226957683" duration="4308000" />
       <workItem from="1738586535424" duration="5721000" />
       <workItem from="1738653068468" duration="5548000" />
+      <workItem from="1738658847737" duration="34000" />
+      <workItem from="1738662810033" duration="6000" />
+      <workItem from="1738756344493" duration="5119000" />
     </task>
     <servers />
   </component>
@@ -360,7 +370,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/buateijeiro$main.coverage" NAME="main Coverage Results" MODIFIED="1728369377665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1738658539049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1738761472377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/buateijeiro$eventos.coverage" NAME="eventos Coverage Results" MODIFIED="1727857564494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/buateijeiro$sphinx_apidoc.coverage" NAME="sphinx-apidoc Coverage Results" MODIFIED="1738157030577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="Z:\Segundo\DI\buateijeiro\docs" />
     <SUITE FILE_PATH="coverage/buateijeiro$informes.coverage" NAME="informes Coverage Results" MODIFIED="1734600432045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

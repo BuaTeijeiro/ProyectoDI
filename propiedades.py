@@ -326,7 +326,8 @@ class Propiedades():
 
             var.ui.txtNomeprop.setText(datos[16])
             var.ui.txtMovilprop.setText(datos[17])
-            alquileres.Alquileres.cargaPropiedadAlquiler(datos)
+            if alquileres.Alquileres.current_alquiler is None:
+                alquileres.Alquileres.cargaPropiedadAlquiler(datos)
         except Exception as e:
             print("Error al cargar a una propiedad", e)
 

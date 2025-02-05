@@ -1062,7 +1062,7 @@ class Conexion:
             else:
                 return False
         except Exception as error:
-            print("Error al vender la propiedad:", error)
+            print("Error al liberar la propiedad:", error)
             return False
 
     """
@@ -1200,3 +1200,29 @@ class Conexion:
                 return False
         except Exception as error:
             print("Error al setear el pago de la mensualidad", error)
+
+    @staticmethod
+    def eliminarAlquiler(id):
+        try:
+            db = QtSql.QSqlDatabase.database()
+            if db.transaction():
+                query = QtSql.QSqlQuery()
+                query.prepare("delete from mensualidades where idalquiler = :idalquiler")
+                query.bindValue(":idalquiler", id)
+                if query.exec():
+                    query2 = QtSql.QSqlQuery()
+                    query2.prepare("delete from alquileres where id =:id")
+                    query2.bindValue(":id", id)
+                    if query2.exec():
+                        db.commit()
+                        return True
+                    else:
+                        db.rollback()
+                        return False
+                else:
+                    db.rollback()
+                    return False
+            else:
+                return False
+        except Exception as e:
+            print("Error al eliminar el alquiler", e)

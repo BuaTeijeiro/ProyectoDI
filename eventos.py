@@ -430,7 +430,7 @@ class Eventos():
         try:
             header = var.ui.tablaAlquileres.horizontalHeader()
             for i in range(header.count()):
-                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
                 header_item = var.ui.tablaAlquileres.horizontalHeaderItem(i)
                 font = header_item.font()
@@ -447,7 +447,7 @@ class Eventos():
         try:
             header = var.ui.tablaMensualidades.horizontalHeader()
             for i in range(header.count()):
-                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
                 header_item = var.ui.tablaMensualidades.horizontalHeaderItem(i)
                 font = header_item.font()

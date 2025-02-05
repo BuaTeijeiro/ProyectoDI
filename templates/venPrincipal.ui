@@ -6079,6 +6079,11 @@
               <string>dni</string>
              </property>
             </column>
+            <column>
+             <property name="text">
+              <string>gestión</string>
+             </property>
+            </column>
            </widget>
           </item>
           <item>

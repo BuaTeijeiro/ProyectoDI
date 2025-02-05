@@ -7,13 +7,16 @@ from conexion import Conexion
 from PyQt6 import QtWidgets, QtCore, QtGui
 
 from model.month import Month
+from propiedades import Propiedades
 
 
 class Alquileres:
     current_cliente = None
     current_propiedad = None
     current_vendedor = None
+    current_alquiler = None
     chkPagado = []
+    botonesdel = []
     @staticmethod
     def cargaClienteAlquiler(dni):
         var.ui.lblDnicliAlquiler.setText(dni)
@@ -26,7 +29,7 @@ class Alquileres:
     @staticmethod
     def cargaPropiedadAlquiler(propiedad):
         try:
-            if "alquiler" in str(propiedad[14]).lower() and str(propiedad[15]).lower() == "disponible":
+            if "alquiler" in str(propiedad[14]).lower() and str(propiedad[15]).lower() == "disponible" or Alquileres.current_alquiler:
                 var.ui.lblcodigopropAlquiler.setText(str(propiedad[0]))
                 var.ui.lblTipoPropAlquiler.setText(str(propiedad[7]))
                 var.ui.lblPrecioPropAlquiler.setText(str(propiedad[11]) + " €")
@@ -65,7 +68,7 @@ class Alquileres:
 
     @staticmethod
     def checkDatosAlquiler():
-        if Alquileres.current_propiedad is not None and Alquileres.current_vendedor is not None and Alquileres.current_cliente is not None:
+        if Alquileres.current_propiedad is not None and Alquileres.current_vendedor is not None and Alquileres.current_cliente is not None and Alquileres.current_alquiler is None:
             var.ui.btnGrabarAlquiler.setDisabled(False)
         else:
             var.ui.btnGrabarAlquiler.setDisabled(True)
@@ -100,11 +103,20 @@ class Alquileres:
     @staticmethod
     def cargaOneAlquiler():
         alquiler = var.ui.tablaAlquileres.selectedItems()
-        mensualidades = conexion.Conexion.listadoMensualidadesAlquiler(alquiler[0].text())
-        Alquileres.cargaTablaMensualidades(mensualidades)
+        Alquileres.current_alquiler = alquiler[0].text()
+        datosAlquiler = conexion.Conexion.datosOneAlquiler(Alquileres.current_alquiler)
+        Alquileres.cargaClienteAlquiler(datosAlquiler[2])
+        Alquileres.cargaVendedorAlquiler(datosAlquiler[3])
+        Alquileres.cargaPropiedadAlquiler(conexion.Conexion.datosOnePropiedad(datosAlquiler[1]))
+        var.ui.lblAlquiler.setText(str(datosAlquiler[0]))
+        var.ui.txtFechaInicioAlquiler.setText(datosAlquiler[4])
+        var.ui.txtFechaFinAlquiler.setText(datosAlquiler[5])
+        Alquileres.cargaTablaMensualidades(datosAlquiler[0])
 
     @staticmethod
-    def cargaTablaMensualidades(listado):
+    def cargaTablaMensualidades(idAlquiler):
+        listado = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler)
+        propiedad = conexion.Conexion.datosOnePropiedad(conexion.Conexion.datosOneAlquiler(idAlquiler)[1])
         try:
             var.ui.tablaMensualidades.setRowCount(len(listado))
             index = 0
@@ -124,7 +136,12 @@ class Alquileres:
                 container.setLayout(layout)
                 var.ui.tablaMensualidades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[1]))
+                var.ui.tablaMensualidades.setItem(index, 2, QtWidgets.QTableWidgetItem(f"{propiedad[11]:,.2f}" + " €"))
                 var.ui.tablaMensualidades.setCellWidget(index, 3, container)
+
+                var.ui.tablaMensualidades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaMensualidades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaMensualidades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
                 index += 1
             eventos.Eventos.resizeTablaMensualidades()
@@ -152,17 +169,55 @@ class Alquileres:
             listado = conexion.Conexion.listadoAlquileres()
             var.ui.tablaAlquileres.setRowCount(len(listado))
             index = 0
+
+            Alquileres.botonesdel = []
             for registro in listado:
+                container = QtWidgets.QWidget()
+                layout = QtWidgets.QVBoxLayout()
+                Alquileres.botonesdel.append(QtWidgets.QPushButton())
+                Alquileres.botonesdel[-1].setFixedSize(30, 20)
+                Alquileres.botonesdel[-1].setIcon(QtGui.QIcon("./img/basura_bien.ico"))
+                Alquileres.botonesdel[-1].setStyleSheet("background-color: #efefef;")
+                Alquileres.botonesdel[-1].clicked.connect(
+                    lambda checked, idFactura=str(registro[0]): Alquileres.borrarContratoAlquiler(idFactura))
+                layout.addWidget(Alquileres.botonesdel[-1])
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+                container.setLayout(layout)
                 var.ui.tablaAlquileres.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tablaAlquileres.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
+                var.ui.tablaAlquileres.setCellWidget(index, 2, container)
 
                 var.ui.tablaAlquileres.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaAlquileres.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaFacturas.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
                 index += 1
             eventos.Eventos.resizeTablaAlquileres()
         except Exception as e:
             print("Error al cargar la tabla de facturas", e)
+
+    @staticmethod
+    def borrarContratoAlquiler(idAlquiler):
+        try:
+            mbox = QtWidgets.QMessageBox()
+            if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar", "Esta seguro de que quiere borrar el contrato de alquiler de id " + idAlquiler) == QtWidgets.QMessageBox.StandardButton.Yes:
+                codigoPropiedad = conexion.Conexion.datosOneAlquiler(idAlquiler)[1]
+                if conexion.Conexion.eliminarAlquiler(idAlquiler):
+                    eventos.Eventos.mostrarMensajeOk("Se ha eliminado el alquiler correctamente")
+                    Alquileres.cargarTablaAlquileres()
+                    Alquileres.limpiarPanelAlquileres()
+                    conexion.Conexion.liberarPropiedad(codigoPropiedad)
+                    Propiedades.cargaTablaPropiedades()
+                else:
+                    eventos.Eventos.mostrarMensajeWarning("No se ha podido eliminar el alquiler correctamente")
+            else:
+                mbox.hide()
+        
+        except Exception as e:
+            print("Error al eliminar el contrato de alquiler: ", e)
+
 
     @staticmethod
     def limpiarPanelAlquileres():
@@ -172,5 +227,6 @@ class Alquileres:
         Alquileres.current_propiedad = None
         Alquileres.current_cliente = None
         Alquileres.current_vendedor = None
+        Alquileres.current_alquiler = None
         Alquileres.cargaTablaMensualidades([])
         Alquileres.checkDatosAlquiler()
