@@ -1092,7 +1092,7 @@ class Conexion:
         try:
             listado = []
             query = QtSql.QSqlQuery()
-            query.prepare("select id, cliente_DNI from alquileres")
+            query.prepare("select id, cliente_DNI, propiedad_ID from alquileres")
             if query.exec():
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
@@ -1119,9 +1119,10 @@ class Conexion:
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
-                "insert into mensualidades(idalquiler, mes, pagado) values (:idalquiler,:mes,:pagado)")
+                "insert into mensualidades(idalquiler, mes, anno, pagado) values (:idalquiler,:mes, :anno,:pagado)")
             query.bindValue(":idalquiler", id)
-            query.bindValue(":mes", mes)
+            query.bindValue(":mes", mes.month)
+            query.bindValue(":anno", mes.year)
             query.bindValue(":pagado", 0)
             if query.exec():
                 return True
@@ -1157,7 +1158,7 @@ class Conexion:
             listado = []
             query = QtSql.QSqlQuery()
             query.prepare(
-                "select id, mes, pagado from mensualidades where idalquiler = :idalquiler")
+                "select id, mes, anno, pagado, idalquiler from mensualidades where idalquiler = :idalquiler")
             query.bindValue(":idalquiler", id)
             if query.exec():
                 while query.next():

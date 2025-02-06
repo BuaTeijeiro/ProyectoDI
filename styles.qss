@@ -66,7 +66,7 @@ QPushButton:disabled{
 }
 
 
-#frame, #frame_3, #frame_4, #tablaFacturas, #frame_8{
+#frame, #frame_3, #frame_4, #frame_2, #frame_5, #tablaFacturas, #frame_8{
     background-color: #efefef;
 }
 

@@ -410,7 +410,7 @@ class Eventos():
         try:
             header = var.ui.tablaFacturas.horizontalHeader()
             for i in range(header.count()):
-                if i not in (0,3):
+                if i not in (0,2,3):
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
@@ -430,7 +430,10 @@ class Eventos():
         try:
             header = var.ui.tablaAlquileres.horizontalHeader()
             for i in range(header.count()):
-                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                if i == 1:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
                 header_item = var.ui.tablaAlquileres.horizontalHeaderItem(i)
                 font = header_item.font()

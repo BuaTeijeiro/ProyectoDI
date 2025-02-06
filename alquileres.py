@@ -72,6 +72,10 @@ class Alquileres:
             var.ui.btnGrabarAlquiler.setDisabled(False)
         else:
             var.ui.btnGrabarAlquiler.setDisabled(True)
+        if Alquileres.current_alquiler:
+            var.ui.btnModificarAlquiler.setDisabled(False)
+        else:
+            var.ui.btnModificarAlquiler.setDisabled(True)
 
     @staticmethod
     def grabarAlquiler():
@@ -97,7 +101,7 @@ class Alquileres:
         mes_fin = Month(fecha_fin.year, fecha_fin.month)
         mes = Month(fecha_inicio.year, fecha_inicio.month)
         while mes <= mes_fin:
-            conexion.Conexion.grabarMensualidad(idAlquiler, mes.get_nombre())
+            conexion.Conexion.grabarMensualidad(idAlquiler, mes)
             mes.addmonth()
 
     @staticmethod
@@ -114,9 +118,36 @@ class Alquileres:
         Alquileres.cargaTablaMensualidades(datosAlquiler[0])
 
     @staticmethod
+    def reducirContrato():
+        idAlquiler = Alquileres.current_alquiler
+        newDate = var.ui.txtFechaFinAlquiler.text()
+        alquiler = conexion.Conexion.datosOneAlquiler(idAlquiler)
+        newDate = eventos.Eventos.convertStringToDate(newDate)
+        newMonth = Month(newDate.year, newDate.month)
+        oldDate = eventos.Eventos.convertStringToDate(alquiler[5])
+        oldMonth = Month(oldDate.year, oldDate.month)
+        if newMonth < oldMonth:
+            eventos.Eventos.mostrarMensajeOk("Se va a reducir las mensualidades del contrato")
+        else:
+            eventos.Eventos.mostrarMensajeError("No se puede ampliar el contrato, renuévelo cuando termine")
+
+    @staticmethod
+    def checkMensualidadesNoPagadas(mensualidades):
+        for mensualidad in mensualidades:
+            if mensualidad[3]:
+                return False
+        return True
+
+    @staticmethod
+    def getMensualidadesInPeriodo(idAlquiler, fechaInicio, fechaFin):
+        listadoMensualidades = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler);
+
+
+    @staticmethod
     def cargaTablaMensualidades(idAlquiler):
         listado = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler)
-        propiedad = conexion.Conexion.datosOnePropiedad(conexion.Conexion.datosOneAlquiler(idAlquiler)[1])
+        if listado:
+            propiedad = conexion.Conexion.datosOnePropiedad(conexion.Conexion.datosOneAlquiler(idAlquiler)[1])
         try:
             var.ui.tablaMensualidades.setRowCount(len(listado))
             index = 0
@@ -125,7 +156,7 @@ class Alquileres:
                 container = QtWidgets.QWidget()
                 layout = QtWidgets.QVBoxLayout()
                 chkbox = QtWidgets.QCheckBox()
-                chkbox.setChecked(registro[2] == 1)
+                chkbox.setChecked(registro[3] == 1)
                 chkbox.stateChanged.connect(
                     lambda checked, idMensualidad=str(registro[0]): Alquileres.pagarMensualidad(idMensualidad, checked))
                 Alquileres.chkPagado.append(chkbox)
@@ -134,14 +165,18 @@ class Alquileres:
                 layout.setContentsMargins(0, 0, 0, 0)
                 layout.setSpacing(0)
                 container.setLayout(layout)
+
                 var.ui.tablaMensualidades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
-                var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[1]))
-                var.ui.tablaMensualidades.setItem(index, 2, QtWidgets.QTableWidgetItem(f"{propiedad[11]:,.2f}" + " €"))
-                var.ui.tablaMensualidades.setCellWidget(index, 3, container)
+                var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[4])))
+                mes = Month(int(registro[2]), int(registro[1]))
+                var.ui.tablaMensualidades.setItem(index, 2, QtWidgets.QTableWidgetItem(str(mes)))
+                var.ui.tablaMensualidades.setItem(index, 3, QtWidgets.QTableWidgetItem(f"{propiedad[11]:,.2f}" + " €"))
+                var.ui.tablaMensualidades.setCellWidget(index, 4, container)
 
                 var.ui.tablaMensualidades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaMensualidades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaMensualidades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaMensualidades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
                 index += 1
             eventos.Eventos.resizeTablaMensualidades()
@@ -187,11 +222,11 @@ class Alquileres:
                 container.setLayout(layout)
                 var.ui.tablaAlquileres.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tablaAlquileres.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
-                var.ui.tablaAlquileres.setCellWidget(index, 2, container)
+                var.ui.tablaAlquileres.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
+                var.ui.tablaAlquileres.setCellWidget(index, 3, container)
 
                 var.ui.tablaAlquileres.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaAlquileres.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaFacturas.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaAlquileres.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
                 index += 1
             eventos.Eventos.resizeTablaAlquileres()
@@ -221,12 +256,15 @@ class Alquileres:
 
     @staticmethod
     def limpiarPanelAlquileres():
-        elementos = [var.ui.lblDnicliAlquiler, var.ui.lblApelCliAlquiler, var.ui.lblNombrecliAlquiler, var.ui.lblcodigopropAlquiler, var.ui.lblTipoPropAlquiler, var.ui.lblPrecioPropAlquiler, var.ui.lblDireccionprop_alquiler, var.ui.lblMunipropAlquiler, var.ui.lblGestorAlquiler, var.ui.lblAlquiler, var.ui.txtFechaInicioAlquiler, var.ui.txtFechaFinAlquiler, var.ui.lblMensajeAlquiler]
-        for elemento in elementos:
-            elemento.setText("")
-        Alquileres.current_propiedad = None
-        Alquileres.current_cliente = None
-        Alquileres.current_vendedor = None
-        Alquileres.current_alquiler = None
-        Alquileres.cargaTablaMensualidades([])
-        Alquileres.checkDatosAlquiler()
+        try:
+            elementos = [var.ui.lblDnicliAlquiler, var.ui.lblApelCliAlquiler, var.ui.lblNombrecliAlquiler, var.ui.lblcodigopropAlquiler, var.ui.lblTipoPropAlquiler, var.ui.lblPrecioPropAlquiler, var.ui.lblDireccionprop_alquiler, var.ui.lblMunipropAlquiler, var.ui.lblGestorAlquiler, var.ui.lblAlquiler, var.ui.txtFechaInicioAlquiler, var.ui.txtFechaFinAlquiler, var.ui.lblMensajeAlquiler]
+            for elemento in elementos:
+                elemento.setText("")
+            Alquileres.current_propiedad = None
+            Alquileres.current_cliente = None
+            Alquileres.current_vendedor = None
+            Alquileres.current_alquiler = None
+            Alquileres.cargaTablaMensualidades(0)
+            Alquileres.checkDatosAlquiler()
+        except Exception as e:
+            print("Error al limpiar el alquiler: ", e)
