@@ -13,6 +13,7 @@ from sphinx.util.exceptions import format_exception_cut_frames
 
 import conexion
 import var
+from model.month import Month
 
 
 class Informes:
@@ -267,6 +268,89 @@ class Informes:
             print(error)
             traceback.print_exc()
 
+    @staticmethod
+    def reciboMensualidad(mensualidad):
+        """
+
+        """
+        xid = 55
+        xmes = xid + 70
+        xdireccion = xmes + 70
+        xlocalidad = xdireccion + 120
+        xtipo = xlocalidad + 100
+        xprecio = xtipo + 65
+        ymax = 630
+        ymin = 90
+        ystep = 30
+        try:
+            rootPath = ".\\recibosAlquiler"
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            fecha = datetime.today().strftime("%Y_%m_%d_%H_%M_%S")
+            mes = mensualidad[2]
+            nomepdfcli = "alquiler" + mensualidad[1]  + "_recibo_" + mes + ".pdf"
+            pdf_path = os.path.join(rootPath, nomepdfcli)
+            print(pdf_path)
+            var.report = canvas.Canvas(pdf_path)
+            titulo = "Recibo Alquiler " + mensualidad[1] + " Mes " + mes
+            alquiler = conexion.Conexion.datosOneAlquiler(mensualidad[1])
+            cliente = conexion.Conexion.datosOneCliente(alquiler[2])
+            propiedad = conexion.Conexion.datosOnePropiedad(alquiler[1])
+            Informes.topInforme(titulo)
+            Informes.topDatosCliente(cliente, "")
+            Informes.footInforme(titulo, 1)
+            items = ["Alquiler", "Mes", "Direccion", "Localidad", "Tipo", "Precio"]
+            var.report.setFont("Helvetica-Bold", size=10)
+            var.report.drawString(xid, 650, str(items[0]))
+            var.report.drawString(xmes, 650, str(items[1]))
+            var.report.drawString(xdireccion, 650, str(items[2]))
+            var.report.drawString(xlocalidad, 650, str(items[3]))
+            var.report.drawString(xtipo, 650, str(items[4]))
+            var.report.drawString(xprecio, 650, str(items[5]))
+            var.report.line(50, 645, 525, 645)
+            y = ymax
+            var.report.setFont("Helvetica", size=8)
+            var.report.drawCentredString(xid + 17, y, str(alquiler[0]))
+            var.report.drawCentredString(xmes + 11, y, str(mes).title())
+            var.report.drawString(xdireccion, y, str(propiedad[4]).title())
+            var.report.drawString(xlocalidad, y, str(propiedad[6]).title())
+            var.report.drawString(xtipo, y, str(propiedad[7]).title())
+            var.report.drawString(xprecio, y, str(propiedad[11]).title() + " €")
+            y -= ystep
+
+            xmenuinferior = 400
+            xtotal = 450
+            var.report.line(50, 170, 525, 170)
+            y = 140
+            subtotal = propiedad[11]
+            iva = 10 * subtotal / 100
+            total = subtotal + iva
+            var.report.setFont("Helvetica-Bold", size=9)
+            var.report.drawString(xmenuinferior, y, "Subtotal")
+            var.report.setFont("Helvetica", size=9)
+            var.report.drawString(xtotal, y, f"{subtotal:,.2f}" + " €")
+            y -= ystep
+            var.report.setFont("Helvetica-Bold", size=9)
+            var.report.drawString(xmenuinferior, y, "Impuestos")
+            var.report.setFont("Helvetica", size=9)
+            var.report.drawString(xtotal, y, f"{iva:,.2f}" + " €")
+            y -= ystep
+            var.report.setFont("Helvetica-Bold", size=9)
+            var.report.drawString(xmenuinferior, y, "Total")
+            var.report.setFont("Helvetica", size=9)
+            var.report.drawString(xtotal, y, f"{total:,.2f}" + " €")
+            y -= ystep
+
+            var.report.save()
+
+            for file in os.listdir(rootPath):
+                if file.endswith(nomepdfcli):
+                    os.startfile(pdf_path)
+
+        except Exception as error:
+            print(error)
+            traceback.print_exc()
+
 
     @staticmethod
     def getNumberPages(amount, ymax, ymin, ystep):
@@ -349,13 +433,15 @@ class Informes:
             var.report.drawString(300, 752, 'Nombre:')
             var.report.drawString(300, 734, 'Dirección:')
             var.report.drawString(300, 716, 'Localidad:')
-            var.report.drawString(55, 682, "Fecha Factura:")
+            
             var.report.setFont('Helvetica', size=8)
             var.report.drawString(360, 770, cliente[0])
             var.report.drawString(360, 752, cliente[3] + " " +cliente[2])
             var.report.drawString(360, 734, cliente[6])
             var.report.drawString(360, 716, cliente[8])
-            var.report.drawString(120, 682, fecha)
+            if fecha:
+                var.report.drawString(55, 682, "Fecha Factura:")
+                var.report.drawString(120, 682, fecha)
         except Exception as error:
             print('Error en cabecera informe:', error)
 

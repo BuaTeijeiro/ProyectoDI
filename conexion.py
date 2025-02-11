@@ -1227,3 +1227,24 @@ class Conexion:
                 return False
         except Exception as e:
             print("Error al eliminar el alquiler", e)
+
+    @staticmethod
+    def eliminarMensualidades(ids):
+        try:
+            db = QtSql.QSqlDatabase.database()
+            if db.transaction():
+                for id in ids:
+                    query = QtSql.QSqlQuery()
+                    query.prepare("delete from mensualidades where id = :idalquiler")
+                    query.bindValue(":idalquiler", id)
+                    if query.exec():
+                        continue
+                    else:
+                        db.rollback()
+                        return False
+                db.commit()
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Error al eliminar el alquiler", e)

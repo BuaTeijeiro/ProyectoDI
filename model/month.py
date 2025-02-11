@@ -16,13 +16,13 @@ class Month:
         return calendar.month_name[self.month] + " " + str(self.year)
 
     @staticmethod
-    def ofDateTime(self, date):
+    def ofDateTime(date):
         return Month(date.year, date.month)
 
     @staticmethod
-    def ofDateString(self, date):
+    def ofDateString(date):
         date = eventos.Eventos.convertStringToDate(date)
-        return Month(date.year, date.month)
+        return Month(int(date.year), int(date.month))
 
 
     def addmonth(self):
@@ -30,9 +30,14 @@ class Month:
         if self.month > 12:
             self.month = 1
             self.year = self.year + 1
+        return self
 
     def __le__(self, other):
         return self.year < other.year or (self.year == other.year and self.month <= other.month)
+    def __ge__(self, other):
+        return self.year > other.year or (self.year == other.year and self.month >= other.month)
+    def __gt__(self, other):
+        return self.year > other.year or (self.year == other.year and self.month > other.month)
     def __lt__(self, other):
         return self.year < other.year or (self.year == other.year and self.month < other.month)
 

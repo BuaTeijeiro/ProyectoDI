@@ -1,7 +1,8 @@
-
+from tabnanny import check
 
 import conexion
 import eventos
+import informes
 import var
 from conexion import Conexion
 from PyQt6 import QtWidgets, QtCore, QtGui
@@ -119,17 +120,26 @@ class Alquileres:
 
     @staticmethod
     def reducirContrato():
-        idAlquiler = Alquileres.current_alquiler
-        newDate = var.ui.txtFechaFinAlquiler.text()
-        alquiler = conexion.Conexion.datosOneAlquiler(idAlquiler)
-        newDate = eventos.Eventos.convertStringToDate(newDate)
-        newMonth = Month(newDate.year, newDate.month)
-        oldDate = eventos.Eventos.convertStringToDate(alquiler[5])
-        oldMonth = Month(oldDate.year, oldDate.month)
-        if newMonth < oldMonth:
-            eventos.Eventos.mostrarMensajeOk("Se va a reducir las mensualidades del contrato")
-        else:
-            eventos.Eventos.mostrarMensajeError("No se puede ampliar el contrato, renuévelo cuando termine")
+        try:
+            idAlquiler = Alquileres.current_alquiler
+            newMonth = Month.ofDateString(var.ui.txtFechaFinAlquiler.text())
+            alquiler = conexion.Conexion.datosOneAlquiler(idAlquiler)
+            oldMonth = Month.ofDateString(alquiler[5])
+            if newMonth < oldMonth:
+                mensualidadesToDelete = Alquileres.getMensualidadesInPeriodo(idAlquiler, newMonth.addmonth(), oldMonth)
+                if Alquileres.checkMensualidadesNoPagadas(mensualidadesToDelete):
+                    ids = [x[0] for x in mensualidadesToDelete]
+                    print(ids)
+                    if conexion.Conexion.eliminarMensualidades(ids):
+                        eventos.Eventos.mostrarMensajeOk(f"Se han borrado %d mensualidades" % len(ids))
+                        Alquileres.cargaTablaMensualidades(idAlquiler)
+                else:
+                    eventos.Eventos.mostrarMensajeError("No se puede reducir el contrato, porque hay mensualidades ya pagadas")
+
+            else:
+                eventos.Eventos.mostrarMensajeError("No se puede ampliar el contrato, renuévelo cuando termine")
+        except Exception as error:
+            print("Error al reducir el contrato: ", error)
 
     @staticmethod
     def checkMensualidadesNoPagadas(mensualidades):
@@ -139,8 +149,15 @@ class Alquileres:
         return True
 
     @staticmethod
-    def getMensualidadesInPeriodo(idAlquiler, fechaInicio, fechaFin):
-        listadoMensualidades = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler);
+    def getMensualidadesInPeriodo(idAlquiler, monthInicio, monthFin):
+        listadoMensualidades = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler)
+        listadoFiltrado = []
+        for mensualidad in listadoMensualidades:
+            mes = Month(int(mensualidad[2]), int(mensualidad[1]))
+            if mes >= monthInicio and mes <= monthFin:
+                listadoFiltrado.append(mensualidad)
+        return listadoFiltrado
+
 
 
     @staticmethod
@@ -191,6 +208,15 @@ class Alquileres:
         else:
             eventos.Eventos.mostrarMensajeError("No se ha podido registrar el estado de pago")
         Alquileres.cargaOneAlquiler()
+
+    @staticmethod
+    def generarRecibo():
+        mensualidad = var.ui.tablaMensualidades.selectedItems()
+        mensualidad = [x.text() for x in mensualidad]
+        if mensualidad:
+            informes.Informes.reciboMensualidad(mensualidad)
+        else:
+            eventos.Eventos.mostrarMensajeError("Es necesario seleccionar una mensualidad para generar el recibo")
 
     @staticmethod
     def cargarTablaAlquileres():
