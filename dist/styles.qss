@@ -1,0 +1,74 @@
+/* --- Estilo para QMainWindow --- */
+
+QMainWindow {
+    background-color: #d7eff6;
+}
+
+/* ---- Estilos para QTabWidget ----- */
+
+QTabWidget {
+    background-color: whitesmoke;
+}
+
+QTableWidget::item:alternate{
+    background-color: #eee;
+}
+
+QTableWidget::item:selected{
+    background-color: #ddd;
+    color: black;
+}
+
+QHeaderView::section{
+    padding: 5px;
+    background-color: #d7eff6;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* --- Estilo Menu bar ---- */
+
+QMenuBar{
+    background-color: whitesmoke;
+}
+
+QToolBar{
+    background-color: whitesmoke;
+}
+
+
+ /* --- Estilo botones ---*/
+QPushButton{
+    background-color: #0ea2ae;
+    color: white;
+    border-radius: 5px;
+}
+
+#btnBuscarCliente, #btnBuscarVendedor{
+    background-color: none;
+}
+
+#btnAnteriorcli, #btnSiguientecli, #btnSiguienteprop, #btnAnteriorprop{
+    background-color: #fff
+}
+
+QRadioButton:disabled{
+    color: #aaa;
+}
+
+QPushButton:disabled{
+    background-color: #aaa;
+}
+
+#txtDnivend:disabled{
+    color: #666;
+    background-color: #ddd;
+}
+
+
+#frame, #frame_3, #frame_4, #frame_2, #frame_5, #tablaFacturas, #frame_8{
+    background-color: #efefef;
+}
+
+
+
