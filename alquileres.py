@@ -89,6 +89,7 @@ class Alquileres:
                 Alquileres.generarMensualidades(idAlquiler)
                 Alquileres.cargarTablaAlquileres()
                 Alquileres.limpiarPanelAlquileres()
+                Propiedades.cargaTablaPropiedades()
             else:
                 eventos.Eventos.mostrarMensajeError("No se ha podido grabar el alquiler")
         else:
@@ -107,8 +108,9 @@ class Alquileres:
 
     @staticmethod
     def cargaOneAlquiler():
-        alquiler = var.ui.tablaAlquileres.selectedItems()
-        Alquileres.current_alquiler = alquiler[0].text()
+        if Alquileres.current_propiedad is None:
+            alquiler = var.ui.tablaAlquileres.selectedItems()
+            Alquileres.current_alquiler = alquiler[0].text()
         datosAlquiler = conexion.Conexion.datosOneAlquiler(Alquileres.current_alquiler)
         Alquileres.cargaClienteAlquiler(datosAlquiler[2])
         Alquileres.cargaVendedorAlquiler(datosAlquiler[3])
@@ -117,6 +119,7 @@ class Alquileres:
         var.ui.txtFechaInicioAlquiler.setText(datosAlquiler[4])
         var.ui.txtFechaFinAlquiler.setText(datosAlquiler[5])
         Alquileres.cargaTablaMensualidades(datosAlquiler[0])
+
 
     @staticmethod
     def reducirContrato():
@@ -129,17 +132,34 @@ class Alquileres:
                 mensualidadesToDelete = Alquileres.getMensualidadesInPeriodo(idAlquiler, newMonth.addmonth(), oldMonth)
                 if Alquileres.checkMensualidadesNoPagadas(mensualidadesToDelete):
                     ids = [x[0] for x in mensualidadesToDelete]
-                    print(ids)
                     if conexion.Conexion.eliminarMensualidades(ids):
                         eventos.Eventos.mostrarMensajeOk(f"Se han borrado %d mensualidades" % len(ids))
-                        Alquileres.cargaTablaMensualidades(idAlquiler)
+                        conexion.Conexion.modificarFechaAlquiler(idAlquiler, var.ui.txtFechaFinAlquiler.text())
+                        Alquileres.cargaOneAlquiler()
                 else:
                     eventos.Eventos.mostrarMensajeError("No se puede reducir el contrato, porque hay mensualidades ya pagadas")
+                    Alquileres.cargaOneAlquiler()
+
+            elif newMonth > oldMonth:
+                mensualidadesAdded = Alquileres.ampliarMensualidades(idAlquiler, oldMonth, newMonth)
+                conexion.Conexion.modificarFechaAlquiler(idAlquiler, var.ui.txtFechaFinAlquiler.text())
+                eventos.Eventos.mostrarMensajeOk(f"Se amplió el contrato en %d mensualidades" %mensualidadesAdded)
+                Alquileres.cargaOneAlquiler()
 
             else:
-                eventos.Eventos.mostrarMensajeError("No se puede ampliar el contrato, renuévelo cuando termine")
+                eventos.Eventos.mostrarMensajeWarning("No se está modificando el mes de fin de contrato")
         except Exception as error:
             print("Error al reducir el contrato: ", error)
+
+    @staticmethod
+    def ampliarMensualidades(idAlquiler, oldMonth, newMonth):
+        oldMonth.addmonth()
+        mensualidadesAdded = 0
+        while oldMonth <= newMonth:
+            conexion.Conexion.grabarMensualidad(idAlquiler, oldMonth)
+            mensualidadesAdded += 1
+            oldMonth.addmonth()
+        return mensualidadesAdded
 
     @staticmethod
     def checkMensualidadesNoPagadas(mensualidades):
@@ -203,10 +223,13 @@ class Alquileres:
 
     @staticmethod
     def pagarMensualidad(idMensualidad, pagada):
-        if conexion.Conexion.setMensualidadPagada(idMensualidad, pagada):
-            eventos.Eventos.mostrarMensajeOk("Se ha registrado el nuevo estado de pago")
+        if pagada:
+            if conexion.Conexion.setMensualidadPagada(idMensualidad, pagada):
+                eventos.Eventos.mostrarMensajeOk("Se ha registrado el nuevo estado de pago")
+            else:
+                eventos.Eventos.mostrarMensajeError("No se ha podido registrar el estado de pago")
         else:
-            eventos.Eventos.mostrarMensajeError("No se ha podido registrar el estado de pago")
+            eventos.Eventos.mostrarMensajeError("No se puede eliminar un pago")
         Alquileres.cargaOneAlquiler()
 
     @staticmethod
@@ -265,14 +288,14 @@ class Alquileres:
             mbox = QtWidgets.QMessageBox()
             if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar", "Esta seguro de que quiere borrar el contrato de alquiler de id " + idAlquiler) == QtWidgets.QMessageBox.StandardButton.Yes:
                 codigoPropiedad = conexion.Conexion.datosOneAlquiler(idAlquiler)[1]
-                if conexion.Conexion.eliminarAlquiler(idAlquiler):
+                if Alquileres.checkMensualidadesNoPagadas(conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler)) and conexion.Conexion.eliminarAlquiler(idAlquiler):
                     eventos.Eventos.mostrarMensajeOk("Se ha eliminado el alquiler correctamente")
                     Alquileres.cargarTablaAlquileres()
                     Alquileres.limpiarPanelAlquileres()
                     conexion.Conexion.liberarPropiedad(codigoPropiedad)
                     Propiedades.cargaTablaPropiedades()
                 else:
-                    eventos.Eventos.mostrarMensajeWarning("No se ha podido eliminar el alquiler correctamente")
+                    eventos.Eventos.mostrarMensajeWarning("No se ha podido eliminar el alquiler correctamente. Si tiene recibos ya pagados no se puede borrar")
             else:
                 mbox.hide()
         

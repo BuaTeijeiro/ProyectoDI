@@ -6,6 +6,7 @@ from time import localtime
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import QVariant
 
+import eventos
 import var
 
 class Conexion:
@@ -1185,6 +1186,23 @@ class Conexion:
             return False
 
     @staticmethod
+    def modificarFechaAlquiler(id, fecha_fin):
+        try:
+            db = QtSql.QSqlDatabase.database()
+            query = QtSql.QSqlQuery()
+            query.prepare("update alquileres set fecha_fin =:fecha_fin where id = :id")
+            query.bindValue(":id", id)
+            query.bindValue(":fecha_fin", fecha_fin)
+            if query.exec():
+                db.commit()
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Error al modificar la fecha de alquiler", e)
+
+
+    @staticmethod
     def setMensualidadPagada(codigo, pagado):
         try:
             query = QtSql.QSqlQuery()
@@ -1195,9 +1213,11 @@ class Conexion:
             else:
                 query.bindValue(":pagado", 0)
             if query.exec():
+                QtSql.QSqlDatabase.database().commit()
+                eventos.Eventos.mostrarMensajeOk("commit realizado correctamente")
                 return True
             else:
-                print(query.lastError().text())
+                eventos.Eventos.mostrarMensajeOk("Error al registrar el pago: " + query.lastError().text())
                 return False
         except Exception as error:
             print("Error al setear el pago de la mensualidad", error)
@@ -1242,7 +1262,6 @@ class Conexion:
                     else:
                         db.rollback()
                         return False
-                db.commit()
                 return True
             else:
                 return False

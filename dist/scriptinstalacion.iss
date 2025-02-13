@@ -50,6 +50,7 @@ Source: "Z:\Segundo\DI\buateijeiro\img\*"; DestDir: "{app}/img"; Flags: ignoreve
 Source: "Z:\Segundo\DI\buateijeiro\dist\styles.qss"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Z:\Segundo\DI\buateijeiro\informes\*"; DestDir: "{app}/informes"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "Z:\Segundo\DI\buateijeiro\facturas\*"; DestDir: "{app}/facturas"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "Z:\Segundo\DI\buateijeiro\recibosAlquiler\*"; DestDir: "{app}/recibosAlquiler"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

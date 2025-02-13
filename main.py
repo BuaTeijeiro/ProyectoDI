@@ -3,8 +3,6 @@ from calendar import Calendar
 import alquileres
 import clientes
 import conexion
-import conexionserver
-import eventos
 import facturas
 import styles
 import vendedores
