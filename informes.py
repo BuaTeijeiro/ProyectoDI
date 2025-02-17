@@ -13,6 +13,7 @@ from sphinx.util.exceptions import format_exception_cut_frames
 
 import conexion
 import var
+from logger import Logger
 from model.month import Month
 
 
@@ -97,7 +98,7 @@ class Informes:
                     os.startfile(pdf_path)
 
         except Exception as error:
-            print(error)
+            Logger.log("Error", "Error al generar el informe de clientes" + str(error))
 
     @staticmethod
     def reportPropiedades(municipio):
@@ -182,8 +183,8 @@ class Informes:
                 if file.endswith(nomepdfcli):
                     os.startfile(pdf_path)
 
-        except Exception as error1:
-            print(error1.__str__())
+        except Exception as error:
+            Logger.log("Error", "Error al generar el informe de propiedades" + str(error))
 
     @staticmethod
     def facturaVenta(id):
@@ -239,7 +240,7 @@ class Informes:
             xtotal = 450
             var.report.line(50, 170, 525, 170)
             y = 140
-            subtotal = conexion.Conexion.totalFactura(id)
+            subtotal = int(conexion.Conexion.totalFactura(id))
             iva = 10 * subtotal / 100
             total = subtotal + iva
             var.report.setFont("Helvetica-Bold", size=9)
@@ -265,8 +266,7 @@ class Informes:
                     os.startfile(pdf_path)
 
         except Exception as error:
-            print(error)
-            traceback.print_exc()
+            Logger.log("Error", "Error al generar la factura de la venta" + str(error))
 
     @staticmethod
     def reciboMensualidad(mensualidad):
@@ -348,8 +348,7 @@ class Informes:
                     os.startfile(pdf_path)
 
         except Exception as error:
-            print(error)
-            traceback.print_exc()
+            Logger.log("Error", "Error al general el recibo de la mensualidad" + str(error))
 
 
     @staticmethod
@@ -390,7 +389,7 @@ class Informes:
             var.report.drawString(490, 40, str('Página %s/%s' % (var.report.getPageNumber(), pages)))
 
         except Exception as error:
-            print('Error en pie informe de cualquier tipo: ', error)
+            Logger.log("Error", "Error en el pie del informe" + str(error))
 
     @staticmethod
     def topInforme(titulo):
@@ -423,7 +422,7 @@ class Informes:
             else:
                 print(f'Error: No se pudo cargar la imagen en {ruta_logo}')
         except Exception as error:
-            print('Error en cabecera informe:', error)
+            Logger.log("Error", "Error en la cabecera del informe" + str(error))
 
     @staticmethod
     def topDatosCliente(cliente, fecha):
@@ -443,7 +442,7 @@ class Informes:
                 var.report.drawString(55, 682, "Fecha Factura:")
                 var.report.drawString(120, 682, fecha)
         except Exception as error:
-            print('Error en cabecera informe:', error)
+            Logger.log("Error", "Error en los datos del cliente en la cabecera del informe" + str(error))
 
 if __name__ == '__main__':
     Informes.reportClientes()

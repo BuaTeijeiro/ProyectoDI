@@ -47,6 +47,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "Z:\Segundo\DI\buateijeiro\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Z:\Segundo\DI\buateijeiro\dist\bbdd.sqlite"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Z:\Segundo\DI\buateijeiro\img\*"; DestDir: "{app}/img"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "Z:\Segundo\DI\buateijeiro\logs\*"; DestDir: "{app}/logs"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "Z:\Segundo\DI\buateijeiro\dist\styles.qss"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Z:\Segundo\DI\buateijeiro\informes\*"; DestDir: "{app}/informes"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "Z:\Segundo\DI\buateijeiro\facturas\*"; DestDir: "{app}/facturas"; Flags: ignoreversion recursesubdirs createallsubdirs

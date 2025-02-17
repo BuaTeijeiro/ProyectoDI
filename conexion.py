@@ -8,6 +8,9 @@ from PyQt6.QtCore import QVariant
 
 import eventos
 import var
+from logger import Logger
+from venAux import dlg_About
+
 
 class Conexion:
     '''
@@ -45,8 +48,9 @@ class Conexion:
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
                 return False
             else:
-                QtWidgets.QMessageBox.information(None, 'Aviso', 'Conexión Base de Datos realizada',
-                                                  QtWidgets.QMessageBox.StandardButton.Ok)
+                #QtWidgets.QMessageBox.information(None, 'Aviso', 'Conexión Base de Datos realizada',
+                #                                  QtWidgets.QMessageBox.StandardButton.Ok)
+                Logger.log("Info", "Conexión Base de Datos realizada")
                 return True
         else:
             QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo abrir la base de datos.',
@@ -67,13 +71,18 @@ class Conexion:
         Método que realiza query para obtener el listado de provincias en la base de datos
 
         """
-        listaprov = []
-        query = QtSql.QSqlQuery()
-        query.prepare("SELECT * FROM provincias")
-        if query.exec():
-            while query.next():
-                listaprov.append(query.value(1))
-        return listaprov
+        try:
+            listaprov = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM provincias")
+            if query.exec():
+                while query.next():
+                    listaprov.append(query.value(1))
+            else:
+                Logger.log("Error", query.lastError().text())
+            return listaprov
+        except Exception as error:
+            Logger.log("Error", error)
 
 
     @staticmethod
@@ -96,9 +105,11 @@ class Conexion:
             if query.exec():
                 while query.next():
                     listamunicipios.append(query.value(0))
+                else:
+                    Logger.log("Error", query.lastError().text())
             return listamunicipios
-        except Exception as e:
-            print("Error al abrir el archivo")
+        except Exception as error:
+            Logger.log("Error", error)
 
     """
     GESTIÓN CLIENTES
@@ -133,10 +144,11 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
 
-        except Exception as e:
-            print("Error alta cliente", e)
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def listadoClientes():
@@ -152,13 +164,15 @@ class Conexion:
         try:
             listado = []
             historico = var.ui.chkHistoriacli.isChecked()
-            if (historico):
+            if historico:
                 query = QtSql.QSqlQuery()
                 query.prepare("SELECT * FROM clientes order by apelcli, nomecli ASC")
                 if query.exec():
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
                         listado.append(fila)
+                else:
+                    Logger.log("Error", query.lastError().text())
                 return listado
             else:
                 query = QtSql.QSqlQuery()
@@ -167,9 +181,11 @@ class Conexion:
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
                         listado.append(fila)
+                else:
+                    Logger.log("Error", query.lastError().text())
                 return listado
-        except Exception as e:
-            print("Error al abrir el archivo")
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def datosOneCliente(dni):
@@ -190,9 +206,11 @@ class Conexion:
             query.bindValue(":dni", str(dni))
             if query.exec() and query.next():
                 registro = [query.value(i) for i in range(query.record().count())]
+            else:
+                Logger.log("Error", query.lastError().text())
             return registro
         except Exception as error:
-            print("Error al abrir el archivo")
+            Logger.log("Error", error)
 
     @staticmethod
     def modifCliente(registro):
@@ -226,9 +244,10 @@ class Conexion:
             if query.exec() and query.numRowsAffected() == 1:
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al modificar cliente en la base de datos")
+            Logger.log("Error", error)
 
     @staticmethod
     def bajaCliente(dni, fecha):
@@ -251,8 +270,7 @@ class Conexion:
             query = QtSql.QSqlQuery()
             query.prepare("Select bajacli from clientes where dnicli = :dni")
             query.bindValue(":dni", str(dni))
-            query.exec()
-            if query.next() and query.value(0) == "" :
+            if query.exec() and query.next() and query.value(0) == "" :
                 print(query.value(0))
                 query.prepare("UPDATE clientes SET bajacli = :bajacli where dnicli = :dni")
                 query.bindValue(":dni", str(dni))
@@ -260,11 +278,13 @@ class Conexion:
                 if query.exec() and query.numRowsAffected() == 1:
                     return True
                 else:
+                    Logger.log("Error", query.lastError().text())
                     return False
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
-        except Exception as exec:
-            print("Error al registrar la baja del cliente")
+        except Exception as error:
+            Logger.log("Error", error)
 
     """
     GESTIÓN PROPIEDADES
@@ -290,7 +310,7 @@ class Conexion:
             return tipos
 
         except Exception as error:
-            print("Error al cargar los tipos de propiedades")
+            Logger.log("Error", error)
 
     @staticmethod
     def anadirTipoprop(tipo):
@@ -312,9 +332,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al guardar el tipo de vivienda en la base de datos")
+            Logger.log("Error", error)
 
     @staticmethod
     def eliminarTipoprop(tipo):
@@ -336,9 +357,10 @@ class Conexion:
             if query.exec() and query.numRowsAffected() == 1:
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al eliminar el tipo de propiedad")
+            Logger.log("Error", error)
 
     @staticmethod
     def altaPropiedad(propiedad):
@@ -376,9 +398,10 @@ class Conexion:
                 var.lastid = query.lastInsertId()
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al guardar la propiedad en la base de datos")
+            Logger.log("Error", error)
 
     @staticmethod
     def listadoPropiedades():
@@ -398,12 +421,14 @@ class Conexion:
             if query.exec():
                 while query.next():
                     listado.append([query.value(i) for i in range(query.record().count())])
+            else:
+                Logger.log("Error", query.lastError().text())
 
             if not var.ui.chkHistoriprop.isChecked():
                 listado = [registro for registro in listado if registro[8] == ""]
             return listado
         except Exception as error:
-            print("Error al cargar las propiedades", error)
+            Logger.log("Error", error)
 
     @staticmethod
     def listadoPropiedadesAllData():
@@ -423,9 +448,11 @@ class Conexion:
             if query.exec():
                 while query.next():
                     listado.append([query.value(i) for i in range(query.record().count())])
+            else:
+                Logger.log("Error", query.lastError().text())
             return listado
         except Exception as error:
-            print("Error al cargar las propiedades", error)
+            Logger.log("Error", error)
 
     @staticmethod
     def listadoPropiedadesFiltrado(tipo_propiedad, municipio, provincia):
@@ -443,24 +470,29 @@ class Conexion:
         Método que devuelve la lista de propiedades filtradas por los criterios pasados por parámetro
 
         """
-        listado = []
-        query = QtSql.QSqlQuery()
-        if var.ui.chkHistoriprop.isChecked():
-            query.prepare(
-                "SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad and municipio = :municipio and provincia = :provincia")
-            query.bindValue(":tipo_propiedad", tipo_propiedad)
-            query.bindValue(":municipio", municipio)
-            query.bindValue(":provincia", provincia)
-        else:
-            query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad and municipio = :municipio and provincia = :provincia and estado = :estado")
-            query.bindValue(":tipo_propiedad", tipo_propiedad)
-            query.bindValue(":municipio", municipio)
-            query.bindValue(":provincia", provincia)
-            query.bindValue(":estado", "Disponible")
-        if query.exec():
-            while query.next():
-                listado.append([query.value(i) for i in range(query.record().count())])
-        return listado
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            if var.ui.chkHistoriprop.isChecked():
+                query.prepare(
+                    "SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad and municipio = :municipio and provincia = :provincia")
+                query.bindValue(":tipo_propiedad", tipo_propiedad)
+                query.bindValue(":municipio", municipio)
+                query.bindValue(":provincia", provincia)
+            else:
+                query.prepare("SELECT codigo, municipio, tipo_propiedad, num_habitaciones, num_banos, precio_alquiler, precio_venta, tipo_operacion, fechabaja FROM propiedades where tipo_propiedad = :tipo_propiedad and municipio = :municipio and provincia = :provincia and estado = :estado")
+                query.bindValue(":tipo_propiedad", tipo_propiedad)
+                query.bindValue(":municipio", municipio)
+                query.bindValue(":provincia", provincia)
+                query.bindValue(":estado", "Disponible")
+            if query.exec():
+                while query.next():
+                    listado.append([query.value(i) for i in range(query.record().count())])
+            else:
+                Logger.log("Error", query.lastError().text())
+            return listado
+        except Exception as error:
+            Logger.log("Error", error)
 
 
     @staticmethod
@@ -482,9 +514,11 @@ class Conexion:
             query.bindValue(":codigo", codigo)
             if query.exec() and query.next():
                 registro = [query.value(i) for i in range(query.record().count())]
+            else:
+                Logger.log("Error", query.lastError().text())
             return registro
         except Exception as error:
-            print("Error al cargar los datos de la propiedad", error)
+            Logger.log("Error", error)
 
     @staticmethod
     def modifPropiedad(propiedad):
@@ -525,13 +559,12 @@ class Conexion:
                 query.bindValue(":fechabaja", str(propiedad[16]))
             query.bindValue(":codigo", str(propiedad[17]))
             if query.exec() and query.numRowsAffected() == 1:
-                print(query.lastError().text())
                 return True
             else:
-                print(query.lastError().text())
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al guardar la propiedad en la base de datos")
+            Logger.log("Error", error)
 
     @staticmethod
     def bajaPropiedad(codigo, fechabaja, disponibilidad):
@@ -552,15 +585,19 @@ class Conexion:
         devuelve true si la operación se realiza correctamente, false en caso contrario
 
         """
-        query = QtSql.QSqlQuery()
-        query.prepare("Update propiedades set fechabaja = :fechabaja, estado =:estado where codigo = :codigo")
-        query.bindValue(":fechabaja", fechabaja)
-        query.bindValue(":codigo", codigo)
-        query.bindValue(":estado", disponibilidad)
-        if query.exec() and query.numRowsAffected() == 1:
-            return True
-        else:
-            return False
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("Update propiedades set fechabaja = :fechabaja, estado =:estado where codigo = :codigo")
+            query.bindValue(":fechabaja", fechabaja)
+            query.bindValue(":codigo", codigo)
+            query.bindValue(":estado", disponibilidad)
+            if query.exec() and query.numRowsAffected() == 1:
+                return True
+            else:
+                Logger.log("Error", query.lastError().text())
+                return False
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def deletePropiedad(codigo):
@@ -575,13 +612,17 @@ class Conexion:
         Devuelve true si se realiza correctamente, false en caso contrario
 
         """
-        query = QtSql.QSqlQuery()
-        query.prepare("DELETE from propiedades where codigo = :codigo")
-        query.bindValue(":codigo", codigo)
-        if query.exec():
-            return True
-        else:
-            return False
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE from propiedades where codigo = :codigo")
+            query.bindValue(":codigo", codigo)
+            if query.exec():
+                return True
+            else:
+                Logger.log("Error", query.lastError().text())
+                return False
+        except Exception as error:
+            Logger.log("Error", error)
 
     #Metodos Examen
     @staticmethod
@@ -617,10 +658,11 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
 
-        except Exception as e:
-            print("Error alta vendedor", e)
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def listadoVendedores():
@@ -642,6 +684,8 @@ class Conexion:
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
                         listado.append(fila)
+                else:
+                    Logger.log("Error", query.lastError().text())
                 return listado
             else:
                 query = QtSql.QSqlQuery()
@@ -650,9 +694,11 @@ class Conexion:
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
                         listado.append(fila)
+                else:
+                    Logger.log("Error", query.lastError().text())
                 return listado
-        except Exception as e:
-            print("Error al abrir el archivo")
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def datosOneVendedor(id):
@@ -673,9 +719,11 @@ class Conexion:
             query.bindValue(":idVendedor", str(id))
             if query.exec() and query.next():
                 registro = [query.value(i) for i in range(query.record().count())]
+            else:
+                Logger.log("Error", query.lastError().text())
             return registro
         except Exception as error:
-            print("Error al abrir el archivo")
+            Logger.log("Error", error)
 
     @staticmethod
     def getIdVendedor(movil):
@@ -698,9 +746,10 @@ class Conexion:
                 id = query.value(0)
                 return id
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al abrir el archivo")
+            Logger.log("Error", error)
 
     @staticmethod
     def modifVendedor(modifvend):
@@ -739,11 +788,11 @@ class Conexion:
             if query.exec():
                 return True
             else:
-                print(query.lastError().text())
+                Logger.log("Error", query.lastError().text())
                 return False
 
-        except Exception as e:
-            print("Error alta vendedor", e)
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def bajaVendedor(id, fecha):
@@ -765,19 +814,21 @@ class Conexion:
             query = QtSql.QSqlQuery()
             query.prepare("Select bajaVendedor from vendedores where  idVendedor= :idVendedor")
             query.bindValue(":idVendedor", int(id))
-            query.exec()
-            if query.next() and query.value(0) == "":
+
+            if query.exec() and query.next() and query.value(0) == "":
                 query.prepare("UPDATE vendedores SET bajaVendedor = :bajaVendedor where idVendedor = :idVendedor")
                 query.bindValue(":idVendedor", int(id))
                 query.bindValue(":bajaVendedor", str(fecha))
                 if query.exec() and query.numRowsAffected() == 1:
                     return True
                 else:
+                    Logger.log("Error", query.lastError().text())
                     return False
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
-        except Exception as exec:
-            print("Error al registrar la baja del cliente")
+        except Exception as error:
+            Logger.log("Error", error)
 
     """Zona Facturas"""
 
@@ -803,10 +854,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
-        except Exception as exec:
-            print("Error al guardar la factura", exec)
-
+        except Exception as error:
+            Logger.log("Error", error)
     @staticmethod
     def getLastIdFactura():
         """
@@ -823,9 +874,9 @@ class Conexion:
             if query.exec() and query.next():
                 return query.value(0)
             else:
-                print(query.lastError().text())
-        except Exception as exec:
-            print("Error al guardar la factura", exec)
+                Logger.log("Error", query.lastError().text())
+        except Exception as error:
+            Logger.log("Error", error)
 
 
     @staticmethod
@@ -846,9 +897,11 @@ class Conexion:
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
                     listado.append(fila)
+            else:
+                Logger.log("Error", query.lastError().text())
             return listado
-        except Exception as e:
-            print("Error al recuperar la lista de facturas")
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def datosOneFactura(id):
@@ -869,9 +922,11 @@ class Conexion:
             query.bindValue(":id", str(id))
             if query.exec() and query.next():
                 registro = [query.value(i) for i in range(query.record().count())]
+            else:
+                Logger.log("Error", query.lastError().text())
             return registro
         except Exception as error:
-            print("Error al abrir el archivo")
+            Logger.log("Error", error)
 
     @staticmethod
     def deleteFactura(id):
@@ -896,12 +951,13 @@ class Conexion:
                 if query.exec():
                     return True
                 else:
+                    Logger.log("Error", query.lastError().text())
                     return False
             else:
                 return False
         except Exception as error:
+            Logger.log("Error", error)
             return False
-            print("Error al eliminar la factura")
 
 
     @staticmethod
@@ -926,9 +982,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al grabar el venta")
+            Logger.log("Error", error)
 
     @staticmethod
     def eliminarVenta(idventa):
@@ -951,9 +1008,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al grabar el venta")
+            Logger.log("Error", error)
 
     @staticmethod
     def listadoVentas(idFactura):
@@ -978,9 +1036,11 @@ class Conexion:
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
                     listado.append(fila)
+            else:
+                Logger.log("Error", query.lastError().text())
             return listado
         except Exception as error:
-            print("Error al recuperar el listado de ventas")
+            Logger.log("Error", error)
 
     @staticmethod
     def totalFactura(idFactura):
@@ -1004,9 +1064,10 @@ class Conexion:
             if query.exec() and query.next():
                     return query.value(0)
             else:
+                Logger.log("Error", query.lastError().text())
                 return None
         except Exception as error:
-            print("Error al recuperar el costo de la factura: ", error)
+            Logger.log("Error", error)
 
     @staticmethod
     def venderPropiedad(codigo, fecha):
@@ -1033,9 +1094,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al vender la propiedad:" , error)
+            Logger.log("Error", error)
             return False
 
     @staticmethod
@@ -1061,9 +1123,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al liberar la propiedad:", error)
+            Logger.log("Error", error)
             return False
 
     """
@@ -1083,10 +1146,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
-                print(query.lastError().text())
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al grabar el venta", error)
+            Logger.log("Error", error)
 
     @staticmethod
     def listadoAlquileres():
@@ -1098,9 +1161,11 @@ class Conexion:
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
                     listado.append(fila)
+            else:
+                Logger.log("Error", query.lastError().text())
             return listado
         except Exception as error:
-            print("Error al recuperar el listado de ventas")
+            Logger.log("Error", error)
 
     @staticmethod
     def datosOneAlquiler(id):
@@ -1111,9 +1176,11 @@ class Conexion:
             query.bindValue(":id", str(id))
             if query.exec() and query.next():
                 registro = [query.value(i) for i in range(query.record().count())]
+            else:
+                Logger.log("Error", query.lastError().text())
             return registro
         except Exception as error:
-            print("Error al abrir el archivo")
+            Logger.log("Error", error)
 
     @staticmethod
     def grabarMensualidad(id, mes):
@@ -1128,10 +1195,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
-                print(query.lastError().text())
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al grabar la mensualidad", error)
+            Logger.log("Error", error)
 
     @staticmethod
     def getLastIdAlquiler():
@@ -1149,9 +1216,9 @@ class Conexion:
             if query.exec() and query.next():
                 return query.value(0)
             else:
-                print(query.lastError().text())
-        except Exception as exec:
-            print("Error al guardar la factura", exec)
+                Logger.log("Error", query.lastError().text())
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def listadoMensualidadesAlquiler(id):
@@ -1165,9 +1232,11 @@ class Conexion:
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
                     listado.append(fila)
+            else:
+                Logger.log("Error", query.lastError().text())
             return listado
         except Exception as error:
-            print("Error al recuperar el listado de ventas")
+            Logger.log("Error", error)
 
     @staticmethod
     def alquilarPropiedad(codigo, fecha):
@@ -1180,9 +1249,10 @@ class Conexion:
             if query.exec():
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al alquilar la propiedad:", error)
+            Logger.log("Error", error)
             return False
 
     @staticmethod
@@ -1197,9 +1267,10 @@ class Conexion:
                 db.commit()
                 return True
             else:
+                Logger.log("Error", query.lastError().text())
                 return False
-        except Exception as e:
-            print("Error al modificar la fecha de alquiler", e)
+        except Exception as error:
+            Logger.log("Error", error)
 
 
     @staticmethod
@@ -1214,13 +1285,12 @@ class Conexion:
                 query.bindValue(":pagado", 0)
             if query.exec():
                 QtSql.QSqlDatabase.database().commit()
-                eventos.Eventos.mostrarMensajeOk("commit realizado correctamente")
                 return True
             else:
-                eventos.Eventos.mostrarMensajeOk("Error al registrar el pago: " + query.lastError().text())
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
-            print("Error al setear el pago de la mensualidad", error)
+            Logger.log("Error", error)
 
     @staticmethod
     def eliminarAlquiler(id):
@@ -1238,15 +1308,17 @@ class Conexion:
                         db.commit()
                         return True
                     else:
+                        Logger.log("Error", query.lastError().text())
                         db.rollback()
                         return False
                 else:
+                    Logger.log("Error", query.lastError().text())
                     db.rollback()
                     return False
             else:
                 return False
-        except Exception as e:
-            print("Error al eliminar el alquiler", e)
+        except Exception as error:
+            Logger.log("Error", error)
 
     @staticmethod
     def eliminarMensualidades(ids):
@@ -1260,10 +1332,11 @@ class Conexion:
                     if query.exec():
                         continue
                     else:
+                        Logger.log("Error", query.lastError().text())
                         db.rollback()
                         return False
                 return True
             else:
                 return False
-        except Exception as e:
-            print("Error al eliminar el alquiler", e)
+        except Exception as error:
+            Logger.log("Error", error)
