@@ -1589,6 +1589,7 @@
   ('json.scanner',
    'C:\\Users\\a23davidbt\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\json\\scanner.py',
    'PYMODULE'),
+  ('logger', 'Z:\\Segundo\\DI\\buateijeiro\\logger.py', 'PYMODULE'),
   ('logging',
    'C:\\Users\\a23davidbt\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\logging\\__init__.py',
    'PYMODULE'),

@@ -288,58 +288,32 @@ class Informes:
                 os.makedirs(rootPath)
             fecha = datetime.today().strftime("%Y_%m_%d_%H_%M_%S")
             mes = mensualidad[2]
-            nomepdfcli = "alquiler" + mensualidad[1]  + "_recibo_" + mes + ".pdf"
+            anno = mensualidad[3]
+            nomepdfcli = "alquiler_" + str(mensualidad[1])  + "_recibo_" + str(mes) + str(anno) + ".pdf"
             pdf_path = os.path.join(rootPath, nomepdfcli)
             print(pdf_path)
             var.report = canvas.Canvas(pdf_path)
-            titulo = "Recibo Alquiler " + mensualidad[1] + " Mes " + mes
+            titulo = "Recibo Alquiler Mensualidad"
             alquiler = conexion.Conexion.datosOneAlquiler(mensualidad[1])
             cliente = conexion.Conexion.datosOneCliente(alquiler[2])
             propiedad = conexion.Conexion.datosOnePropiedad(alquiler[1])
             Informes.topInforme(titulo)
             Informes.topDatosCliente(cliente, "")
             Informes.footInforme(titulo, 1)
-            items = ["Alquiler", "Mes", "Direccion", "Localidad", "Tipo", "Precio"]
-            var.report.setFont("Helvetica-Bold", size=10)
-            var.report.drawString(xid, 650, str(items[0]))
-            var.report.drawString(xmes, 650, str(items[1]))
-            var.report.drawString(xdireccion, 650, str(items[2]))
-            var.report.drawString(xlocalidad, 650, str(items[3]))
-            var.report.drawString(xtipo, 650, str(items[4]))
-            var.report.drawString(xprecio, 650, str(items[5]))
-            var.report.line(50, 645, 525, 645)
-            y = ymax
-            var.report.setFont("Helvetica", size=8)
-            var.report.drawCentredString(xid + 17, y, str(alquiler[0]))
-            var.report.drawCentredString(xmes + 11, y, str(mes).title())
-            var.report.drawString(xdireccion, y, str(propiedad[4]).title())
-            var.report.drawString(xlocalidad, y, str(propiedad[6]).title())
-            var.report.drawString(xtipo, y, str(propiedad[7]).title())
-            var.report.drawString(xprecio, y, str(propiedad[11]).title() + " €")
-            y -= ystep
+            var.report.setFont('Helvetica', size=9)
+            var.report.drawString(55, 600, 'Propiedad: ' + str(propiedad[0]))
+            var.report.drawString(55, 580, 'Dirección: ' + str(propiedad[4]))
+            var.report.drawString(55, 560, 'Localidad: ' + str(propiedad[6]))
+            var.report.drawString(55, 540, 'Provincia: ' + str(propiedad[5]))
+            var.report.drawString(355, 600, 'Fecha Mensualidad: ' + "1-"+str(mes)+"-"+str(anno))
+            var.report.drawString(355, 580, 'Contrato nº: ' + str(alquiler[0]))
+            var.report.drawString(355, 560, 'Recibo nº: ' + str(mensualidad[0]))
+            var.report.drawString(355, 540, 'Precio Alquiler: ' + str(propiedad[11]) + " €")
+            estado = "pagado" if mensualidad[4] else "no pagado"
+            var.report.drawString(355, 520, 'Estado: ' + estado)
 
-            xmenuinferior = 400
-            xtotal = 450
             var.report.line(50, 170, 525, 170)
-            y = 140
-            subtotal = propiedad[11]
-            iva = 10 * subtotal / 100
-            total = subtotal + iva
-            var.report.setFont("Helvetica-Bold", size=9)
-            var.report.drawString(xmenuinferior, y, "Subtotal")
-            var.report.setFont("Helvetica", size=9)
-            var.report.drawString(xtotal, y, f"{subtotal:,.2f}" + " €")
-            y -= ystep
-            var.report.setFont("Helvetica-Bold", size=9)
-            var.report.drawString(xmenuinferior, y, "Impuestos")
-            var.report.setFont("Helvetica", size=9)
-            var.report.drawString(xtotal, y, f"{iva:,.2f}" + " €")
-            y -= ystep
-            var.report.setFont("Helvetica-Bold", size=9)
-            var.report.drawString(xmenuinferior, y, "Total")
-            var.report.setFont("Helvetica", size=9)
-            var.report.drawString(xtotal, y, f"{total:,.2f}" + " €")
-            y -= ystep
+
 
             var.report.save()
 

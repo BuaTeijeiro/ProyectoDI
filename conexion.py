@@ -1221,6 +1221,21 @@ class Conexion:
             Logger.log("Error", error)
 
     @staticmethod
+    def datosOneMensualidad(id):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM mensualidades where id = :id")
+            query.bindValue(":id", str(id))
+            if query.exec() and query.next():
+                registro = [query.value(i) for i in range(query.record().count())]
+            else:
+                Logger.log("Error", query.lastError().text())
+            return registro
+        except Exception as error:
+            Logger.log("Error", error)
+
+    @staticmethod
     def listadoMensualidadesAlquiler(id):
         try:
             listado = []

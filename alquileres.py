@@ -235,7 +235,7 @@ class Alquileres:
     @staticmethod
     def generarRecibo():
         mensualidad = var.ui.tablaMensualidades.selectedItems()
-        mensualidad = [x.text() for x in mensualidad]
+        mensualidad = conexion.Conexion.datosOneMensualidad(mensualidad[0].text())
         if mensualidad:
             informes.Informes.reciboMensualidad(mensualidad)
         else:
