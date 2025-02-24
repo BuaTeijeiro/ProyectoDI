@@ -1134,6 +1134,17 @@ class Conexion:
     """
     @staticmethod
     def grabarAlquiler(alquiler):
+        """
+
+        :param alquiler: datos del alquiler
+        :type alquiler: list
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que graba un alquiler en la base de datos
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -1153,6 +1164,14 @@ class Conexion:
 
     @staticmethod
     def listadoAlquileres():
+        """
+
+        :return: listado de alquileres
+        :rtype: list
+
+        Método que devuelve una lista con los datos de los alquileres registrados en la base de datos
+
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -1169,6 +1188,16 @@ class Conexion:
 
     @staticmethod
     def datosOneAlquiler(id):
+        """
+
+        :param id: id del Alquiler
+        :type id: int
+        :return: datos del alquiler
+        :rtype: list
+
+        Método que devuelve los datos de un alquiler a partir de su id
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -1184,6 +1213,19 @@ class Conexion:
 
     @staticmethod
     def grabarMensualidad(id, mes):
+        """
+
+        :param id: id del alquiler
+        :type id: int
+        :param mes: mes de la mensualidad
+        :type mes: month
+        :return: operacion exitosa
+        :rtype: bool
+
+        Método que graba una mensualidad asociada a un contrato del id pasado por parámetros
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -1204,7 +1246,7 @@ class Conexion:
     def getLastIdAlquiler():
         """
 
-        :return: id del último alquiler
+        :return: idAlquiler
         :rtype: int
 
         Método que devuelve el id del último alquiler añadido a la base de datos
@@ -1222,6 +1264,16 @@ class Conexion:
 
     @staticmethod
     def datosOneMensualidad(id):
+        """
+
+        :param id: id mensualidad
+        :type id: int
+        :return: datos mensualidad
+        :rtype: list
+
+        Método que devuelve los datos de una mensualidad a partir de su id
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -1237,6 +1289,17 @@ class Conexion:
 
     @staticmethod
     def listadoMensualidadesAlquiler(id):
+        """
+
+        :param id: id alquiler
+        :type id: int
+        :return: lista de mensualidades
+        :rtype: list
+
+        Método que recuperado el listado de mensualidades con sus datos de un alquiler en concreto
+        identificado por el id pasado por parámetros
+
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -1255,6 +1318,19 @@ class Conexion:
 
     @staticmethod
     def alquilarPropiedad(codigo, fecha):
+        """
+
+        :param codigo: codigo de la propiedad
+        :type codigo: int
+        :param fecha: fecha de baja de la propiedad
+        :type fecha: str
+        :return: operacion exitosa
+        :rtype: bool
+
+        Registra la propiedad pasada por parámetros como alquilada, seteando la fecha de baja según el parámetro correspondiente
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
 
@@ -1272,6 +1348,19 @@ class Conexion:
 
     @staticmethod
     def modificarFechaAlquiler(id, fecha_fin):
+        """
+
+        :param id: id alquiler
+        :type id: int
+        :param fecha_fin: nueva fecha fin del alquiler
+        :type fecha_fin: str
+        :return: operacion exitosa
+        :rtype: bool
+
+        Modifica el alquiler cuyo id es el pasado por parámetros con la fecha indicada
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             db = QtSql.QSqlDatabase.database()
             query = QtSql.QSqlQuery()
@@ -1290,6 +1379,19 @@ class Conexion:
 
     @staticmethod
     def setMensualidadPagada(codigo, pagado):
+        """
+
+        :param codigo: codigo de la mensualidad
+        :type codigo: int
+        :param pagado: estado de pago
+        :type pagado: bool
+        :return: operacion exitosa
+        :rtype: bool
+
+        Modifica el estado de pago de una mensualidad según lo indicado por parámetros
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("update mensualidades set pagado = :pagado where id = :codigo")
@@ -1309,6 +1411,17 @@ class Conexion:
 
     @staticmethod
     def eliminarAlquiler(id):
+        """
+
+        :param id: id del alquiler
+        :type id: int
+        :return: operacion exitosa
+        :rtype: bool
+
+        Elimina el alquiler indicado de la base de datos, con las correspondientes mensualidades
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             db = QtSql.QSqlDatabase.database()
             if db.transaction():
@@ -1337,6 +1450,17 @@ class Conexion:
 
     @staticmethod
     def eliminarMensualidades(ids):
+        """
+
+        :param ids: ids de las mensualidades a borrar
+        :type ids: list
+        :return: operacion exitosa
+        :rtype: bool
+
+        Elimina las mensualidades cuyos ids se contienen en la lista pasada por parámetros
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
         try:
             db = QtSql.QSqlDatabase.database()
             if db.transaction():

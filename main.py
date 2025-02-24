@@ -130,7 +130,7 @@ class Main(QtWidgets.QMainWindow):
         #Zona Alquileres
         var.ui.btnGrabarAlquiler.clicked.connect(alquileres.Alquileres.grabarAlquiler)
         var.ui.btnLimpiarAlquiler.clicked.connect(alquileres.Alquileres.limpiarPanelAlquileres)
-        var.ui.btnModificarAlquiler.clicked.connect(alquileres.Alquileres.reducirContrato)
+        var.ui.btnModificarAlquiler.clicked.connect(alquileres.Alquileres.modificarContrato)
         var.ui.btnReciboAlquiler.clicked.connect(alquileres.Alquileres.generarRecibo)
 
         #Zona labels

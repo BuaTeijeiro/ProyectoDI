@@ -15,6 +15,5 @@ class Logger(object):
                 formatted_now = now.strftime("%Y-%m-%d %H:%M:%S")
                 f.write(f'{formatted_now}-{messageType} MESSAGE-{mensaje}\n')
                 f.close()
-            eventos.Eventos.mostrarMensajeError("Se ha producido un error, consulte el log")
         except Exception as e:
             eventos.Eventos.mostrarMensajeError("Error al registrar en el logger, " + str(e))

@@ -75,14 +75,18 @@ class Alquileres:
             var.ui.btnGrabarAlquiler.setDisabled(True)
         if Alquileres.current_alquiler:
             var.ui.btnModificarAlquiler.setDisabled(False)
+            var.ui.btnFechaInicioAlquiler.setDisabled(True)
         else:
             var.ui.btnModificarAlquiler.setDisabled(True)
+            var.ui.btnFechaInicioAlquiler.setDisabled(False)
 
     @staticmethod
     def grabarAlquiler():
-        if (var.ui.txtFechaInicioAlquiler.text()!= "" and var.ui.txtFechaFinAlquiler.text()!= ""):
+        if var.ui.txtFechaInicioAlquiler.text()!= "" and var.ui.txtFechaFinAlquiler.text()!= "":
             alquiler = [Alquileres.current_propiedad, Alquileres.current_cliente, Alquileres.current_vendedor, var.ui.txtFechaInicioAlquiler.text(), var.ui.txtFechaFinAlquiler.text()]
-            if (conexion.Conexion.grabarAlquiler(alquiler)):
+            mes_inicio = Month.ofDateString(var.ui.txtFechaInicioAlquiler.text())
+            mes_fin = Month.ofDateString(var.ui.txtFechaFinAlquiler.text())
+            if mes_inicio <= mes_fin and conexion.Conexion.grabarAlquiler(alquiler):
                 eventos.Eventos.mostrarMensajeOk("Alquiler grabado correctamente")
                 conexion.Conexion.alquilarPropiedad(Alquileres.current_propiedad, var.ui.txtFechaInicioAlquiler.text())
                 idAlquiler = conexion.Conexion.getLastIdAlquiler()
@@ -90,6 +94,8 @@ class Alquileres:
                 Alquileres.cargarTablaAlquileres()
                 Alquileres.limpiarPanelAlquileres()
                 Propiedades.cargaTablaPropiedades()
+            elif mes_inicio > mes_fin:
+                eventos.Eventos.mostrarMensajeError("El mes de fin de alquiler no puede ser anterior al de inicio de alquiler")
             else:
                 eventos.Eventos.mostrarMensajeError("No se ha podido grabar el alquiler")
         else:
@@ -122,12 +128,16 @@ class Alquileres:
 
 
     @staticmethod
-    def reducirContrato():
+    def modificarContrato():
         try:
             idAlquiler = Alquileres.current_alquiler
             newMonth = Month.ofDateString(var.ui.txtFechaFinAlquiler.text())
             alquiler = conexion.Conexion.datosOneAlquiler(idAlquiler)
             oldMonth = Month.ofDateString(alquiler[5])
+            startMonth = Month.ofDateString(var.ui.txtFechaInicioAlquiler.text())
+            if newMonth < startMonth:
+                eventos.Eventos.mostrarMensajeError("El mes de fin de alquiler no puede ser anterior al de inicio de alquiler")
+                return
             if newMonth < oldMonth:
                 mensualidadesToDelete = Alquileres.getMensualidadesInPeriodo(idAlquiler, newMonth.addmonth(), oldMonth)
                 if Alquileres.checkMensualidadesNoPagadas(mensualidadesToDelete):
