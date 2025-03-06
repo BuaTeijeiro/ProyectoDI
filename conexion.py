@@ -1148,7 +1148,7 @@ class Conexion:
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
-                "insert into alquileres(propiedad_ID,cliente_DNI,agente_ID,fecha_inicio,fecha_fin) values (:propiedad_ID,:cliente_DNI,:agente_ID,:fecha_inicio,:fecha_fin)")
+                "insert into alquileres(propiedad_ID,cliente_DNI,agente_ID,fecha_inicio,fecha_fin, finalizado) values (:propiedad_ID,:cliente_DNI,:agente_ID,:fecha_inicio,:fecha_fin, 0)")
             query.bindValue(":propiedad_ID", alquiler[0])
             query.bindValue(":cliente_DNI", alquiler[1])
             query.bindValue(":agente_ID", alquiler[2])
@@ -1175,7 +1175,7 @@ class Conexion:
         try:
             listado = []
             query = QtSql.QSqlQuery()
-            query.prepare("select id, cliente_DNI, propiedad_ID from alquileres")
+            query.prepare("select id, cliente_DNI, propiedad_ID, finalizado from alquileres order by finalizado asc")
             if query.exec():
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
@@ -1476,6 +1476,31 @@ class Conexion:
                         return False
                 return True
             else:
+                return False
+        except Exception as error:
+            Logger.log("Error", error)
+
+    @staticmethod
+    def setFinalizado(idAlquiler):
+        """
+
+        :param ids: ids de las mensualidades a borrar
+        :type ids: list
+        :return: operacion exitosa
+        :rtype: bool
+
+        Elimina las mensualidades cuyos ids se contienen en la lista pasada por parámetros
+        Devuelve true si se realiza correctamente, false en caso contrario
+
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("update alquileres set finalizado = 1 where id = :codigo")
+            query.bindValue(":codigo", idAlquiler)
+            if query.exec():
+                return True
+            else:
+                Logger.log("Error", query.lastError().text())
                 return False
         except Exception as error:
             Logger.log("Error", error)

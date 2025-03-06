@@ -7,6 +7,7 @@ import var
 from conexion import Conexion
 from PyQt6 import QtWidgets, QtCore, QtGui
 
+from logger import Logger
 from model.month import Month
 from propiedades import Propiedades
 
@@ -16,6 +17,7 @@ class Alquileres:
     current_propiedad = None
     current_vendedor = None
     current_alquiler = None
+    isFinalizado = False
     chkPagado = []
     botonesdel = []
     @staticmethod
@@ -73,9 +75,15 @@ class Alquileres:
             var.ui.btnGrabarAlquiler.setDisabled(False)
         else:
             var.ui.btnGrabarAlquiler.setDisabled(True)
-        if Alquileres.current_alquiler:
+        if Alquileres.current_alquiler and not Alquileres.isFinalizado:
             var.ui.btnModificarAlquiler.setDisabled(False)
             var.ui.btnFechaInicioAlquiler.setDisabled(True)
+        elif Alquileres.isFinalizado:
+            print("Hola")
+            var.ui.btnModificarAlquiler.setDisabled(True)
+            var.ui.btnFechaInicioAlquiler.setDisabled(True)
+            var.ui.btnFechaFinAlquiler.setDisabled(True)
+            var.ui.chkFinalizado.setDisabled(True)
         else:
             var.ui.btnModificarAlquiler.setDisabled(True)
             var.ui.btnFechaInicioAlquiler.setDisabled(False)
@@ -124,7 +132,15 @@ class Alquileres:
         var.ui.lblAlquiler.setText(str(datosAlquiler[0]))
         var.ui.txtFechaInicioAlquiler.setText(datosAlquiler[4])
         var.ui.txtFechaFinAlquiler.setText(datosAlquiler[5])
+        Alquileres.isFinalizado = datosAlquiler[6] == 1
+        var.ui.chkFinalizado.setChecked(Alquileres.isFinalizado)
         Alquileres.cargaTablaMensualidades(datosAlquiler[0])
+
+    @staticmethod
+    def setOneAlquiler():
+        alquiler = var.ui.tablaAlquileres.selectedItems()
+        Alquileres.current_alquiler = alquiler[0].text()
+        Alquileres.cargaOneAlquiler()
 
 
     @staticmethod
@@ -177,6 +193,30 @@ class Alquileres:
             if mensualidad[3]:
                 return False
         return True
+
+    @staticmethod
+    def setFinalizado():
+        try:
+            mbox = QtWidgets.QMessageBox()
+            if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar",
+                                                          "Cuidado, esta acción finalizará el contrato de alquiler seleccionado de forma irreversible, impidiendo modificaciones salvo el registro de pagos retrasados") == QtWidgets.QMessageBox.StandardButton.Yes:
+                idAlquiler = Alquileres.current_alquiler
+                if conexion.Conexion.setFinalizado(idAlquiler):
+                    eventos.Eventos.mostrarMensajeOk("Se ha registrado el alquiler como terminado")
+                    codigo = conexion.Conexion.datosOneAlquiler(idAlquiler)[1]
+                    conexion.Conexion.liberarPropiedad(codigo)
+                    Alquileres.cargarTablaAlquileres()
+                    Propiedades.cargaTablaPropiedades()
+                    Alquileres.isFinalizado = True
+                    Alquileres.checkDatosAlquiler()
+
+            else:
+                var.ui.chkFinalizado.setChecked(False)
+                mbox.hide()
+
+        except Exception as e:
+            Logger.log("Error al setear el estado finalizado : ", e)
+
 
     @staticmethod
     def getMensualidadesInPeriodo(idAlquiler, monthInicio, monthFin):
@@ -268,6 +308,7 @@ class Alquileres:
             for registro in listado:
                 container = QtWidgets.QWidget()
                 layout = QtWidgets.QVBoxLayout()
+                activo = "No" if registro[3] else "Sí"
                 Alquileres.botonesdel.append(QtWidgets.QPushButton())
                 Alquileres.botonesdel[-1].setFixedSize(30, 20)
                 Alquileres.botonesdel[-1].setIcon(QtGui.QIcon("./img/basura_bien.ico"))
@@ -282,10 +323,13 @@ class Alquileres:
                 var.ui.tablaAlquileres.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tablaAlquileres.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
                 var.ui.tablaAlquileres.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
-                var.ui.tablaAlquileres.setCellWidget(index, 3, container)
+                var.ui.tablaAlquileres.setItem(index, 3, QtWidgets.QTableWidgetItem(activo))
+                var.ui.tablaAlquileres.setCellWidget(index, 4, container)
 
                 var.ui.tablaAlquileres.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaAlquileres.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaAlquileres.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaAlquileres.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
                 index += 1
             eventos.Eventos.resizeTablaAlquileres()

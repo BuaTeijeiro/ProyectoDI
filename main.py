@@ -60,7 +60,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargaCurrentVendedor)
         var.ui.tablaFacturas.clicked.connect(facturas.Facturas.cargaOneFactura)
         var.ui.tablaVentas.clicked.connect(facturas.Facturas.cargarOneVenta)
-        var.ui.tablaAlquileres.clicked.connect(alquileres.Alquileres.cargaOneAlquiler)
+        var.ui.tablaAlquileres.clicked.connect(alquileres.Alquileres.setOneAlquiler)
 
         """
         zona de eventos del menubar
@@ -189,6 +189,9 @@ class Main(QtWidgets.QMainWindow):
 
         #Zona examen
         var.ui.chkHistoriavend.stateChanged.connect(vendedores.Vendedores.cargaTablaVendedores)
+
+        #Zona alquileres
+        var.ui.chkFinalizado.clicked.connect(alquileres.Alquileres.setFinalizado)
 
 
         """

@@ -5949,6 +5949,36 @@
                 </layout>
                </item>
                <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_151">
+                 <item>
+                  <widget class="QLabel" name="label_107">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>100</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Está Finalizado:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="chkFinalizado">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
                 <spacer name="verticalSpacer_31">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
@@ -5999,25 +6029,6 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="btnModificarAlquiler">
-                   <property name="minimumSize">
-                    <size>
-                     <width>80</width>
-                     <height>25</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>80</width>
-                     <height>25</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>Modificar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QPushButton" name="btnGrabarAlquiler">
                    <property name="minimumSize">
                     <size>
@@ -6033,6 +6044,25 @@
                    </property>
                    <property name="text">
                     <string>Grabar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btnModificarAlquiler">
+                   <property name="minimumSize">
+                    <size>
+                     <width>80</width>
+                     <height>25</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>80</width>
+                     <height>25</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Modificar</string>
                    </property>
                   </widget>
                  </item>
@@ -6139,7 +6169,7 @@
                  </attribute>
                  <column>
                   <property name="text">
-                   <string>ID Alquiler</string>
+                   <string>ID</string>
                   </property>
                  </column>
                  <column>
@@ -6154,7 +6184,12 @@
                  </column>
                  <column>
                   <property name="text">
-                   <string>gestión</string>
+                   <string>Activo</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Gestión</string>
                   </property>
                  </column>
                 </widget>
