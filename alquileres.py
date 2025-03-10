@@ -75,18 +75,25 @@ class Alquileres:
             var.ui.btnGrabarAlquiler.setDisabled(False)
         else:
             var.ui.btnGrabarAlquiler.setDisabled(True)
+
         if Alquileres.current_alquiler and not Alquileres.isFinalizado:
+            print("camino 1")
             var.ui.btnModificarAlquiler.setDisabled(False)
             var.ui.btnFechaInicioAlquiler.setDisabled(True)
+            var.ui.btnFechaFinAlquiler.setDisabled(False)
+            var.ui.chkFinalizado.setDisabled(False)
         elif Alquileres.isFinalizado:
-            print("Hola")
+            print("camino 2")
             var.ui.btnModificarAlquiler.setDisabled(True)
             var.ui.btnFechaInicioAlquiler.setDisabled(True)
             var.ui.btnFechaFinAlquiler.setDisabled(True)
             var.ui.chkFinalizado.setDisabled(True)
         else:
+            print("camino 3")
             var.ui.btnModificarAlquiler.setDisabled(True)
             var.ui.btnFechaInicioAlquiler.setDisabled(False)
+            var.ui.btnFechaFinAlquiler.setDisabled(False)
+            var.ui.chkFinalizado.setDisabled(False)
 
     @staticmethod
     def grabarAlquiler():
@@ -135,6 +142,7 @@ class Alquileres:
         Alquileres.isFinalizado = datosAlquiler[6] == 1
         var.ui.chkFinalizado.setChecked(Alquileres.isFinalizado)
         Alquileres.cargaTablaMensualidades(datosAlquiler[0])
+        Alquileres.checkDatosAlquiler()
 
     @staticmethod
     def setOneAlquiler():
@@ -367,6 +375,7 @@ class Alquileres:
             Alquileres.current_cliente = None
             Alquileres.current_vendedor = None
             Alquileres.current_alquiler = None
+            Alquileres.isFinalizado = False
             Alquileres.cargaTablaMensualidades(0)
             Alquileres.checkDatosAlquiler()
         except Exception as e:
