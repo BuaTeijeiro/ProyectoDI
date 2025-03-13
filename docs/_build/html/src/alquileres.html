@@ -45,13 +45,32 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">alquileres module</a><ul>
 <li><a class="reference internal" href="#alquileres.Alquileres"><code class="docutils literal notranslate"><span class="pre">Alquileres</span></code></a><ul>
+<li><a class="reference internal" href="#alquileres.Alquileres.ampliarMensualidades"><code class="docutils literal notranslate"><span class="pre">Alquileres.ampliarMensualidades()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.borrarContratoAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.borrarContratoAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.botonesdel"><code class="docutils literal notranslate"><span class="pre">Alquileres.botonesdel</span></code></a></li>
 <li><a class="reference internal" href="#alquileres.Alquileres.cargaClienteAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargaClienteAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.cargaOneAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargaOneAlquiler()</span></code></a></li>
 <li><a class="reference internal" href="#alquileres.Alquileres.cargaPropiedadAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargaPropiedadAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.cargaTablaMensualidades"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargaTablaMensualidades()</span></code></a></li>
 <li><a class="reference internal" href="#alquileres.Alquileres.cargaVendedorAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargaVendedorAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.cargarTablaAlquileres"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargarTablaAlquileres()</span></code></a></li>
 <li><a class="reference internal" href="#alquileres.Alquileres.checkDatosAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.checkDatosAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.checkMensualidadesNoPagadas"><code class="docutils literal notranslate"><span class="pre">Alquileres.checkMensualidadesNoPagadas()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.chkPagado"><code class="docutils literal notranslate"><span class="pre">Alquileres.chkPagado</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.current_alquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.current_alquiler</span></code></a></li>
 <li><a class="reference internal" href="#alquileres.Alquileres.current_cliente"><code class="docutils literal notranslate"><span class="pre">Alquileres.current_cliente</span></code></a></li>
 <li><a class="reference internal" href="#alquileres.Alquileres.current_propiedad"><code class="docutils literal notranslate"><span class="pre">Alquileres.current_propiedad</span></code></a></li>
 <li><a class="reference internal" href="#alquileres.Alquileres.current_vendedor"><code class="docutils literal notranslate"><span class="pre">Alquileres.current_vendedor</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.generarMensualidades"><code class="docutils literal notranslate"><span class="pre">Alquileres.generarMensualidades()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.generarRecibo"><code class="docutils literal notranslate"><span class="pre">Alquileres.generarRecibo()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.getMensualidadesInPeriodo"><code class="docutils literal notranslate"><span class="pre">Alquileres.getMensualidadesInPeriodo()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.grabarAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.grabarAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.isFinalizado"><code class="docutils literal notranslate"><span class="pre">Alquileres.isFinalizado</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.limpiarPanelAlquileres"><code class="docutils literal notranslate"><span class="pre">Alquileres.limpiarPanelAlquileres()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.modificarContrato"><code class="docutils literal notranslate"><span class="pre">Alquileres.modificarContrato()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.pagarMensualidad"><code class="docutils literal notranslate"><span class="pre">Alquileres.pagarMensualidad()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.setFinalizado"><code class="docutils literal notranslate"><span class="pre">Alquileres.setFinalizado()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.setOneAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.setOneAlquiler()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -89,8 +108,28 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">alquileres.</span></span><span class="sig-name descname"><span class="pre">Alquileres</span></span><a class="reference internal" href="../_modules/alquileres.html#Alquileres"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.ampliarMensualidades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ampliarMensualidades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oldMonth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newMonth</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.ampliarMensualidades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.ampliarMensualidades" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.borrarContratoAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">borrarContratoAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.borrarContratoAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.borrarContratoAlquiler" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="alquileres.Alquileres.botonesdel">
+<span class="sig-name descname"><span class="pre">botonesdel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#alquileres.Alquileres.botonesdel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="alquileres.Alquileres.cargaClienteAlquiler">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaClienteAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.cargaClienteAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.cargaClienteAlquiler" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.cargaOneAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaOneAlquiler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.cargaOneAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.cargaOneAlquiler" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -99,13 +138,40 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.cargaTablaMensualidades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaTablaMensualidades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.cargaTablaMensualidades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.cargaTablaMensualidades" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="alquileres.Alquileres.cargaVendedorAlquiler">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaVendedorAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idVendedor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.cargaVendedorAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.cargaVendedorAlquiler" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.cargarTablaAlquileres">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarTablaAlquileres</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.cargarTablaAlquileres"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.cargarTablaAlquileres" title="Link to this definition"></a></dt>
+<dd><p>Método que recupera la lista de alquileres mediante Conexion.listadoAlquileres
+y muestra dicha información en la tabla de alquileres</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="alquileres.Alquileres.checkDatosAlquiler">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkDatosAlquiler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.checkDatosAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.checkDatosAlquiler" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.checkMensualidadesNoPagadas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkMensualidadesNoPagadas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mensualidades</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.checkMensualidadesNoPagadas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.checkMensualidadesNoPagadas" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="alquileres.Alquileres.chkPagado">
+<span class="sig-name descname"><span class="pre">chkPagado</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#alquileres.Alquileres.chkPagado" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="alquileres.Alquileres.current_alquiler">
+<span class="sig-name descname"><span class="pre">current_alquiler</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#alquileres.Alquileres.current_alquiler" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -121,6 +187,56 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="alquileres.Alquileres.current_vendedor">
 <span class="sig-name descname"><span class="pre">current_vendedor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#alquileres.Alquileres.current_vendedor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.generarMensualidades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generarMensualidades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.generarMensualidades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.generarMensualidades" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.generarRecibo">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generarRecibo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.generarRecibo"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.generarRecibo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.getMensualidadesInPeriodo">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getMensualidadesInPeriodo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monthInicio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monthFin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.getMensualidadesInPeriodo"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.getMensualidadesInPeriodo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.grabarAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">grabarAlquiler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.grabarAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.grabarAlquiler" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="alquileres.Alquileres.isFinalizado">
+<span class="sig-name descname"><span class="pre">isFinalizado</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#alquileres.Alquileres.isFinalizado" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.limpiarPanelAlquileres">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limpiarPanelAlquileres</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.limpiarPanelAlquileres"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.limpiarPanelAlquileres" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.modificarContrato">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modificarContrato</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.modificarContrato"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.modificarContrato" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.pagarMensualidad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pagarMensualidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idMensualidad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagada</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.pagarMensualidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.pagarMensualidad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.setFinalizado">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setFinalizado</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.setFinalizado"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.setFinalizado" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.setOneAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setOneAlquiler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.setOneAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.setOneAlquiler" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

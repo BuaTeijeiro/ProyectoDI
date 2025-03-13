@@ -7,6 +7,44 @@
     <list default="true" id="f63c1f4e-5169-43db-9da9-b31e82100483" name="Changes" comment="feat(): errorlogger">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alquileres.py" beforeDir="false" afterPath="$PROJECT_DIR$/alquileres.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/Analysis-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/EXE-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/PKG-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/PYZ-00.pyz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/base_library.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/base_library.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/main.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/main.pkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/xref-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/xref-main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/main.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/doctrees/environment.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/doctrees/environment.pickle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/doctrees/src/alquileres.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/doctrees/src/alquileres.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/doctrees/src/conexion.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/doctrees/src/conexion.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/doctrees/src/eventos.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/doctrees/src/eventos.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/doctrees/src/facturas.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/doctrees/src/facturas.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/doctrees/src/informes.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/doctrees/src/informes.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/alquileres.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/alquileres.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/clientes.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/clientes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/conexion.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/conexion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/eventos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/facturas.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/facturas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/informes.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/informes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/propiedades.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/propiedades.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/styles.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/styles.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/venPrincipal.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/venPrincipal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/_modules/vendedores.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/_modules/vendedores.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/genindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/genindex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/objects.inv" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/objects.inv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/py-modindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/py-modindex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/searchindex.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/searchindex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/src/alquileres.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/src/alquileres.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/src/conexion.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/src/conexion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/src/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/src/eventos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/src/facturas.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/src/facturas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/src/informes.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/src/informes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_build/html/src/modules.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_build/html/src/modules.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/informes.py" beforeDir="false" afterPath="$PROJECT_DIR$/informes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/message.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/message.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,37 +70,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Informes.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.date.executor&quot;: &quot;Run&quot;,
-    &quot;Python.eventos.executor&quot;: &quot;Run&quot;,
-    &quot;Python.informes.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.month.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sphinx-apidoc.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sphinx.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;Z:/Segundo/DI/buateijeiro/dist&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.externalTools&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Informes.executor": "Run",
+    "Python.Main.executor": "Run",
+    "Python.date.executor": "Run",
+    "Python.eventos.executor": "Run",
+    "Python.informes.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.month.executor": "Run",
+    "Python.sphinx-apidoc.executor": "Run",
+    "Python.sphinx.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "Z:/Segundo/DI/buateijeiro/dist",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.externalTools",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Python&quot;
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Python"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="Z:\Segundo\DI\buateijeiro\dist" />
@@ -77,7 +115,7 @@
       <recent name="Z:\Segundo\DI\buateijeiro\templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Main">
+  <component name="RunManager" selected="Python.sphinx">
     <configuration name="Informes" type="PythonConfigurationType" factoryName="Python">
       <module name="buateijeiro" />
       <option name="ENV_FILES" value="" />
@@ -371,7 +409,10 @@
       <workItem from="1740400816844" duration="5063000" />
       <workItem from="1740467394431" duration="1253000" />
       <workItem from="1741253190400" duration="3420000" />
-      <workItem from="1741610403728" duration="906000" />
+      <workItem from="1741610403728" duration="3272000" />
+      <workItem from="1741676999343" duration="4449000" />
+      <workItem from="1741850494856" duration="890000" />
+      <workItem from="1741851405278" duration="1853000" />
     </task>
     <task id="LOCAL-00001" summary="feat(): errorlogger">
       <option name="closed" value="true" />
@@ -393,11 +434,11 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/buateijeiro$main.coverage" NAME="main Coverage Results" MODIFIED="1728369377665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1741611052179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/buateijeiro$Main.coverage" NAME="Main Coverage Results" MODIFIED="1741853267309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/buateijeiro$eventos.coverage" NAME="eventos Coverage Results" MODIFIED="1727857564494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/buateijeiro$sphinx_apidoc.coverage" NAME="sphinx-apidoc Coverage Results" MODIFIED="1738157030577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="Z:\Segundo\DI\buateijeiro\docs" />
+    <SUITE FILE_PATH="coverage/buateijeiro$sphinx_apidoc.coverage" NAME="sphinx-apidoc Coverage Results" MODIFIED="1741851716566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="Z:\Segundo\DI\buateijeiro\docs" />
     <SUITE FILE_PATH="coverage/buateijeiro$informes.coverage" NAME="informes Coverage Results" MODIFIED="1734600432045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/buateijeiro$sphinx.coverage" NAME="sphinx Coverage Results" MODIFIED="1738157035419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="Z:\Segundo\DI\buateijeiro\docs" />
+    <SUITE FILE_PATH="coverage/buateijeiro$sphinx.coverage" NAME="sphinx Coverage Results" MODIFIED="1741851720617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="Z:\Segundo\DI\buateijeiro\docs" />
     <SUITE FILE_PATH="coverage/buateijeiro$date.coverage" NAME="date Coverage Results" MODIFIED="1728633921854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../PSP/Bloque1_Multiproceso/Proyectos_Prueba/Prueba1" />
     <SUITE FILE_PATH="coverage/buateijeiro$Informes.coverage" NAME="Informes Coverage Results" MODIFIED="1736339292308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="Z:\Segundo\DI\buateijeiro" />
     <SUITE FILE_PATH="coverage/buateijeiro$month.coverage" NAME="month Coverage Results" MODIFIED="1738591584837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />

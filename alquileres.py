@@ -1,4 +1,5 @@
 from tabnanny import check
+from warnings import catch_warnings
 
 import conexion
 import eventos
@@ -77,19 +78,16 @@ class Alquileres:
             var.ui.btnGrabarAlquiler.setDisabled(True)
 
         if Alquileres.current_alquiler and not Alquileres.isFinalizado:
-            print("camino 1")
             var.ui.btnModificarAlquiler.setDisabled(False)
             var.ui.btnFechaInicioAlquiler.setDisabled(True)
             var.ui.btnFechaFinAlquiler.setDisabled(False)
             var.ui.chkFinalizado.setDisabled(False)
         elif Alquileres.isFinalizado:
-            print("camino 2")
             var.ui.btnModificarAlquiler.setDisabled(True)
             var.ui.btnFechaInicioAlquiler.setDisabled(True)
             var.ui.btnFechaFinAlquiler.setDisabled(True)
             var.ui.chkFinalizado.setDisabled(True)
         else:
-            print("camino 3")
             var.ui.btnModificarAlquiler.setDisabled(True)
             var.ui.btnFechaInicioAlquiler.setDisabled(False)
             var.ui.btnFechaFinAlquiler.setDisabled(False)
@@ -132,6 +130,7 @@ class Alquileres:
         if Alquileres.current_propiedad is None:
             alquiler = var.ui.tablaAlquileres.selectedItems()
             Alquileres.current_alquiler = alquiler[0].text()
+
         datosAlquiler = conexion.Conexion.datosOneAlquiler(Alquileres.current_alquiler)
         Alquileres.cargaClienteAlquiler(datosAlquiler[2])
         Alquileres.cargaVendedorAlquiler(datosAlquiler[3])
@@ -143,6 +142,7 @@ class Alquileres:
         var.ui.chkFinalizado.setChecked(Alquileres.isFinalizado)
         Alquileres.cargaTablaMensualidades(datosAlquiler[0])
         Alquileres.checkDatosAlquiler()
+        var.ui.lblMensajeAlquiler.setText("(Hay un alquiler cargado, para crear uno nuevo limpie primero este panel)")
 
     @staticmethod
     def setOneAlquiler():
@@ -292,12 +292,16 @@ class Alquileres:
 
     @staticmethod
     def generarRecibo():
-        mensualidad = var.ui.tablaMensualidades.selectedItems()
-        mensualidad = conexion.Conexion.datosOneMensualidad(mensualidad[0].text())
-        if mensualidad:
-            informes.Informes.reciboMensualidad(mensualidad)
-        else:
-            eventos.Eventos.mostrarMensajeError("Es necesario seleccionar una mensualidad para generar el recibo")
+        try:
+            mensualidad = var.ui.tablaMensualidades.selectedItems()
+            if mensualidad:
+                mensualidad = conexion.Conexion.datosOneMensualidad(mensualidad[0].text())
+                informes.Informes.reciboMensualidad(mensualidad)
+            else:
+                eventos.Eventos.mostrarMensajeError("Es necesario seleccionar una mensualidad para generar el recibo")
+        except Exception as e:
+            eventos.Eventos.mostrarMensajeError("Error al generar la factura")
+
 
     @staticmethod
     def cargarTablaAlquileres():
@@ -378,5 +382,6 @@ class Alquileres:
             Alquileres.isFinalizado = False
             Alquileres.cargaTablaMensualidades(0)
             Alquileres.checkDatosAlquiler()
+
         except Exception as e:
             print("Error al limpiar el alquiler: ", e)

@@ -45,10 +45,13 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">informes module</a><ul>
 <li><a class="reference internal" href="#informes.Informes"><code class="docutils literal notranslate"><span class="pre">Informes</span></code></a><ul>
+<li><a class="reference internal" href="#informes.Informes.facturaVenta"><code class="docutils literal notranslate"><span class="pre">Informes.facturaVenta()</span></code></a></li>
 <li><a class="reference internal" href="#informes.Informes.footInforme"><code class="docutils literal notranslate"><span class="pre">Informes.footInforme()</span></code></a></li>
 <li><a class="reference internal" href="#informes.Informes.getNumberPages"><code class="docutils literal notranslate"><span class="pre">Informes.getNumberPages()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.reciboMensualidad"><code class="docutils literal notranslate"><span class="pre">Informes.reciboMensualidad()</span></code></a></li>
 <li><a class="reference internal" href="#informes.Informes.reportClientes"><code class="docutils literal notranslate"><span class="pre">Informes.reportClientes()</span></code></a></li>
 <li><a class="reference internal" href="#informes.Informes.reportPropiedades"><code class="docutils literal notranslate"><span class="pre">Informes.reportPropiedades()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.topDatosCliente"><code class="docutils literal notranslate"><span class="pre">Informes.topDatosCliente()</span></code></a></li>
 <li><a class="reference internal" href="#informes.Informes.topInforme"><code class="docutils literal notranslate"><span class="pre">Informes.topInforme()</span></code></a></li>
 </ul>
 </li>
@@ -87,16 +90,28 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">informes.</span></span><span class="sig-name descname"><span class="pre">Informes</span></span><a class="reference internal" href="../_modules/informes.html#Informes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.facturaVenta">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">facturaVenta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.facturaVenta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.facturaVenta" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – id de la factura</p>
+</dd>
+</dl>
+<p>Método que genera la factura de la venta identificada por el id pasado por parámetros</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="informes.Informes.footInforme">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">footInforme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titulo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.footInforme"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.footInforme" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>titulo</strong></p></li>
-<li><p><strong>pages</strong></p></li>
+<li><p><strong>titulo</strong> (<em>str</em>) – titulo del informe</p></li>
+<li><p><strong>pages</strong> (<em>int</em>) – numero de paginas necesarias</p></li>
 </ul>
 </dd>
 </dl>
+<p>Método que dibuja el pie de pagina en el informe guardado en var.informe</p>
 </dd></dl>
 
 <dl class="py method">
@@ -105,34 +120,63 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>amount</strong></p></li>
-<li><p><strong>ymax</strong></p></li>
-<li><p><strong>ymin</strong></p></li>
-<li><p><strong>ystep</strong></p></li>
+<li><p><strong>amount</strong> (<em>int</em>) – cantidad total de elementos</p></li>
+<li><p><strong>ymax</strong> (<em>int</em>) – posicion inicial de la lista en el informe</p></li>
+<li><p><strong>ymin</strong> (<em>int</em>) – posicion final de la lista en el informe</p></li>
+<li><p><strong>ystep</strong> (<em>int</em>) – tamano de cada elemento de la lista</p></li>
 </ul>
 </dd>
 <dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>numero de paginas necesarias</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p></p>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
+<p>Método que calcula la cantidad de páginas necesarias en un informe, teniendo en cuenta
+como se muestran por pantalla, según lo recogido en los parámetros.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.reciboMensualidad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reciboMensualidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mensualidad</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.reciboMensualidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.reciboMensualidad" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mensualidad</strong> (<em>int</em>) – id de la mensualidad</p>
+</dd>
+</dl>
+<p>Método que genera el recibo de un pago de una mensualidad</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="informes.Informes.reportClientes">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reportClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.reportClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.reportClientes" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Método que genera un informe con los datos de los clientes existentes</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="informes.Informes.reportPropiedades">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reportPropiedades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">municipio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.reportPropiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.reportPropiedades" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>municipio</strong></p>
+<dd class="field-odd"><p><strong>municipio</strong> (<em>str</em>) – nombre del municipio</p>
 </dd>
 </dl>
+<p>Método que genera un informe con el listado de propiedades del municipio pasado por parámetros</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.topDatosCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">topDatosCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cliente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.topDatosCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.topDatosCliente" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cliente</strong> (<em>list</em>) – datos del cliente</p></li>
+<li><p><strong>fecha</strong> (<em>str</em>) – fecha del informe</p></li>
+</ul>
+</dd>
+</dl>
+<p>Método que añade la información del cliente a la cabecera del informe</p>
 </dd></dl>
 
 <dl class="py method">
@@ -140,9 +184,10 @@
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">topInforme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titulo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.topInforme"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.topInforme" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>titulo</strong></p>
+<dd class="field-odd"><p><strong>titulo</strong> (<em>str</em>) – titulo del informe</p>
 </dd>
 </dl>
+<p>Método que dibuja la cabecera del informe</p>
 </dd></dl>
 
 </dd></dl>

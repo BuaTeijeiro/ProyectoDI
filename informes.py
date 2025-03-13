@@ -22,6 +22,8 @@ class Informes:
     def reportClientes():
         """
 
+        Método que genera un informe con los datos de los clientes existentes
+
         """
         xdni = 55
         xapelcli = 100
@@ -104,8 +106,11 @@ class Informes:
     def reportPropiedades(municipio):
         """
 
-        :param municipio:
-        :type municipio:
+        :param municipio: nombre del municipio
+        :type municipio: str
+
+        Método que genera un informe con el listado de propiedades del municipio pasado por parámetros
+
         """
         xcod = 55
         xdireccion = 100
@@ -190,6 +195,11 @@ class Informes:
     def facturaVenta(id):
         """
 
+        :param id: id de la factura
+        :type id: int
+
+        Método que genera la factura de la venta identificada por el id pasado por parámetros
+
         """
         xidventa = 55
         xidpropiedad = xidventa + 35
@@ -272,16 +282,12 @@ class Informes:
     def reciboMensualidad(mensualidad):
         """
 
+        :param mensualidad: id de la mensualidad
+        :type mensualidad: int
+
+        Método que genera el recibo de un pago de una mensualidad
+
         """
-        xid = 55
-        xmes = xid + 70
-        xdireccion = xmes + 70
-        xlocalidad = xdireccion + 120
-        xtipo = xlocalidad + 100
-        xprecio = xtipo + 65
-        ymax = 630
-        ymin = 90
-        ystep = 30
         try:
             rootPath = ".\\recibosAlquiler"
             if not os.path.exists(rootPath):
@@ -329,16 +335,20 @@ class Informes:
     def getNumberPages(amount, ymax, ymin, ystep):
         """
 
-        :param amount:
-        :type amount:
-        :param ymax:
-        :type ymax:
-        :param ymin:
-        :type ymin:
-        :param ystep:
-        :type ystep:
-        :return:
-        :rtype:
+        :param amount: cantidad total de elementos
+        :type amount: int
+        :param ymax: posicion inicial de la lista en el informe
+        :type ymax: int
+        :param ymin: posicion final de la lista en el informe
+        :type ymin: int
+        :param ystep: tamano de cada elemento de la lista
+        :type ystep: int
+        :return: numero de paginas necesarias
+        :rtype: int
+
+        Método que calcula la cantidad de páginas necesarias en un informe, teniendo en cuenta
+        como se muestran por pantalla, según lo recogido en los parámetros.
+
         """
         number_per_page = math.ceil((ymax - ymin)/ystep)
         return math.ceil(amount / number_per_page)
@@ -347,10 +357,13 @@ class Informes:
     def footInforme(titulo, pages):
         """
 
-        :param titulo:
-        :type titulo:
-        :param pages:
-        :type pages:
+        :param titulo: titulo del informe
+        :type titulo: str
+        :param pages: numero de paginas necesarias
+        :type pages: int
+
+        Método que dibuja el pie de pagina en el informe guardado en var.informe
+
         """
         try:
             total_pages = 0
@@ -369,8 +382,11 @@ class Informes:
     def topInforme(titulo):
         """
 
-        :param titulo:
-        :type titulo:
+        :param titulo: titulo del informe
+        :type titulo: str
+
+        Método que dibuja la cabecera del informe
+
         """
         try:
             ruta_logo = '.\\img\\logo.png'
@@ -400,6 +416,16 @@ class Informes:
 
     @staticmethod
     def topDatosCliente(cliente, fecha):
+        """
+
+        :param cliente: datos del cliente
+        :type cliente: list
+        :param fecha: fecha del informe
+        :type fecha: str
+
+        Método que añade la información del cliente a la cabecera del informe
+
+        """
         try:
             var.report.setFont('Helvetica-Bold', size=8)
             var.report.drawString(300, 770, 'DNI Cliente:')
