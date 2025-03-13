@@ -91,7 +91,7 @@ class Alquileres:
             var.ui.btnModificarAlquiler.setDisabled(True)
             var.ui.btnFechaInicioAlquiler.setDisabled(False)
             var.ui.btnFechaFinAlquiler.setDisabled(False)
-            var.ui.chkFinalizado.setDisabled(False)
+            var.ui.chkFinalizado.setDisabled(True)
 
     @staticmethod
     def grabarAlquiler():
@@ -217,6 +217,8 @@ class Alquileres:
                     Propiedades.cargaTablaPropiedades()
                     Alquileres.isFinalizado = True
                     Alquileres.checkDatosAlquiler()
+                else:
+                    var.ui.chkFinalizado.setChecked(False)
 
             else:
                 var.ui.chkFinalizado.setChecked(False)
@@ -375,12 +377,14 @@ class Alquileres:
             elementos = [var.ui.lblDnicliAlquiler, var.ui.lblApelCliAlquiler, var.ui.lblNombrecliAlquiler, var.ui.lblcodigopropAlquiler, var.ui.lblTipoPropAlquiler, var.ui.lblPrecioPropAlquiler, var.ui.lblDireccionprop_alquiler, var.ui.lblMunipropAlquiler, var.ui.lblGestorAlquiler, var.ui.lblAlquiler, var.ui.txtFechaInicioAlquiler, var.ui.txtFechaFinAlquiler, var.ui.lblMensajeAlquiler]
             for elemento in elementos:
                 elemento.setText("")
+
             Alquileres.current_propiedad = None
             Alquileres.current_cliente = None
             Alquileres.current_vendedor = None
             Alquileres.current_alquiler = None
             Alquileres.isFinalizado = False
             Alquileres.cargaTablaMensualidades(0)
+            var.ui.chkFinalizado.setChecked(False)
             Alquileres.checkDatosAlquiler()
 
         except Exception as e:
